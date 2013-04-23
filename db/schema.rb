@@ -11,13 +11,63 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423051246) do
+ActiveRecord::Schema.define(:version => 20130423080342) do
+
+  create_table "conversations", :force => true do |t|
+    t.string   "name"
+    t.integer  "renter_id"
+    t.integer  "host_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "images", :force => true do |t|
+    t.string   "image_url"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "listings", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "price"
+    t.float    "size"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.integer  "listing_id"
+    t.string   "street_1"
+    t.string   "street_2"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.boolean  "is_starred"
+    t.boolean  "is_read"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.text     "about"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
 end
