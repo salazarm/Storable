@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  street: "10 mass ave"
+  city: "Cambridge"
+  state: "MA"
+  zip: 02139
+  listing_id: 1
+
+two:
+  street: "10 mass ave 2"
+  city: "Cambridge 2"
+  state: "MA 2"
+  zip: 02142
+  listing_id: 2

@@ -1,8 +1,10 @@
 class MessagesController < ApplicationController
+  respond_to :json
+  before_filter :require_login, :get_conversation
   # GET /messages
   # GET /messages.json
   def index
-    @messages = messages.all
+    @messages = @conversation.messages.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +15,7 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.json
   def show
-    @message = message.find(params[:id])
+    @message = @conversation.messages.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,26 +23,10 @@ class MessagesController < ApplicationController
     end
   end
 
-  # GET /messages/new
-  # GET /messages/new.json
-  def new
-    @message = message.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @message }
-    end
-  end
-
-  # GET /messages/1/edit
-  def edit
-    @message = message.find(params[:id])
-  end
-
   # POST /messages
   # POST /messages.json
   def create
-    @message = message.new(params[:message])
+    @message = @conversation.messages.new(params[:message])
 
     respond_to do |format|
       if @message.save
@@ -56,7 +42,7 @@ class MessagesController < ApplicationController
   # PUT /messages/1
   # PUT /messages/1.json
   def update
-    @message = message.find(params[:id])
+    @message = @conversation.messages.find(params[:id])
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
@@ -72,12 +58,18 @@ class MessagesController < ApplicationController
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
-    @message = message.find(params[:id])
+    @message = @conversation.messages.find(params[:id])
     @message.destroy
 
     respond_to do |format|
       format.html { redirect_to messages_url }
       format.json { head :no_content }
     end
+  end
+
+  protected
+  def get_conversation
+      @conversation = current_user.conversation.find(params[:conversation_id]) if params[:conversation_id]
+      redirect_to root_url unless defined?(@conversation)
   end
 end

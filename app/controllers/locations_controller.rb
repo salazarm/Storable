@@ -1,55 +1,17 @@
 class LocationsController < ApplicationController
-  # GET /locations
-  # GET /locations.json
-  def index
-    @locations = Locations.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @locations }
-    end
-  end
-
-  # GET /locations/1
-  # GET /locations/1.json
-  def show
-    @location = location.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @location }
-    end
-  end
-
-  # GET /locations/new
-  # GET /locations/new.json
-  def new
-    @location = location.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @location }
-    end
-  end
-
-  # GET /locations/1/edit
-  def edit
-    @location = location.find(params[:id])
-  end
+  before_filter :get_listing
+  respond_to :json
 
   # POST /locations
   # POST /locations.json
   def create
-  	@listing = listing.find(params[:listing_id])
-    @location = @listing.location.build_profile
+    @location = @listing.location.build(params[:location])
 
     respond_to do |format|
       if @location.save
-        format.html { redirect_to @location, notice: 'location was successfully created.' }
-        format.json { render json: @location, status: :created, location: @location }
+        respond_with(@location, :status => :created)
       else
-        format.html { render action: "new" }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
+        respond_with(@location.errors, :status => :unprocessable_entity)
       end
     end
   end
@@ -57,15 +19,13 @@ class LocationsController < ApplicationController
   # PUT /locations/1
   # PUT /locations/1.json
   def update
-    @location = location.find(params[:id])
+    @location = @listing.location
 
     respond_to do |format|
       if @location.update_attributes(params[:location])
-        format.html { redirect_to @location, notice: 'location was successfully updated.' }
-        format.json { head :no_content }
+        respond_with(@location, :status => :ok)
       else
-        format.html { render action: "edit" }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
+        respond_with(@location.errors, :status => :unprocessable_entity)
       end
     end
   end
@@ -73,12 +33,23 @@ class LocationsController < ApplicationController
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
-    @location = location.find(params[:id])
-    @location.destroy
+    if @listing.location.destroy
+        respond_with :status => :ok
+    else
+        respond_with(@location.errors, :status => :unprocessable_entity)
+    end
 
     respond_to do |format|
       format.html { redirect_to locations_url }
       format.json { head :no_content }
     end
   end
+
+  #gets the listing associated with this listing_id, for this current user
+  protected
+  def get_listing
+      @listing = current_user.listings.find(params[:listing_id]) if params[:listing_id]
+      redirect_to root_url unless defined?(@listing)
+  end
+
 end

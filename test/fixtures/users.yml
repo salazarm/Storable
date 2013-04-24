@@ -1,9 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+<% salt = BCrypt::Engine.generate_salt %>
 
 one:
-  email: MyString
-  password_digest: MyString
+  id: 1
+  email: "a@a.com"
+  password_digest: <%= BCrypt::Engine.hash_secret("test", salt)%>
+  about: "nm"
+  first_name: "hello"
+  last_name: "dog"
 
 two:
+  id: 2
   email: MyString
-  password_digest: MyString
+  password_digest: <%= BCrypt::Engine.hash_secret("test2", salt)%>
+  about: "nm2"
+  first_name: "hello2"
+  last_name: "dog2"
+

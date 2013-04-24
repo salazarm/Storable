@@ -4,8 +4,15 @@ Teamchill::Application.routes.draw do
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
   
-  resources :users
+  resources :users do
+    resources :images
+  end
   resources :sessions
+
+  resources :listings do
+    resources :locations
+    resources :images
+  end
 
   root :to => "sessions#new"
   # The priority is based upon order of creation:

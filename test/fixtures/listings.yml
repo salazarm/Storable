@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  title: "listing one"
+  description: "test test test"
+  price: 20
+  size: 234.00
+  start_date: 2013-04-23 
+  end_date: 2013-07-23 
+  user_id: 1
+
+two:
+  id: 2
+  title: "listing two"
+  description: "test test test2"
+  price: 25
+  size: 23.00
+  start_date: 2013-01-23 
+  end_date: 2013-04-23 
+  user_id: 2

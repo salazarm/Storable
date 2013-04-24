@@ -1,46 +1,11 @@
 class ImagesController < ApplicationController
-  # GET /images
-  # GET /images.json
-  def index
-    @images = Images.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @images }
-    end
-  end
-
-  # GET /images/1
-  # GET /images/1.json
-  def show
-    @image = image.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @image }
-    end
-  end
-
-  # GET /images/new
-  # GET /images/new.json
-  def new
-    @image = image.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @image }
-    end
-  end
-
-  # GET /images/1/edit
-  def edit
-    @image = image.find(params[:id])
-  end
+  before_filter :get_listing 
+  respond_to :json
 
   # POST /images
   # POST /images.json
   def create
-    @image = image.new(params[:image])
+    @image = get_parent.new(params[:image])
 
     respond_to do |format|
       if @image.save
@@ -53,10 +18,8 @@ class ImagesController < ApplicationController
     end
   end
 
-  # PUT /images/1
-  # PUT /images/1.json
   def update
-    @image = image.find(params[:id])
+    @image = get_parent.find(params[:id])
 
     respond_to do |format|
       if @image.update_attributes(params[:image])
@@ -69,10 +32,8 @@ class ImagesController < ApplicationController
     end
   end
 
-  # DELETE /images/1
-  # DELETE /images/1.json
   def destroy
-    @image = image.find(params[:id])
+    @image = get_parent.find(params[:id])
     @image.destroy
 
     respond_to do |format|
@@ -80,4 +41,12 @@ class ImagesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  protected
+  def get_parent
+    case
+      when params[:listing_id] then current_user.listings.find_by_id(params[:listing_id]).images
+      when current_user.id == params[:user_id] then current_user.image
+    end    
+  end  
 end

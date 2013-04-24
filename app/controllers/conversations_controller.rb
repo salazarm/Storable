@@ -1,8 +1,11 @@
 class ConversationsController < ApplicationController
+  respond_to :json
+  before_filter :require_login
+
   # GET /conversations
   # GET /conversations.json
   def index
-    @conversations = conversations.all
+    @conversations = current_user.conversations.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +16,7 @@ class ConversationsController < ApplicationController
   # GET /conversations/1
   # GET /conversations/1.json
   def show
-    @conversation = conversation.find(params[:id])
+    @conversation = current_user.conversation.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,26 +24,11 @@ class ConversationsController < ApplicationController
     end
   end
 
-  # GET /conversations/new
-  # GET /conversations/new.json
-  def new
-    @conversation = conversation.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @conversation }
-    end
-  end
-
-  # GET /conversations/1/edit
-  def edit
-    @conversation = conversation.find(params[:id])
-  end
 
   # POST /conversations
   # POST /conversations.json
   def create
-    @conversation = conversation.new(params[:conversation])
+    @conversation = current_user.conversation.new(params[:conversation])
 
     respond_to do |format|
       if @conversation.save
@@ -56,7 +44,7 @@ class ConversationsController < ApplicationController
   # PUT /conversations/1
   # PUT /conversations/1.json
   def update
-    @conversation = conversation.find(params[:id])
+    @conversation = current_user.conversation.find(params[:id])
 
     respond_to do |format|
       if @conversation.update_attributes(params[:conversation])
@@ -69,15 +57,15 @@ class ConversationsController < ApplicationController
     end
   end
 
-  # DELETE /conversations/1
-  # DELETE /conversations/1.json
-  def destroy
-    @conversation = conversation.find(params[:id])
-    @conversation.destroy
+  # # DELETE /conversations/1
+  # # DELETE /conversations/1.json
+  # def destroy
+  #   @conversation = conversation.find(params[:id])
+  #   @conversation.destroy
 
-    respond_to do |format|
-      format.html { redirect_to conversations_url }
-      format.json { head :no_content }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to conversations_url }
+  #     format.json { head :no_content }
+  #   end
+  # end
 end
