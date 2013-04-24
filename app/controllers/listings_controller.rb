@@ -39,13 +39,13 @@ class ListingsController < ApplicationController
   def update
     @listing = current_user.listings.find(params[:id])
 
-    respond_to do |format|
-      if @listing.update_attributes(params[:listing])
-        respond_with(@listing, :status => :ok)
-      else
-        respond_with(@listing.errors, :status => :unprocessable_entity)
-      end
+
+    if @listing.update_attributes(params[:listing])
+      respond_with(@listing, :status => :ok)
+    else
+      respond_with(@listing.errors, :status => :unprocessable_entity)
     end
+    
   end
 
   # DELETE /listings/1
