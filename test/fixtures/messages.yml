@@ -1,3 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+one:
+  id: 1
+  content: "first message"
+  user_id: 1
+  conversation_id: 1
+  is_starred: 0
+  is_read: 0
+
+two:
+  id: 2
+  content: "second message"
+  user_id: 2
+  conversation_id: 1
+  is_starred: 0
+  is_read: 0
 

@@ -1,52 +1,48 @@
 class ImagesController < ApplicationController
-  before_filter :get_listing 
+  before_filter :get_parent 
   respond_to :json
 
   # POST /images
   # POST /images.json
   def create
-    @image = get_parent.new(params[:image])
+    @image = @parent.images.build(params[:image])
 
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to @image, notice: 'image was successfully created.' }
-        format.json { render json: @image, status: :created, location: @image }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
+    if @image.save
+      respond_with(@parent, @image, :status => :created)
+    else
+      respond_with(@parent, @image.errors, :status => :unprocessable_entity)
     end
   end
 
   def update
-    @image = get_parent.find(params[:id])
+    @image = @parent.images.find(params[:id])
 
-    respond_to do |format|
-      if @image.update_attributes(params[:image])
-        format.html { redirect_to @image, notice: 'image was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
+    if @image.update_attributes(params[:image])
+      respond_with(@parent, @image, :status => :ok)
+    else
+      respond_with(@parent, @image.errors, :status => :unprocessable_entity)
     end
+
   end
 
   def destroy
-    @image = get_parent.find(params[:id])
-    @image.destroy
+    @image = @parent.images.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to images_url }
-      format.json { head :no_content }
+    if @image.destroy
+        respond_with :status => :ok
+    else
+        respond_with(@parent, @image.errors, :status => :unprocessable_entity)
     end
+
   end
 
   protected
   def get_parent
     case
-      when params[:listing_id] then current_user.listings.find_by_id(params[:listing_id]).images
-      when current_user.id == params[:user_id] then current_user.image
+      when params[:listing_id] 
+        @parent = current_user.listings.find(params[:listing_id])
+      when current_user.id == params[:user_id].to_i
+        @parent = current_user
     end    
   end  
 end

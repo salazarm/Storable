@@ -1,75 +1,61 @@
 class MessagesController < ApplicationController
   respond_to :json
-  before_filter :require_login, :get_conversation
+  before_filter :require_login, :get_or_create_conversation
   # GET /messages
   # GET /messages.json
   def index
     @messages = @conversation.messages.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @messages }
-    end
+    respond_with(@messages, :status => :ok)
   end
 
-  # GET /messages/1
-  # GET /messages/1.json
-  def show
-    @message = @conversation.messages.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @message }
-    end
-  end
 
   # POST /messages
   # POST /messages.json
   def create
     @message = @conversation.messages.new(params[:message])
 
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to @message, notice: 'message was successfully created.' }
-        format.json { render json: @message, status: :created, location: @message }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
+    if @message.save
+      respond_with(@message, :status => :created)
+    else
+      respond_with(@message.errors, :status => :unprocessable_entity)
     end
+
   end
 
-  # PUT /messages/1
-  # PUT /messages/1.json
-  def update
-    @message = @conversation.messages.find(params[:id])
-
-    respond_to do |format|
-      if @message.update_attributes(params[:message])
-        format.html { redirect_to @message, notice: 'message was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
     @message = @conversation.messages.find(params[:id])
-    @message.destroy
-
-    respond_to do |format|
-      format.html { redirect_to messages_url }
-      format.json { head :no_content }
+    if @message.destroy
+        respond_with :status => :ok
+    else
+        respond_with(@message.errors, :status => :unprocessable_entity)
     end
   end
 
   protected
-  def get_conversation
-      @conversation = current_user.conversation.find(params[:conversation_id]) if params[:conversation_id]
-      redirect_to root_url unless defined?(@conversation)
+  def get_or_create_conversation
+    #user_id is equal to the id of the person that this message is directed towards
+    if params[:listing_id] && params[:message_receiver_id]
+      listing = Listing.find(params[:listing_id])
+      #this message is from the host to the renter
+      if current_user.id == listing.user_id
+        @conversation = Conversation.where(:host_id => current_user, :renter_id => params[:message_receiver_id], :listing_id => params[:listing_id]).first
+      elsif params[:message_receiver_id] == listing.user_id #this message is from the renter to the host
+        @conversation = Conversation.where(:host_id => User.find(listing.user_id), :renter_id => current_user.id, :listing_id => params[:listing_id]).first
+      
+        #if no conversation exists between this renter and host, then create one
+        #note that this blank check is only done here since only the renter can initiate a message
+        if @conversation.blank?
+            @conversation = Conversation.new(:host_id => User.find(listing.user_id), :renter_id => current_user.id, :listing_id => params[:listing_id])
+            @conversation.save
+        end
+      end
+    end
+
+    redirect_to root_url unless defined?(@conversation)
+      
   end
 end

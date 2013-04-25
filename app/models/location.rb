@@ -1,4 +1,4 @@
 class Location < ActiveRecord::Base
-	attr_accessible :name, :street_1, :street_2
+	attr_accessible :street, :city, :state, :zip
 	belongs_to :listing
 end

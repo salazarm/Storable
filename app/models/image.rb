@@ -1,4 +1,4 @@
 class Image < ActiveRecord::Base
-	attr_accessible :image_url
+	attr_accessible :location
 	belongs_to :imageable, :polymorphic => true
 end
