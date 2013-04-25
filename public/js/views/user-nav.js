@@ -3,10 +3,11 @@ App.Views.User_Nav = Backbone.View.extend({
 	list_btn : $("list_space"),
 	search : $(".search-area"),
 	model: App.User,
-	el: $("#nav"),
+	el: $("#top-wrapper"),
 
 	events : {
 		"click #find_space" : "show_search",
+		"click #close_search" : "hide_search"
 	},
 
 	initialize : function() {
@@ -16,6 +17,7 @@ App.Views.User_Nav = Backbone.View.extend({
 	},
 
 	render : function() {
+		console.log("rendering");
 		if (this.model.get("loggedIn")){
 			this.list_btn.removeClass("hidden");;
 		} else {
@@ -23,13 +25,14 @@ App.Views.User_Nav = Backbone.View.extend({
 		}
 	},
 
-	show_search : function() {
-		console.log("showing");
-		this.search.removeClass("hidden");
+	show_search : function(ev) {
+		ev.preventDefault();
+		this.search.removeClass("hidden").fadeOut(0).fadeIn(400);
 	},
 
-	hide_search : function() {
-		this.search.addClass("hidden");
+	hide_search : function(ev) {
+		ev.preventDefault();
+		this.search.fadeOut(400);
 	}
 
 	

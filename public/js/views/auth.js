@@ -36,7 +36,6 @@ App.Views.Auth = Backbone.View.extend({
 		this.$el.show();
 		this.listenTo(this.model, "change", this.render);
 		this.show_login();
-		this.render();
 	},
 
 	render : function() {

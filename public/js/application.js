@@ -16,7 +16,7 @@ var App = {
           document.body.scrollTop = scr;
         };
 
-        new App.Views.User_Nav({ model: App.User, el: $("#nav") });
+        new App.Views.User_Nav({ model: App.User, el: $("#top-wrapper") });
         new App.Views.Messages({ el: $("#message") });
         new App.Views.Auth({ model: App.User, el: $("#auth") });
 

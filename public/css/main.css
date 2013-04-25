@@ -151,7 +151,6 @@ form {
 .search-area input[type="text"] {
     float: left;
     height: 23px;
-    margin: 0;
     width: 110px;
     -webkit-box-shadow: inset 1px 1px 5px rgba(0,0,0,0.4);
     box-shadow: inset 1px 1px 5px rgba(0,0,0,0.4);
@@ -162,10 +161,9 @@ form {
 }
 
 .search-area input[type='text'] :not(.error), .search-area .dropdown {
-    border: 1px solid #000;
     text-shadow: 0 1px 1px #fff;
     padding: 8px 12px;
-    font-size: 17px;
+    font-size: 14px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -176,7 +174,7 @@ form {
 }
 
 input.error {
-    background-color: #fff;
+    background-color: #FFCCD0;
     color: #b94a48;
     border-color: #b94a48;
 }
@@ -191,7 +189,7 @@ input, select, textarea {
     width: 110px;
     -webkit-box-shadow: inset 1px 1px 5px rgba(0,0,0,0.4);
     box-shadow: inset 1px 1px 5px rgba(0,0,0,0.4);
-    border: 1px solid #000;
+    border: 1px dashed #404040;
     text-shadow: 0 1px 1px #fff;
     padding: 2px 4px;
     font-size: 17px;
@@ -221,13 +219,14 @@ input, select, textarea {
 
 
 #search_form {
-    background: rgba(57,60,61,0.8);
+    margin-top: -2px;
+    background: #009F98;
     -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    border: 1px solid rgba(0,0,0,0.8);
+    border: 3px dashed rgba(0,0,0,0.8);
     padding: 4px;
     line-height: 1.2;
 }
