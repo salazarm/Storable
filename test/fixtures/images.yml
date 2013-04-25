@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  image_url: "url.com"
+  id: 1
+  location: "url.com"
   imageable_id: 1
-  imageable_type: "User"
+  imageable_type: "Listing"
 
 two:
-  image_url: "url2.com"
-  imageable_id: 2
+  id: 2
+  location: "url2.com"
+  imageable_id: 1
   imageable_type: "Listing"
+
+three:
+  id: 3
+  location: "url3.com"
+  imageable_id: 1
+  imageable_type: "User"

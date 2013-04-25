@@ -11,6 +11,7 @@ class ListingsControllerTest < ActionController::TestCase
         assert_equal "application/json", @response.content_type
 
         listing = JSON.parse(@response.body)
+
         assert_equal "test", listing["title"]
         assert_equal "test_desc", listing["description"]
     end
@@ -23,8 +24,9 @@ class ListingsControllerTest < ActionController::TestCase
         assert_response 200
         listings = JSON.parse(@response.body)
 
-        
         assert_equal 2, listings.length
+
+
     end
 
     test "get a particular listing when logged in" do
@@ -36,16 +38,16 @@ class ListingsControllerTest < ActionController::TestCase
         
         assert_equal "listing one", listing["title"]
 
+        #check that the associations are also returned in the json response
+        assert_equal 2, listing["images"].length
+
     end
 
     test "update a particular listing when logged in" do
 
-        post :update, {:format => 'json', :id => 1, :listing => {:title => "new"}}, {:user_id=>1}
+        put :update, {:format => 'json', :id => 1, :listing => {:title => "new"}}, {:user_id=>1}
 
-        assert_response 200
-        listing = JSON.parse(@response.body)
-        
-        assert_equal "new", listing["title"]
+        assert_response 204
 
     end
 

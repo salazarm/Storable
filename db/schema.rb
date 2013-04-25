@@ -11,10 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424023617) do
+ActiveRecord::Schema.define(:version => 20130425063014) do
 
   create_table "conversations", :force => true do |t|
-    t.string   "name"
     t.integer  "renter_id"
     t.integer  "host_id"
     t.datetime "created_at", :null => false
@@ -23,11 +22,11 @@ ActiveRecord::Schema.define(:version => 20130424023617) do
   end
 
   create_table "images", :force => true do |t|
-    t.string   "image_url"
     t.integer  "imageable_id"
     t.string   "imageable_type"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "location"
   end
 
   create_table "listings", :force => true do |t|
@@ -49,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20130424023617) do
     t.string   "street"
     t.string   "city"
     t.string   "state"
-    t.integer  "zip"
+    t.string   "zip"
   end
 
   create_table "messages", :force => true do |t|

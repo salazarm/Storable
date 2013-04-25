@@ -14,6 +14,9 @@ Teamchill::Application.routes.draw do
     resources :images
   end
 
+  resources :messages
+  resources :conversations
+
   root :to => "sessions#new"
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -5,15 +5,14 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
-    @location = @listing.location.build(params[:location])
+    @location = @listing.build_location(params[:location])
 
-    respond_to do |format|
-      if @location.save
-        respond_with(@location, :status => :created)
-      else
-        respond_with(@location.errors, :status => :unprocessable_entity)
-      end
+    if @location.save
+      respond_with(@listing, @location, :status => :created)
+    else
+      respond_with(@listing, @location.errors, :status => :unprocessable_entity)
     end
+
   end
 
   # PUT /locations/1
@@ -21,28 +20,25 @@ class LocationsController < ApplicationController
   def update
     @location = @listing.location
 
-    respond_to do |format|
-      if @location.update_attributes(params[:location])
-        respond_with(@location, :status => :ok)
-      else
-        respond_with(@location.errors, :status => :unprocessable_entity)
-      end
+    if @location.update_attributes(params[:location])
+      respond_with(@listing, @location, :status => :ok)
+    else
+      respond_with(@listing, @location.errors, :status => :unprocessable_entity)
     end
+
   end
 
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
-    if @listing.location.destroy
+    @location = @listing.location
+
+    if @location.destroy
         respond_with :status => :ok
     else
-        respond_with(@location.errors, :status => :unprocessable_entity)
+        respond_with(@listing, @location.errors, :status => :unprocessable_entity)
     end
 
-    respond_to do |format|
-      format.html { redirect_to locations_url }
-      format.json { head :no_content }
-    end
   end
 
   #gets the listing associated with this listing_id, for this current user

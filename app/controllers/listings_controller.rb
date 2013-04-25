@@ -4,11 +4,7 @@ class ListingsController < ApplicationController
   # GET /listings.json
   def index
     @listings = Listing.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @listings }
-    end
+     respond_with(@listings, :status => :ok)
   end
 
   # GET /listings/1
