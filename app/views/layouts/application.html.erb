@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
@@ -26,7 +27,7 @@
   <!--[if lt IE 7]>
       <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
   <![endif]-->
-  <div style="position: fixed; width: 100%; margin-top: -130px">
+  <div style="position: fixed; width: 100%; margin-top: -120px">
     <div id="top-wrapper">
       <div id="nav" class="grey" >
         <span id="logo"></span>
@@ -62,39 +63,39 @@
       </div>
 
       <div class="search-area hidden" style="margin: 2px auto 10px auto; display: table;">
-          <div id="search-bar">
-            <form action="/search" id="search_form">
-                <div class="input-wrapper .inline" style="display: inline-block; margin-right: 14px">
-                    <input type="text" class="location" autocomplete="off" id="location" name="location" placeholder="Where do you need storage?">
-                </div>
-                <div id="checkinWrapper" class="input-wrapper .inline" style="display: inline-block;">
-                  <input type="text" id="checkin" class="checkin search-option ui-datepicker-target" name="checkin" placeholder="Check in">
-                  <span class="search-area-icon"></span>
-                </div>
-                <div id="checkoutWrapper" class="input-wrapper .inline" style="display: inline-block;" >
-                  <input type="text" id="checkout" class="checkout search-option ui-datepicker-target" name="checkout" placeholder="Check out">
-                  <span class="search-area-icon search-area-icon-checkout"></span>
-                </div>
-                <div id="spaceWrapper" class="input-wrapper .inline" style="display: inline-block;">
-                    <input type="text" id="space" name="space" placeholder="Storage Space">
-                    <span class="search-area-icon search-area-icon-storage-box"></span>
-                </div>
-                <div class="input-wrapper .inline" style="display:inline-block; margin-top: -10px;">
-                  <a href="#close" id="close_search" style="color: #fff; text-decoration: none; font-size: 24px;">X</a>
-                </div>
-            </form>
+        <div id="search-bar">
+          <form action="/search" id="search_form">
+            <div class="input-wrapper .inline" style="display: inline-block; margin-right: 14px">
+              <input type="text" class="location" autocomplete="off" id="location" name="location" placeholder="Where do you need storage?">
+            </div>
+            <div id="checkinWrapper" class="input-wrapper .inline" style="display: inline-block;">
+              <input type="text" id="checkin" class="checkin search-option ui-datepicker-target" name="checkin" placeholder="Check in">
+              <span class="search-area-icon"></span>
+            </div>
+            <div id="checkoutWrapper" class="input-wrapper .inline" style="display: inline-block;" >
+              <input type="text" id="checkout" class="checkout search-option ui-datepicker-target" name="checkout" placeholder="Check out">
+              <span class="search-area-icon search-area-icon-checkout"></span>
+            </div>
+            <div id="spaceWrapper" class="input-wrapper .inline" style="display: inline-block;">
+              <input type="text" id="space" name="space" placeholder="Storage Space">
+              <span class="search-area-icon search-area-icon-storage-box"></span>
+            </div>
+            <div class="input-wrapper .inline" style="display:inline-block; margin-top: -10px;">
+              <a href="#close" id="close_search" style="color: #fff; text-decoration: none; font-size: 24px;">X</a>
+            </div>
+          </form>
         </div>
       </div>
     </div>
 
   </div>
-  <div style="margin-top:130px"></div>
-   <section class="hero">
-    <div class="hero-text-title">Storable</div>
-  </section>
+  <div id ="separator" style="margin-top:120px"></div>
 
-  <%= yield %>
-
+    <%= yield %>
+ 
+  <footer class="grey" style="text-align:center; bottom: 0;">
+    &copy; 2013 Storable, Made with love for MIT 6.170 
+  </footer>
   <script type="text/javascript">
     _.templateSettings = {
         interpolate: /\[\[\=(.+?)\]\]/g,
@@ -102,6 +103,7 @@
     };
 
     $(function() {
+        $( ".ui-datepicker-target" ).datepicker();
         <% if @current_user %>
             var user = new App.Models.User({
                 id: "<%= @current_user.id %>",
@@ -113,6 +115,9 @@
         <% end %>
         App.init(user);
     });
+    
+    
+
   </script>
   <script src="js/application.js"></script>
   <script src="js/models/user.js"></script>

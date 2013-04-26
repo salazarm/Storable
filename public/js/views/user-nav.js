@@ -11,8 +11,7 @@ App.Views.User_Nav = Backbone.View.extend({
 	},
 
 	initialize : function() {
-		console.log("initialized");
-		console.log(this.el);
+		this.search.removeClass("hidden").fadeOut(0);
 		this.listenTo(this.model, "change", this.render);
 	},
 
@@ -27,7 +26,7 @@ App.Views.User_Nav = Backbone.View.extend({
 
 	show_search : function(ev) {
 		ev.preventDefault();
-		this.search.removeClass("hidden").fadeOut(0).fadeIn(400);
+		this.search.fadeIn(400);
 	},
 
 	hide_search : function(ev) {
