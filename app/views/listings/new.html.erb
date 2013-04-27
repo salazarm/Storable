@@ -1,0 +1,62 @@
+<div style="margin: 20px 5% 0 5%;">
+		Title: <%= text_field_tag :title, params[:title], :placeholder => "Candy Land" %> <br/>
+		Description: <%= text_area_tag :description, params[:description], :placeholder => "An awesome condo for your boxes!" %> <br />
+		Price: <%= number_field_tag :price, params[:price], :placeholder => "1.00" %> <br />
+		Size: <%= number_field_tag :size, params[:price], :placeholder => "2.25" %><br />
+		Start Date: <%= text_field_tag :start_date, params[:start_date], :class => "ui-datepicker-target" %><br />
+		End Date: <%= text_field_tag :end_date, params[:end_date], :class => "ui-datepicker-target" %><br />
+		Street Address: <%= text_field_tag :street, params[:street], :placeholder => "123 Silicon Valley Express Way" %><br />
+		City: <%= text_field_tag :city, params[:city], :placeholder => "Mountain View" %><br />
+		State: <%= text_field_tag :state, params[:state], :placeholder => "California" %><br />
+		Zip: <%= text_field_tag :zip, params[:zip], :placeholder => "01234" %><br/><br/>
+		<a id="upload" class="abutton" style="margin-top:10px;">Upload an Image</a>
+		<div id="images" style="margin: 20px"></div>
+		<input style="visibility:hidden;" id="imageupload" type="file" accept="image/* ">
+	</div>
+
+	<script>
+		var imageURLS = [];
+		$('#upload').click(function(){                           
+		    $('#imageupload').trigger('click');
+		});
+		var onFileLoad = function(e) {
+		    var data = e.target.result;
+		    params = {
+		    	key : "06DEFINYa849e5eee2f5080a31485ecf63bfa045",
+		    	fileupload: data,
+		    	format: "json",
+		    	"public": "false"
+		    }
+		    $("#images").append("<img src="+data+" style='width:200px; height: 200px; margin: 0 10px 10px 0' />");	 
+		    $.ajax({
+			  type: "POST",
+			  url: "https://imageshack.us/upload_api.php",
+			  data: params,
+			  success: function(response, textStatus, jqXHR){
+			  	console.log(response);
+			  },
+			  error: function(jqXHR, textStatus, errorThrown ){
+			  	console.log(jqXHR);
+			  }
+			});
+		}
+		$('#imageupload').change(function(e){
+		    var reader = new FileReader();
+		    var files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+		    var i = 0;
+			reader.onload = onFileLoad;
+			console.log(files);
+			while (files[i]) { 
+				reader.readAsDataURL(files[i++]);
+			}
+		});
+
+
+	</script>
+
+</div>
+
+
+
+
+

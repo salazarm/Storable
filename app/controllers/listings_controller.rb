@@ -17,6 +17,7 @@ class ListingsController < ApplicationController
   # POST /listings
   # POST /listings.json
   def create
+    require_login
     @listing = current_user.listings.build(params[:listing])
 
     if @listing.save
@@ -25,6 +26,10 @@ class ListingsController < ApplicationController
       respond_with(@listing.errors, :status => :unprocessable_entity)
     end
     
+  end
+
+  def new
+    require_login
   end
 
   # PUT /listings/1

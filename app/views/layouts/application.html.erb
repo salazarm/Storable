@@ -29,7 +29,7 @@
       <div id="nav" class="grey" >
         <span id="logo"></span>
         <a id="find_space" href="#search">Find Space</a>
-        <a id="list_space" class="hidden" href="#list">List Space</a>
+        <%= link_to "List Space", new_listing_path, :id=> "list_space", :class=>"hidden" %>
         <!-- <div style="margin: 0 auto; display: inline; width: 50%" id="message"></div> -->
         <span id="auth" style="float: right; margin-right: 10px ">
             <span style="display:none;" id="login_form">
