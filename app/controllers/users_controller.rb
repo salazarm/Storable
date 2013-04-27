@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	respond_to :json, :html
 
    def create
      user = User.new(params[:user])
@@ -7,7 +8,13 @@ class UsersController < ApplicationController
        render :json => user, :only => ["id" ,"email"], :status => 200
      else
        render :json => user.errors, :status => 500
+     end
    end
 
- end
+   def show
+   	@user = User.find(params[:id])
+   	respond_with(@user, :status => :ok)
+   end
+
+
 end

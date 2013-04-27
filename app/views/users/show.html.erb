@@ -1,0 +1,63 @@
+<div id="profile-page-container" style="margin: 20px 5% 0 5%; min-width: 870px;">
+	<div id="sub-wrapper" style="margin: auto auto">
+		<div id="top-left" style="float: left; width: 200px; ">
+			<div id="profile-photo-container" style="height: 210px;" class="grey">
+				<img src="http://i.picresize.com/images/2013/04/27/SFmNc.png"/>
+			</div>
+		</div>
+
+		<div id="profile-about" class="grey" style="float: left; margin: 0 0 0 20px; width: 600px; height: 210px;">
+			<h1 style="text-align: center; margin-top: 0;">About <%= @user.email %></h1>
+			<p style="margin: 10px;" id="about-content"><%= @user.about.nil? ? "This user has not written an about me section :(" : @user.about %></p>
+		</div>
+		<div class="clearfix"></div>
+
+		<div id="listings-wrapper" style="width: 820px; height: 200px; margin: 20px 0 0 0px; overflow-y: hidden; overflow-x: scroll;" class="grey" >
+
+			<div id="profile-listings" style="width: 880px; height: 200px; overflow-x: scroll; overflow-y: hidden;">
+
+				<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
+					Example listing
+				</div>
+				<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
+					Example listing
+				</div>
+				<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
+					Example listing
+				</div>
+				<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
+					Example listing
+				</div>
+			</div>
+		</div>
+
+		<div id="profile-stats-container" style="width: 820px; font-size: 14px;">
+
+			<div id="renter-stats" class="grey" style="height: 200px;float: left; display: inline; margin: 20px 0 0 0px; width: 400px; ">
+				<div style="text-align: center; padding: 10px 0 0 0">Renter Stats</div>
+				<ul id="renter-stats-list">
+					<li>Rented: 0</li>
+					<li>Late Pick-Ups: 0</li>
+					<li>Overall Rating: 0/5</li>
+					<li>Timeliness Rating: 0/5</li>
+					<li>Responsiveness Rating: 0/5</li>
+					<li>Quality Rating: 0/5</li>
+				</ul>
+			</div>
+
+			<div id="host-stats" class="grey" style="height: 200px; margin: 20px 0 0 20px; float: left; display: inline; width: 400px;">
+				<div style="text-align: center; padding: 10px 0 0 0">Host Stats</div>
+				<ul id="host-stats-list">
+					<li>Hosted: 0</li>
+					<li>Late Returns: 0</li>
+					<li>Overall Rating: 0/5</li>
+					<li>Timeliness Rating: 0/5</li>
+					<li>Responsiveness Rating: 0/5</li>
+					<li>Quality Rating: 0/5</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+</div>

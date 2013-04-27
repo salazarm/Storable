@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  respond_to :json
+  respond_to :json, :html
   # GET /listings
   # GET /listings.json
   def index
@@ -11,11 +11,8 @@ class ListingsController < ApplicationController
   # GET /listings/1.json
   def show
     @listing = Listing.find(params[:id])
-
     respond_with(@listing, :status => :ok)
-    
   end
-
 
   # POST /listings
   # POST /listings.json

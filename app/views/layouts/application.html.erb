@@ -1,33 +1,30 @@
 <!DOCTYPE html>
-<html style="width:100%">
+<html style="width:100%;">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Storable</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
   <%= csrf_meta_tags %>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
   <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
   <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
   <![endif]-->
 </head>
-<body>
+<body style="min-width: 870px;">
   <!--[if lt IE 7]>
       <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
   <![endif]-->
-  <div style="position: fixed; width: 100%; margin-top: -120px">
+  <div style="width: 100%; min-width: 870px;">
     <div id="top-wrapper">
       <div id="nav" class="grey" >
         <span id="logo"></span>
@@ -57,8 +54,13 @@
             <a id="logout" class="logout-btn hide" href="#logout">Logout</a>
             <a id="login2" class="login hide" href="#login">Login</a>
         </span>
-        <span id="user" style="float: right;">
-
+        <span id="user-area" class="hidden">
+          <span id="user-email"></span>
+          <ul id="user-nav"> 
+            <div id="profile" class="user-menu-sel">Profile</div>
+            <div id="notif" class="user-menu-sel">Notifications</div>
+            <div id="logoutbtn" class="user-menu-sel">Log Out</div>
+          </ul>
         </span>
       </div>
 
@@ -89,40 +91,28 @@
     </div>
 
   </div>
-  <div id ="separator" style="margin-top:120px"></div>
 
     <%= yield %>
  
-  <footer class="grey" style="text-align:center; bottom: 0;">
+  <footer style="text-align:center; bottom: 0;">
     &copy; 2013 Storable, Made with love for MIT 6.170 
   </footer>
-  <script type="text/javascript">
-    _.templateSettings = {
+  <%= javascript_include_tag :defaults %>
+  <script>
+      _.templateSettings = {
         interpolate: /\[\[\=(.+?)\]\]/g,
         evaluate: /\[\[(.+?)\]\]/g
     };
-
-    $(function() {
-        $( ".ui-datepicker-target" ).datepicker();
-        <% if @current_user %>
-            var user = new App.Models.User({
-                id: "<%= @current_user.id %>",
-                loggedIn: true,
-                email: "<%= @current_user.email %>"
-            });
-        <% else %>
-            var user = new App.Models.User({});
-        <% end %>
-        App.init(user);
-    });
-    
-    
-
+    <% if @current_user %>
+        user = new App.Models.User({
+            id: "<%= @current_user.id %>",
+            loggedIn: true,
+            email: "<%= @current_user.email %>"
+        });
+    <% else %>
+        user = new App.Models.User({});
+    <% end %>
+    App.init(user);
   </script>
-  <script src="js/application.js"></script>
-  <script src="js/models/user.js"></script>
-  <script src="js/views/auth.js"></script>
-  <script src="js/views/user-nav.js"></script>
-  <script src="js/views/message.js"></script>
 </body>
 </html>
