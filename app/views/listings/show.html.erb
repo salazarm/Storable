@@ -1,0 +1,58 @@
+<div id="listing-page-container" style="margin: 20px 5% 0 5%; min-width: 870px;">
+	<div id="sub-wrapper" style="margin: auto auto">
+		<div id="top-left" style="float: left; width: 200px; display: margin-right: 20px">
+			<div id="profile-photo-container" style="height: 210px;" class="grey">
+				<img src="http://i.picresize.com/images/2013/04/27/SFmNc.png"/>
+			</div>
+			<div id="message-lister" class="abutton" style="text-align: center; font-size: 14px; border-radius: 0">Message <%= @listing.user.email %></div>
+		</div>
+
+		<div id="listing-images-container" class="grey" style="float: left; width: 600px; height: 240px; margin: 0 0 0 30px">
+			<div id="images" style="margin: -40px 0 0 250px; text-align:center; display: inline; float:left;"><h1>Images</h1></div>
+			<div id="listing-images" style="float: left; width: <%= @listing.images.count * 200 %>">
+				<% @listing.images.each do |image| %>
+					<div id="listing-image" style="float-left; margin: 20px 10px 0 10px">
+						<img style="width: 200px; height:200px" src="<%= image.location %>"></img>
+					</div>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+		<div id="profile-stats-container" style="float: left; width: 200px; font-size: 14px;">
+
+			<div id="renter-stats" class="grey" style="height: 200px; margin: 20px 0 0 0px; width: 200px;">
+				<div style="text-align: center; padding: 10px 0 0 0">Renter Stats</div>
+				<ul id="renter-stats-list">
+					<li>Rented: 0</li>
+					<li>Late Pick-Ups: 0</li>
+					<li>Overall Rating: 0/5</li>
+					<li>Timeliness Rating: 0/5</li>
+					<li>Responsiveness Rating: 0/5</li>
+					<li>Quality Rating: 0/5</li>
+				</ul>
+			</div>
+
+			<div id="host-stats" class="grey" style="height: 200px; margin: 20px 0 0 0px; width: 200px;">
+				<div style="text-align: center; padding: 10px 0 0 0">Host Stats</div>
+				<ul id="host-stats-list">
+					<li>Hosted: 0</li>
+					<li>Late Returns: 0</li>
+					<li>Overall Rating: 0/5</li>
+					<li>Timeliness Rating: 0/5</li>
+					<li>Responsiveness Rating: 0/5</li>
+					<li>Quality Rating: 0/5</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="listing-detail" style="float: left; width: 600px; margin: 20px 0 0 30px; height: 300px" class="grey">
+			<%= @listing.description %>
+		</div>
+
+		<div id="listing-stats" style="float: left; width: 600px; margin: 20px 0 0 30px; height: 100px" class="grey">
+
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>

@@ -328,7 +328,14 @@ input, select, textarea {
     border-width: 1px 1px 0 1px;
 }
 
-
+.upload-image:hover {
+    min-width: 200px;
+    min-height: 200px;
+    z-index: 20000;
+    background: #ffffff; /* Old browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    cursor: pointer;
+}
 
 
 

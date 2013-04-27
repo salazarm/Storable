@@ -14,20 +14,13 @@
 
 		<div id="listings-wrapper" style="width: 820px; height: 200px; margin: 20px 0 0 0px; overflow-y: hidden; overflow-x: scroll;" class="grey" >
 
-			<div id="profile-listings" style="width: 880px; height: 200px; overflow-x: scroll; overflow-y: hidden;">
+			<div id="profile-listings" style="width: <%= 220*@user.listings.count %>; height: 200px; overflow-x: scroll; overflow-y: hidden;">
 
-				<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
-					Example listing
-				</div>
-				<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
-					Example listing
-				</div>
-				<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
-					Example listing
-				</div>
-				<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
-					Example listing
-				</div>
+				<% @user.listings.each do |listing| %>
+					<div id="listing" style="float:left; height: 180px; width: 200px; display: inline-block; margin: 10px 10px 0 10px; background-color: #fff;">
+						<%= link_to listing.title, listing_path(listing.id) %>
+					</div>
+				<% end %>
 			</div>
 		</div>
 

@@ -1,5 +1,5 @@
 class Listing < ActiveRecord::Base
-	attr_accessible :title, :description, :price, :size, :start_date, :end_date
+	attr_accessible :title, :description, :price, :size, :start_date, :end_date 
 
     belongs_to :user
 	has_one :location
