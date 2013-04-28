@@ -38,18 +38,21 @@ class MessagesController < ApplicationController
   protected
   def get_or_create_conversation
     #user_id is equal to the id of the person that this message is directed towards
-    if params[:listing_id] && params[:message_receiver_id]
-      listing = Listing.find(params[:listing_id])
+    listing = Listing.find(params[:listing_id])
+    if listing
+      puts "inside1"
       #this message is from the host to the renter
-      if current_user.id == listing.user_id
-        @conversation = Conversation.where(:host_id => current_user, :renter_id => params[:message_receiver_id], :listing_id => params[:listing_id]).first
-      elsif params[:message_receiver_id] == listing.user_id #this message is from the renter to the host
-        @conversation = Conversation.where(:host_id => User.find(listing.user_id), :renter_id => current_user.id, :listing_id => params[:listing_id]).first
-      
+      if @current_user.id == listing.user_id
+        puts "inside2"
+        @conversation = Conversation.where(:host_id => @current_user.id, :renter_id => listing.user_id, :listing_id => listing.id).first
+      else #this message is from the renter to the host
+        @conversation = Conversation.where(:host_id => listing.user_id, :renter_id => @current_user.id, :listing_id => listing.id).first
+        puts "inside3"
         #if no conversation exists between this renter and host, then create one
         #note that this blank check is only done here since only the renter can initiate a message
-        if @conversation.blank?
-            @conversation = Conversation.new(:host_id => User.find(listing.user_id), :renter_id => current_user.id, :listing_id => params[:listing_id])
+        if @conversation.blank?  
+            puts "blank"
+            @conversation = Conversation.new(:host_id => listing.user_id, :renter_id => @current_user.id, :listing_id => listing.id)
             @conversation.save
         end
       end

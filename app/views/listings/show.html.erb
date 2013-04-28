@@ -5,10 +5,13 @@
 				<img src="http://i.picresize.com/images/2013/04/27/SFmNc.png"/>
 			</div>
 
-			<% if @listing.user.id != @current_user.id %>
+			<% if @current_user && @listing.user.id != @current_user.id %>
 				<div id="message-lister" class="abutton" style="text-align: center; font-size: 14px; border-radius: 0">
 					Message <%= @listing.user.email %>
 				</div>
+			<% elsif !@current_user %>
+				<div class="abutton" style="text-align: center; font-size: 14px; border-radius: 0"> Sign up to rent this space! </div>
+
 			<% else %>
 					<a id="message-lister" class="abutton" style="text-align: center; font-size: 14px; border-radius: 0; display: block;" 
 					href=<%= edit_listing_path(@listing) %>>
@@ -118,7 +121,7 @@
 			type: "POST",
 			data: {
 				listing_id: <%= @listing.id %>,
-				message_received_id: <%= @listing.user.id %>,
+				message_receiver_id: <%= @listing.user.id %>,
 				message : {
 					title: 'Subject: Inquiry about <%= link_to @listing.title, listing_path(@listing) %>',
 					content: msg
