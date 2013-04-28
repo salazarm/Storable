@@ -31,7 +31,12 @@
 </script>
 <script id="unread-messages" type="HTML/cached-results">
 <% @conversations[:all_conversations].each do |conversation| %>
-	<% unless conversation.is_read %>
+	<% if conversation.host.id == @current_user.id %>
+		<% read = conversation.host_read %>
+	<% else %>
+		<% read = conversation.renter_read %>
+	<% end %>
+	<% if read %>
 		<%= render :partial => "conversation", :locals => {:conversation => conversation, :other => (conversation.host.id != @current_user.id) ? conversation.host : conversation.renter } %>
 	<% end %>
 <% end %>
@@ -110,7 +115,7 @@
 		  if(bool){
 			 	icon.parent().parent().parent()[0].title
 			 	$.ajax({
-			 		url: "/conversations/"+icon.parent().parent().parent()[0].id,
+			 		url: '<%= conversations_path %>' +'/'+ icon.parent().parent().parent()[0].id,
 			 		type: "PUT",
 			 		data: {
 			 			listing : {

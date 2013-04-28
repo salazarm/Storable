@@ -83,7 +83,7 @@ App.Views.Auth = Backbone.View.extend({
 				});
 				that.login_email_field.val("");
 				that.login_password_field.val("");
-				App.Message("Successful Login", "success")
+				window.location=window.location;
 			}, 
 			error : function(model, response, options) {
 				that.login_email_field.addClass("error");
@@ -93,10 +93,6 @@ App.Views.Auth = Backbone.View.extend({
 		});
 	},
 
-	do_logout : function(ev) {
-		ev.preventDefault();
-		console.log("logout procedure");
-	},
 
 	do_signup : function(ev) {
 		that = this;
@@ -116,7 +112,7 @@ App.Views.Auth = Backbone.View.extend({
 				that.signup_passwordc_field.val("");
 				that.signup_password_field.val("");
 				that.signup_email_field.val("");
-				App.Message("Successful Signup", "success");
+				window.location=window.location;
 			},
 			error : function(model, response, options) {
 				that.signup_password_field.removeClass("error");

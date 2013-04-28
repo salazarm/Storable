@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
     if listing
       #this message is from the host to the renter
       if @current_user.id == listing.user_id
-        @conversation = Conversation.where(:host_id => @current_user.id, :renter_id => listing.user_id, :listing_id => listing.id).first
+        @conversation = Conversation.where(:host_id => @current_user.id, :renter_id => params[:renter_id], :listing_id => listing.id).first
       else #this message is from the renter to the host
         @conversation = Conversation.where(:host_id => listing.user_id, :renter_id => @current_user.id, :listing_id => listing.id).first
         #if no conversation exists between this renter and host, then create one
@@ -35,7 +35,7 @@ class MessagesController < ApplicationController
         end
       end
     end
-
+    puts @conversation
     redirect_to root_url unless defined?(@conversation)
       
   end

@@ -90,8 +90,8 @@
 				Messaging <%= @listing.user.email %>
 			</div>
 			<div class="clearfix"></div>
-			<div style="height: 30px">
-				<span contenteditable="false" style="font-size: 20px;">Subject: Inquiry about <%= link_to @listing.title, listing_path(@listing) %></span>.
+			<div style="max-height: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 440px">
+				<span contenteditable="false" style="font-size: 20px; display: inline-block;">Subject: Inquiry about <%= link_to @listing.title, listing_path(@listing) %></span>.
 			</div>
 	    	<div style="height: 190px; width: 490px;  margin-top:10px; font-size: 14px; overflow-y: scroll; text-align: left;" id="message-text" contenteditable="true">
 	    	</div>
@@ -137,7 +137,6 @@
 			type: "POST",
 			data: {
 				listing_id: <%= @listing.id %>,
-				message_receiver_id: <%= @listing.user.id %>,
 				message : {
 					content: msg
 				}
