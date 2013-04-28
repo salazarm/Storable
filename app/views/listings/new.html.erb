@@ -25,6 +25,7 @@
 	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
 	<script>
 		$("#submit_listing").click(function(){
+			var offset = 0;
 			$.ajax({ 
 					url: "/listings.json",
 					type: "POST",
@@ -103,8 +104,14 @@
 		filepicker.setKey("ANiojec3SRKijkj9dvLmGz");
 		var images = [];
 		$('#upload').click(function(){                           
-		    filepicker.pickAndStore({mimetype:"image/*"},
-		    {location:"S3"}, function(fpfiles){
+		    filepicker.pickAndStore({
+		    	mimetype:"image/*",
+		    	'multiple': true
+		    },
+		    {
+		    	location:"S3",
+		  	}, 
+		    function(fpfiles){
 		    	_.each(fpfiles, function(file){
 		    		appendImage(file);
 		    		images.push(file.url);
@@ -112,11 +119,19 @@
 			});
 		});
 		var imagesDiv = $("#images");
+		var lowerIDs = function(number){
+			$("#images").children().each(function(){
+				if(this.id > number){
+					this.id -= 1;
+				}
+			});
+		}
 		var appendImage = function(image){
-			var newImage = $("<div id='i"+images.length+"' style='background: url(\""+image.url+"\"); width:200px; float: left; height: 200px; background-size: 200px 200px; margin: 10px 10px 0 0; cursor: pointer;'></div>");
+			var newImage = $("<div id='"+images.length+"' style='background: url(\""+image.url+"\"); width:200px; float: left; height: 200px; background-size: 200px 200px; margin: 10px 10px 0 0; cursor: pointer;'></div>");
 			newImage.click(function(){
 				$(this).remove();
-				images.splice(this.id.substring(1), 1);
+				images.splice(this.id, 1);
+				lowerIDs(this.id);
 			});
 			imagesDiv.append(newImage);
 		}

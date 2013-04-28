@@ -1,9 +1,7 @@
 <div id="content-container" style="margin: 20px 0 0 5%">
 	<div id="listings">
 		<% @listings.each do |listing| %>
-			<div id="listing" style="float:left; height: 200px; width: 200px; margin: 10px 10px 0 10px; background-color: #fff; background-image: url('<%= listing.images.last ? listing.images.last.location : '' %>'); background-size: 200px 200px;">
-							<%= link_to listing.title, listing_path(listing.id) %>
-						</div>
+			<%= render :partial => 'shared/listing_icon', :locals => { :listing => listing } %>
 		<% end %>
 	</div>
 	<div class="clearfix"></div>

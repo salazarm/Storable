@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  unloadable
+  
   VALID_EMAIL_REGEX = /^.+@.+\..+$/i 
   attr_accessible :email, :about, :password, :password_confirmation
   has_secure_password
@@ -31,6 +33,10 @@ class User < ActiveRecord::Base
   # Downcase email because emails are usually not case sensitive
   def downcase_email
     self.email = self.email.downcase if self.email.present?
+  end
+
+  def photo
+    return "http://i.picresize.com/images/2013/04/27/SFmNc.png"
   end
 
    # Overrides humanized attribute names

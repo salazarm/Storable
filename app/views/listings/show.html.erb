@@ -1,5 +1,5 @@
-<div id="listing-page-container" style="margin: 20px 5% 0 5%; min-width: 870px;">
-	<div id="sub-wrapper" style="margin: auto auto">
+<div id="listing-page-container" style="min-width: 870px;">
+	<div id="sub-wrapper" style="margin: auto">
 		<div id="top-left" style="float: left; width: 200px; display: margin-right: 20px">
 			<div id="profile-photo-container" style="height: 210px;" class="grey">
 				<img src="http://i.picresize.com/images/2013/04/27/SFmNc.png"/>
@@ -64,13 +64,20 @@
 				</ul>
 			</div>
 		</div>
+		<div id="listing-info-wrapper" style="max-width: 600; float: left;">
+			<div id="listing-detail" style="width: 560px; margin: 20px 0 0 30px; padding: 20px; height: 260px" class="grey">
+				<div id="listing-detail-description" style="height: 200px; overflow-y: scroll">
+					<%= @listing.description %>
+				</div>
+				<div id="listing-detail-details">
+					Price per month: <%= @listing.price %> <br />
+					Size: <%= @listing.size %> <br />
+					Available from <%= @listing.start_date.strftime("%B %d %Y")+" to "+@listing.end_date.strftime("%B %d %Y") %>
+				</div>
+			</div>
 
-		<div id="listing-detail" style="float: left; width: 560px; margin: 20px 0 0 30px; padding: 20px; height: 260px" class="grey">
-			<%= @listing.description %>
-		</div>
-
-		<div id="listing-stats" style="float: left; width: 600px; margin: 20px 0 0 30px; height: 100px" class="grey">
-
+			<div id="listing-stats" style="; float: left;width: 560px; margin: 20px 0 0 30px; padding: 10px 20px 10px 20px; height: 80px;" class="grey">
+			</div>
 		</div>
 		<div class="clearfix"></div>
 	</div>
@@ -96,6 +103,15 @@
     </div>
 </div>
 <script>
+	var sub_wrapper = $("#sub-wrapper");
+	$(window).resize(function(){
+		console.log("resize");
+		var w = $(window).width();
+		var newW = Math.floor((w-850)/2);
+		sub_wrapper.css("margin-left", newW);
+		sub_wrapper.css("margin-top", "20px")
+	});
+	$(window).trigger("resize");
 	var overlay = $("#overlay");
 	var message_sent = $("#message-sent");
 	var message_send = $("#message-send");
@@ -123,7 +139,6 @@
 				listing_id: <%= @listing.id %>,
 				message_receiver_id: <%= @listing.user.id %>,
 				message : {
-					title: 'Subject: Inquiry about <%= link_to @listing.title, listing_path(@listing) %>',
 					content: msg
 				}
 			}

@@ -1,0 +1,147 @@
+<div id="conversations-container">
+	<div id="mailbox" style="width: 800px;">
+		<div id="mailbox-nav" class="grey">
+			<span id="toggle-all-messages" class="abutton">All Messages</span>
+			<span id="toggle-hosting-messages" class="abutton">Hosting Messages</span>
+			<span id="toggle-renting-messages" class="abutton">Renting Messages</span>
+			<span id="toggle-starred-messages" class="abutton">Starred Messages</span>
+			<span id="toggle-unread-messages" class="abutton">Unread Messages</span>
+		</div>
+		<div id="conversations">
+
+		</div>
+	</div>
+</div>
+
+<script id="host-messages" type="HTML/cached-results">
+	<%= render :partial => "conversations_loop", :locals => {:conversations => @conversations[:host_conversations]} %>
+</script>
+<script id="rentee-messages" type="HTML/cached-results">
+	<%= render :partial => "conversations_loop", :locals => {:conversations => @conversations[:rentee_conversations]} %>
+</script>
+<script id="all-messages" type="HTML/cached-results">
+		<%= render :partial => "conversations_loop", :locals => {:conversations => @conversations[:all_conversations]} %>
+</script>
+<script id="starred-messages" type="HTML/cached-results">
+	<% @conversations[:all_conversations].each do |conversation| %>
+		<% if conversation.is_starred %>
+			<%= render :partial => "conversation", :locals => {:conversation => conversation, :other => (conversation.host.id != @current_user.id) ? conversation.host : conversation.renter } %>
+		<% end %>
+	<% end %>
+</script>
+<script id="unread-messages" type="HTML/cached-results">
+<% @conversations[:all_conversations].each do |conversation| %>
+	<% unless conversation.is_read %>
+		<%= render :partial => "conversation", :locals => {:conversation => conversation, :other => (conversation.host.id != @current_user.id) ? conversation.host : conversation.renter } %>
+	<% end %>
+<% end %>
+</script>
+
+<script>
+	var conversations = $("#conversations");
+
+	var hosting_conversations = $("#host-messages").html();
+	var renting_conversations = $("#rentee-messages").html();
+	var all_conversations = $("#all-messages").html();
+	var starred_conversations = $("#starred-messages").html();
+	var unread_conversations = $("#unread-messages").html();
+
+	var conversations_container = $("#conversations-container");
+
+	var toggle_all_messages_btn = $("#toggle-all-messages");
+	var toggle_hosting_messages_btn = $("#toggle-hosting-messages");
+	var toggle_renting_messages_btn = $("#toggle-renting-messages");
+	var toggle_starred_messages_btn = $("#toggle-starred-messages");
+	var toggle_unread_messages_btn = $("#toggle-unread-messages");
+
+	var active = toggle_all_messages_btn;
+
+	$(window).resize(function(){
+		var w = $(window).width();
+		var newW = Math.floor((w-850)/2);
+		conversations_container.css("margin-left", newW);
+		conversations_container.css("margin-top", "20px")
+	});
+
+	$(window).trigger("resize");
+
+	toggle_all_messages_btn.click(function(){
+		active.removeClass("active");
+		active = toggle_all_messages_btn;
+		conversations.html(all_conversations)
+		active.addClass("active");
+	});
+
+	toggle_hosting_messages_btn.click(function(){
+		active.removeClass("active");
+		active = toggle_hosting_messages_btn;
+		conversations.html(hosting_conversations);
+		active.addClass("active");
+	});
+
+	toggle_renting_messages_btn.click(function(){
+		active.removeClass("active");
+		active = toggle_renting_messages_btn;
+		conversations.html(renting_conversations);
+		active.addClass("active");
+	});
+
+	toggle_starred_messages_btn.click(function(){
+		active.removeClass("active");
+		active = toggle_starred_messages_btn;
+		conversations.html(starred_conversations);
+		active.addClass("active");
+	});
+
+	toggle_unread_messages_btn.click(function(){
+		active.removeClass("active");
+		active = toggle_unread_messages_btn;
+		conversations.html(unread_conversations);
+		active.addClass("active");
+	});
+
+ toggle_all_messages_btn.trigger("click");
+
+ var icon = $("#star-icon");
+ var toggleIconClasses = function(bool){
+ 	 	if (icon.hasClass("icon-star-empty")){
+		 	icon.removeClass("icon-star-empty");
+		 	icon.addClass("icon-star");
+		  if(bool){
+			 	icon.parent().parent().parent()[0].title
+			 	$.ajax({
+			 		url: "/conversations/"+icon.parent().parent().parent()[0].id,
+			 		type: "PUT",
+			 		data: {
+			 			listing : {
+			 				host_id : true
+			 			}
+			 		}
+			 	});
+		  }
+	  } else {
+		 	icon.removeClass("icon-star");
+		 	icon.addClass("icon-star-empty");
+		 	if(bool){
+			 	$.ajax({
+			 		type: "PUT",
+			 		url: "/conversations/"+icon.parent().parent().parent()[0].id,
+			 		data: {
+			 			listing : {
+			 				host_id : false
+			 			}
+			 		}
+			 	});
+			}
+	 }
+	};
+
+ icon.click(function(){
+ 	toggleIconClasses(true);
+ }).mouseover(function(){
+ 	toggleIconClasses(false);
+ }).mouseleave(function(){
+ 	toggleIconClasses(false);
+ });
+
+</script>

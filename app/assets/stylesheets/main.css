@@ -118,7 +118,7 @@ form {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
-#nav a, #user-area, .abutton {
+#nav a:not(#notabutton), #user-area, .abutton {
     cursor: pointer;
     background-color: #009f98 ;
     color: #fff;
@@ -135,7 +135,7 @@ form {
     transition: color .15s ease-in;
 }
 
-#nav a:hover, #user-area:hover, .abutton:hover {
+#nav a:hover:not(#notabutton), #user-area:hover, .abutton:hover, #mailbox-nav .active {
     color: #009f98;
     padding: 5px 10px 5px 10px;
     text-decoration: none;
@@ -151,6 +151,11 @@ form {
     border-width: 1px;
     border-style: dashed;
     border-color: #404040;
+}
+
+#notabutton {
+    color: #009F98;
+    text-decoration: none;
 }
 
 .user-menu-sel {
@@ -373,6 +378,68 @@ input, select, textarea, #message-text {
     border-width: 1px;
     border-style: solid;
 }
+
+#mailbox {
+    border: 1px solid #404040;
+}
+#conversations .conversation {
+    font-size: 13px;
+    line-height: 18px;
+    color: #fff;
+    padding: 5px 20px 5px 20px; 
+}
+
+#conversations .profile {
+    margin: 0;
+    padding: 0;
+    float: left;
+    width: 150px;
+}
+
+#conversations .conversation .other {
+    float: left;
+}
+
+#conversations .icons {
+   float: right;
+}
+
+#conversations .star, #conversations .mark-unread {
+    width: 50px;
+    margin: 10px 0 0px 0px;
+    display: inline-block;
+}
+#conversations .subject {
+    width: 200px;
+    margin-right: 100px;
+    float: right;   
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#conversations .conversation:not(:first-child) {
+    border-top: 1px solid #00aca4;
+}
+
+#mailbox-nav {
+    padding: 10px 20px 10px 50px;
+    font-size: 14px;
+}
+
+#mailbox .synopsis {
+    width: 500px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#mailbox .synopsis a {
+    color: #9dfffb;
+}
+
+#mailbox .favorite {
+    background-image: ;
+}
+
 
 
 /* ==========================================================================
