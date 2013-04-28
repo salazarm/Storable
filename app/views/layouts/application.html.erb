@@ -11,6 +11,12 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
   <%= csrf_meta_tags %>
+  <script>
+    $(document).ajaxSend(function(e, xhr, options) {
+      var token = $("meta[name='csrf-token']").attr("content");
+      xhr.setRequestHeader("X-CSRF-Token", token);
+    });
+  </script>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
@@ -94,7 +100,7 @@
 
     <%= yield %>
  
-  <footer style="text-align:center; bottom: 0;">
+  <footer style="text-align:center; margin-top: 20px">
     &copy; 2013 Storable, Made with love for MIT 6.170 
   </footer>
   <%= javascript_include_tag :defaults %>

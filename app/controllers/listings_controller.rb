@@ -17,15 +17,13 @@ class ListingsController < ApplicationController
   # POST /listings
   # POST /listings.json
   def create
-    require_login
-    @listing = current_user.listings.build(params[:listing])
+   @listing = @current_user.listings.build(params[:listing])
 
     if @listing.save
       respond_with(@listing, :status => :created)
     else
       respond_with(@listing.errors, :status => :unprocessable_entity)
     end
-    
   end
 
   def new
@@ -35,7 +33,8 @@ class ListingsController < ApplicationController
   # PUT /listings/1
   # PUT /listings/1.json
   def update
-    @listing = current_user.listings.find(params[:id])
+    require_login
+    @listing = @current_user.listings.find(params[:id])
 
 
     if @listing.update_attributes(params[:listing])
@@ -49,7 +48,7 @@ class ListingsController < ApplicationController
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
-    @listing = current_user.listings.find(params[:id])
+    @listing = @current_user.listings.find(params[:id])
 
     if @listing.destroy
         respond_with :status => :ok

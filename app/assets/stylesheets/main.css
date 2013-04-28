@@ -200,7 +200,7 @@ input.error {
 
 
 
-input, select, textarea {
+input, select, textarea, #message-text {
     outline-width: 0;
     text-shadow: 0 0 15px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6);
     height: 23px;
@@ -337,6 +337,42 @@ input, select, textarea {
     cursor: pointer;
 }
 
+#overlay {
+     display:none;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+     background-color: rgba(0,0,0,.5);
+}
+
+#overlay #processing {
+     width:300px;
+     margin: 100px auto;
+     background-color: #fff;
+     border:1px solid #000;
+     padding:15px;
+     text-align:center;
+}
+
+#message-container {
+    margin: 100px auto;
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: 15px;
+    text-align: center;
+}
+
+#message-close:hover {
+    background-color: #E81717;
+    cursor: pointer;
+    border-color: #fff;
+    border-width: 1px;
+    border-style: solid;
+}
 
 
 /* ==========================================================================

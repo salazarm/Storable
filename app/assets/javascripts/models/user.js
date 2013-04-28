@@ -7,11 +7,11 @@ App.Models.User = Backbone.Model.extend({
 
 
 	url : function() {
-      var base = this.base; 
+      var base = "/"+this.base; 
       if (!this.get("loggedIn")){
-        return window.location.origin +"/"+base;
+        return base;
       } else {
-        return window.location.origin +"/"+ base + (base.charAt(base.length - 1) == '/' ? '' : '/') + this.id;
+        return  base + (base.charAt(base.length - 1) == '/' ? '' : '/') + this.id;
       }
   }
 

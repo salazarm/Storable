@@ -1,4 +1,5 @@
 <div style="margin: 20px 5% 0 5%;">
+
 		Title: <%= text_field_tag :title, params[:title], :placeholder => "Candy Land" %> <br/>
 		Description: <%= text_area_tag :description, params[:description], :placeholder => "An awesome condo for your boxes!" %> <br />
 		Price: <%= number_field_tag :price, params[:price], :placeholder => "1.00" %> <br />
@@ -10,54 +11,115 @@
 		State: <%= text_field_tag :state, params[:state], :placeholder => "California" %><br />
 		Zip: <%= text_field_tag :zip, params[:zip], :placeholder => "01234" %><br/><br/>
 		<a id="upload" class="abutton" style="margin-top:10px;">Upload an Image</a>
+		Click on an image to remove it
 		<div id="images" style="margin: 20px 0 0 0"></div>
-		<input style="visibility:hidden;" id="imageupload" type="file" accept="image/* ">
+		<div class="clearfix"></div>
+		<div id="submit_listing" class="abutton" style="display: inline;">Submit</div>
+	</div>
+	<div id="overlay">
+	    <div id="processing">
+	        <p>Processing Request...</p>
+	    </div>
 	</div>
 
+	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
 	<script>
-		var over_b = "<div class='image-overlayer' style='display: inline'>"
-		var over_a = "</div>"
-		var images = [];
-		$('#upload').click(function(){                           
-		    $('#imageupload').trigger('click');
-		});
-		var onFileLoad = function(e) {
-		    var data = e.target.result;
-		    params = {
-		    	key : "235HJSUX788959874d3f3f7f5cce64b6b03e7bc4",
-		    	fileupload: data,
-		    	format: "json",
-		    	"public": "false"
-		    }
-		    $("#images").append("<div class='upload-image' id=i"+images.length+" style='background: url("+data+"); background-size: 200px 200px; width:200px; height: 200px; margin: 0 10px 10px 0' />");	 
-		    $(".upload-image").hover(function(ev){
-		    	console.log(ev.target.getAttribute("background"));
-		    }, function(ev){
-		    	console.log(ev);
-		    });
-		    images.push(data);
-		 //    $.ajax({
-			//   type: "POST",
-			//   url: "https://imageshack.us/upload_api.php",
-			//   data: params,
-			//   success: function(response, textStatus, jqXHR){
-			//   	console.log(response);
-			//   },
-			//   error: function(jqXHR, textStatus, errorThrown ){
-			//   	console.log(jqXHR);
-			//   }
-			// });
-		}
-		$('#imageupload').change(function(e){
-		    var reader = new FileReader();
-		    var files = e.dataTransfer ? e.dataTransfer.files : e.target.files
-			reader.onload = onFileLoad;
-			for(var i=0; i< files.length; i++) { 
-				reader.readAsDataURL(files[i]);
+		$("#submit_listing").click(function(){
+			$.ajax({ 
+					url: "/listings.json",
+					type: "POST",
+					data: {
+						listing: {							title: $("#title").val(),
+							description : $("#description").val(),
+							price: $("#price").val(),
+							size: $("#size").val(),
+							start_date: (new Date($("#start_date").val())).toISOString(),
+							end_date: (new Date($("#end_date").val())).toISOString(),
+						}
+					},
+
+					success: function(data, status, jqXHR){
+						makeLocation(data.id);
+						makeImages(data.id);
+					},
+
+					error : function(jqXHR, status, error){
+						alert(error);
+					}
+			});
+			
+			var makeLocation = function(list_id) {
+				$.ajax({
+					url: "/listings/"+list_id+"/locations.json",
+					type: "POST",
+					data: {
+						location: {
+							street: $("#street").val(),
+							city: $("#city").val(),
+							state: $("#state").val(),
+							zip: $("#zip").val()
+						}
+					},
+
+					error : function(jqXHR, status, error){
+						alert(error)
+					}
+				})
+			};
+
+			var makeImages = function(list_id) {
+				var request = function(location, list_id){
+					$.ajax({
+							url: "/listings/"+list_id+"/images.json",
+							type: "POST",
+							data: {
+								image : {
+									location : location
+								}
+							},
+
+							success : function(data, status, jqXHR){
+							},
+
+							error : function(jqXHR, status, error){
+								alert(error);
+							},
+							async: false
+					});
+				};
+				console.log("overlaying");
+				$("#overlay").show().queue(function(next){
+					_.each(images, function(img){
+						request(img, list_id);
+					});
+					next();
+				})
+				setTimeout(function() {
+				    $('#overlay').hide();
+				    window.location="/listings/"+list_id;
+				}, 1000); 
 			}
 		});
-
-
+		filepicker.setKey("ANiojec3SRKijkj9dvLmGz");
+		var images = [];
+		$('#upload').click(function(){                           
+		    filepicker.pickAndStore({mimetype:"image/*"},
+		    {location:"S3"}, function(fpfiles){
+		    	_.each(fpfiles, function(file){
+		    		appendImage(file);
+		    		images.push(file.url);
+		    	});
+			});
+		});
+		var imagesDiv = $("#images");
+		var appendImage = function(image){
+			var newImage = $("<div id='i"+images.length+"' style='background: url(\""+image.url+"\"); width:200px; float: left; height: 200px; background-size: 200px 200px; margin: 10px 10px 0 0; cursor: pointer;'></div>");
+			newImage.click(function(){
+				$(this).remove();
+				images.splice(this.id.substring(1), 1);
+			});
+			imagesDiv.append(newImage);
+		}
 	</script>
 
 </div>
