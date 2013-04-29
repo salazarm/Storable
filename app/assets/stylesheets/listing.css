@@ -7,7 +7,7 @@
 	background-size: 200px 200px;
 }
 
-#create-listing-wrapper {
+#form-listing-wrapper {
 	margin: 20px 5% 0 5%;
 }
 
@@ -19,7 +19,7 @@
 	display: inline;
 }
 
-#create-listing-wrapper label {
+#form-listing-wrapper label {
 	display: inline-block;
     float: left;
     clear: left;
@@ -27,12 +27,12 @@
     text-align: right;
 }
 
-#create-listing-wrapper input, #create-listing-wrapper textarea {
+#form-listing-wrapper input, #form-listing-wrapper textarea {
 	display: inline-block;
   	float: left;
 }
 
-#create-listing-wrapper textarea {
+#form-listing-wrapper textarea {
 	width: 400px;
 	height: 200px;
 }
