@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  unloadable
-  
+  DEFAULT_PHOTO = "http://i.picresize.com/images/2013/04/27/SFmNc.png"
   VALID_EMAIL_REGEX = /^.+@.+\..+$/i 
   attr_accessible :email, :about, :password, :password_confirmation, :first_name, :last_name
   has_secure_password
@@ -35,8 +34,9 @@ class User < ActiveRecord::Base
     self.email = self.email.downcase if self.email.present?
   end
 
+  # returns default photo
   def photo
-    return "http://i.picresize.com/images/2013/04/27/SFmNc.png"
+    return DEFAULT_PHOTO
   end
 
    # Overrides humanized attribute names

@@ -11,6 +11,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
   <%= csrf_meta_tags %>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <script>
     $(document).ajaxSend(function(e, xhr, options) {
       var token = $("meta[name='csrf-token']").attr("content");

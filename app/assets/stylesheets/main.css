@@ -96,6 +96,12 @@ form {
     background-color: #404040;
 }
 
+.box {
+    background-color: #fff;
+    border : 1px solid #404040;
+    padding: 2px;
+}
+
 #checkinWrapper, #checkoutWrapper {
     width: 136px;
     margin: 0 5px 0 ;
@@ -501,13 +507,40 @@ input, select, textarea, #message-text {
     padding: 2px;
     border: 1px solid #606060;
     background-color: #fff;
+    width: 200px;
+    height: 200px;
 }
 
 #overlay-stuff {
     display: none;
-
 }
 
+#about-wrapper {
+    width: 600px; 
+    height: 205px;
+}
+
+.profile-section-wrapper {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fff;
+    border-radius: 3px;
+    float: left; 
+    margin: 0 0 0 20px; 
+}
+
+.header {
+    text-align: center; 
+    margin-top: 0;
+    height: 22px;
+    background-color: #009F98;
+    margin : 2px;
+    color: #fff;
+}
+
+.profile-section-content {
+    margin: 10px;
+    font-size: 13px;
+}
 
 /* ==========================================================================
    Media Queries

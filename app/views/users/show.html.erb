@@ -1,53 +1,49 @@
 <div id="profile-page-container" style="margin: 20px 5% 0 5%; min-width: 870px;">
 	<div id="sub-wrapper" style="margin: auto auto">
 		<div id="top-left" style="float: left; width: 200px; ">
-			<div id="profile-photo-container" style="height: 210px;" class="grey">
-				<img src='<%= @user.images.last ? @user.images.last.location : @user.photo %>' />
-			</div>
+			<img class="pphoto" src='<%= @user.images.last ? @user.images.last.location : @user.photo %>' />
 		</div>
 
-		<div id="profile-about" class="grey" style="float: left; margin: 0 0 0 20px; width: 600px; height: 210px;">
-			<% if @user.first_name.nil? %>
-				<% pretty_name = @user.email %>
-			<% else %>
-				<% pretty_name = @user.first_name + " " + @user.last_name %>
-			<% end %>
-			<h1 style="text-align: center; margin-top: 0;">About <%= pretty_name %></h1>
-			<p style="margin: 10px;" id="about-content"><%= @user.about.nil? ? "This user has not written an about me section :(" : @user.about %></p>
+		<div id="about-wrapper" class="profile-section-wrapper">
+			<div class="header">About <%= @user.first_name.nil? ? @user.email : @user.first_name + " " + @user.last_name %></div>
+			<div class="profile-section-content"><%= @user.about.nil? ? "This user has not written an about me section :(" : @user.about %></div>
 		</div>
 		<div class="clearfix"></div>
-
 
 		<div id="profile-stats-container" style="width: 820px; font-size: 14px;">
 
-			<div id="renter-stats" class="grey" style="height: 200px;float: left; display: inline; margin: 20px 0 0 0px; width: 400px; ">
-				<div style="text-align: center; padding: 10px 0 0 0">Renter Stats</div>
-				<ul id="renter-stats-list">
-					<li>Rented: 0</li>
-					<li>Late Pick-Ups: 0</li>
-					<li>Overall Rating: 0/5</li>
-					<li>Timeliness Rating: 0/5</li>
-					<li>Responsiveness Rating: 0/5</li>
-					<li>Quality Rating: 0/5</li>
-				</ul>
+			<div id="renter-stats" class="profile-section-wrapper" style="height: 200px;float: left; display: inline; margin: 20px 0 0 0px; width: 400px; ">
+				<div class="header">Renter Stats</div>
+				<div class="profile-section-content">
+					<ul id="renter-stats-list">
+						<li>Rented: 0</li>
+						<li>Late Pick-Ups: 0</li>
+						<li>Overall Rating: 0/5</li>
+						<li>Timeliness Rating: 0/5</li>
+						<li>Responsiveness Rating: 0/5</li>
+						<li>Quality Rating: 0/5</li>
+					</ul>
+				</div>
 			</div>
 
-			<div id="host-stats" class="grey" style="height: 200px; margin: 20px 0 0 20px; float: left; display: inline; width: 400px;">
-				<div style="text-align: center; padding: 10px 0 0 0">Host Stats</div>
-				<ul id="host-stats-list">
-					<li>Hosted: 0</li>
-					<li>Late Returns: 0</li>
-					<li>Overall Rating: 0/5</li>
-					<li>Timeliness Rating: 0/5</li>
-					<li>Responsiveness Rating: 0/5</li>
-					<li>Quality Rating: 0/5</li>
-				</ul>
+			<div id="host-stats" class="profile-section-wrapper" style="height: 200px; margin: 20px 0 0 20px; float: left; display: inline; width: 400px;">
+				<div class="header">Host Stats</div>
+				<div class="profile-section-content">
+					<ul id="host-stats-list">
+						<li>Hosted: 0</li>
+						<li>Late Returns: 0</li>
+						<li>Overall Rating: 0/5</li>
+						<li>Timeliness Rating: 0/5</li>
+						<li>Responsiveness Rating: 0/5</li>
+						<li>Quality Rating: 0/5</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 
 		<div class="clearfix"></div>
 
-		<div id="listings-wrapper" style="width: 820px; height: 220px; margin: 20px 0 0 0px; overflow-y: hidden; overflow-x: scroll;" class="grey" >
+		<div class="profile-section-wrapper" id="listings-wrapper" style="width: 820px; height: 220px; margin: 20px 0 0 0px; overflow-y: hidden; overflow-x: scroll;" class="grey" >
 
 			<div id="profile-listings" style="width: <%= 220*@user.listings.count %>px; height: 200px; overflow-x: hidden; overflow-y: hidden;">
 
@@ -56,9 +52,9 @@
 				<% end %>
 			</div>
 		</div>
-		
 	</div>
 </div>
+<div class="clearfix"></div>
 
 <script>
 	var sub_wrapper = $("#sub-wrapper");
