@@ -440,6 +440,73 @@ input, select, textarea, #message-text {
     background-image: ;
 }
 
+#pphoto-overlay {
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%, rgba(22,0,0,.9) 90%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,.40)), color-stop(90%,rgba(22,0,0,.9))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.8) 90%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.9) 90%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.9) 90%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.9) 90%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#160000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
+#edit-profile-sub-wrapper {
+    margin: auto; 
+    width: 720px; 
+    padding: 20px 40px 40px 40px;
+}
+
+
+#pphoto-overlay {
+    width: 206px;
+    height: 206px;
+    position: absolute;
+    display: block;
+    margin: -209px 0 0 3px;
+    z-index: 3;
+    cursor: pointer;
+     border-radius: 3px;
+}
+
+#pphoto-break {
+    display: block;
+    position: absolute; 
+    vertical-align: middle; 
+    text-align: center; width: 206px; height: 206px; margin-top: -206px
+}
+
+#pphoto-overlay-text {
+    margin: -103px 0 103px 0;
+    color: #fff;
+    z-index: 4;
+    width: 206px;
+    text-align: center;
+    position: absolute;
+    cursor: pointer;
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.8);
+}
+
+#edit-profile-sub-wrapper .pphoto {
+    display: block;
+    position: relative;
+    width: 206px;
+    height: 206px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.pphoto {
+    border-radius: 3px;
+    padding: 2px;
+    border: 1px solid #606060;
+    background-color: #fff;
+}
+
+#overlay-stuff {
+    display: none;
+
+}
 
 
 /* ==========================================================================
