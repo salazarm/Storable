@@ -1,4 +1,4 @@
-<div style="margin: 20px 5% 0 5%;">
+<div id="create-listing-wrapper">
 
 		Title: <%= text_field_tag :title, params[:title], :placeholder => "Candy Land" %> <br/>
 		Description: <%= text_area_tag :description, params[:description], :placeholder => "An awesome condo for your boxes!" %> <br />
@@ -10,11 +10,11 @@
 		City: <%= text_field_tag :city, params[:city], :placeholder => "Mountain View" %><br />
 		State: <%= text_field_tag :state, params[:state], :placeholder => "California" %><br />
 		Zip: <%= text_field_tag :zip, params[:zip], :placeholder => "01234" %><br/><br/>
-		<a id="upload" class="abutton" style="margin-top:10px;">Upload an Image</a>
+		<a id="upload-image" class="abutton">Upload an Image</a>
 		Click on an image to remove it
 		<div id="images" style="margin: 20px 0 0 0"></div>
 		<div class="clearfix"></div>
-		<div id="submit_listing" class="abutton" style="display: inline;">Submit</div>
+		<div id="submit-listing" class="abutton">Submit</div>
 	</div>
 	<div id="overlay">
 	    <div id="processing">
@@ -24,8 +24,9 @@
 
 	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
 	<script>
-		$("#submit_listing").click(function(){
+		$("#submit-listing").click(function(){
 			var offset = 0;
+
 			$.ajax({ 
 					url: "/listings.json",
 					type: "POST",
@@ -103,7 +104,7 @@
 		});
 		filepicker.setKey("ANiojec3SRKijkj9dvLmGz");
 		var images = [];
-		$('#upload').click(function(){                           
+		$('#upload-image').click(function(){                           
 		    filepicker.pickAndStore({
 		    	mimetype:"image/*",
 		    	'multiple': true
@@ -138,8 +139,3 @@
 	</script>
 
 </div>
-
-
-
-
-
