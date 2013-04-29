@@ -18,3 +18,16 @@
 #submit-listing {
 	display: inline;
 }
+
+#create-listing-wrapper label {
+	display: inline-block;
+    float: left;
+    clear: left;
+    width: 100px;
+    text-align: right;
+}
+
+#create-listing-wrapper input {
+	display: inline-block;
+  	float: left;
+}
