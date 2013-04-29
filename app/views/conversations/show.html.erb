@@ -1,7 +1,7 @@
 <% other = @conversation.host.id != @current_user.id ? @conversation.host : @conversation.renter %> 
 <div id="messages-wrapper" style="width: 800px">
 	<div id="conversation-wrapper" style="width: 800px; background-color: #ebebeb; padding: 10px; border-radius: 3px;">
-				<div id="conversation-header" style="text-align: center;">Conversation With <%= link_to other.email, pretty_name(other) %> regarding <%= link_to @conversation.listing.title, 
+				<div  class="header" id="conversation-header" style="text-align: center;">Conversation With <%= link_to other.email, pretty_name(other) %> regarding <%= link_to @conversation.listing.title, 
 		listing_path(@conversation.listing_id) %>
 			</div> 
 		<div id="text-area" contenteditable="true" style="height: 100px; border: 1px solid #000; margin-top: 20px; font-size: 13px; overflow-y: scroll; border-radius: 3px; background-color: #fff;">

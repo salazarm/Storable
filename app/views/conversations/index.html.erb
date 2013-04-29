@@ -1,6 +1,6 @@
-<div id="conversations-container">
+<div id="conversations-container" class="profile-section-wrapper ">
 	<div id="mailbox" style="width: 800px;">
-		<div id="mailbox-nav" class="grey">
+		<div id="mailbox-nav">
 			<span id="toggle-all-messages" class="abutton">All Messages</span>
 			<span id="toggle-hosting-messages" class="abutton">Hosting Messages</span>
 			<span id="toggle-renting-messages" class="abutton">Renting Messages</span>
@@ -107,15 +107,15 @@
 
  toggle_all_messages_btn.trigger("click");
 
- var icon = $("#star-icon");
- var toggleIconClasses = function(bool){
+ var icon = $(".star-icon");
+ var toggleIconClasses = function(bool, icon){
  	 	if (icon.hasClass("icon-star-empty")){
 		 	icon.removeClass("icon-star-empty");
 		 	icon.addClass("icon-star");
 		  if(bool){
-			 	icon.parent().parent().parent()[0].title
+			 	var id = icon.parent().parent().parent()[0].id
 			 	$.ajax({
-			 		url: '<%= conversations_path %>' +'/'+ icon.parent().parent().parent()[0].id,
+			 		url: '<%= conversations_path %>' +'/'+ id,
 			 		type: "PUT",
 			 		data: {
 			 			listing : {
@@ -128,9 +128,10 @@
 		 	icon.removeClass("icon-star");
 		 	icon.addClass("icon-star-empty");
 		 	if(bool){
+		 		var id = icon.parent().parent().parent()[0].id
 			 	$.ajax({
 			 		type: "PUT",
-			 		url: "/conversations/"+icon.parent().parent().parent()[0].id,
+			 		url: '<%= conversations_path %>' +'/'+id,
 			 		data: {
 			 			listing : {
 			 				host_id : false
@@ -142,11 +143,11 @@
 	};
 
  icon.click(function(){
- 	toggleIconClasses(true);
+ 	toggleIconClasses(true, $(this));
  }).mouseover(function(){
- 	toggleIconClasses(false);
+ 	toggleIconClasses(false, $(this));
  }).mouseleave(function(){
- 	toggleIconClasses(false);
+ 	toggleIconClasses(false, $(this));
  });
 
 </script>

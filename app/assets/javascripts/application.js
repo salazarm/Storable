@@ -1,4 +1,3 @@
-
 var App = {
     Views: {},
     Routers: {},

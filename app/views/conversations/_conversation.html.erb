@@ -1,8 +1,11 @@
 <% user_starred = @current_user.id == conversation.renter_id ? conversation.renter_starred : conversation.host_starred %>
 <% user_type_id = @current_user.id == conversation.renter_id ? "renter_id" : "host_id" %>
-<div id="<%=conversation.id %>" class="conversation blue" title='<%= user_type_id %>'>
+<div id="<%=conversation.id %>" class="conversation" style='height: 64px; overflow: hidden; text-overflow: ellipsis;'>
 	<div class="profile">
-		<a href='<%= user_path(other) %>'><img class="message-photo" src=<%= profile_picture_for(other) %> width="50px" height="50px" style="display: inline"></img></a>
+		<a href='<%= user_path(other) %>'><img class="message-photo" src=<%= profile_picture_for(other) %> width="50px" height="50px" style="vertical-align: middle; margin-top: 10px; position: absolute;"></img></a>
+		<div style="text-overflow: ellipsis; overflow: hidden; font-size: 12px; display: inline-block; width: 90px; height: 50px; margin-left: 60px; margin-top: 13px;">
+		<%= pretty_name(other) %>
+		</div>
 	</div>
 	<div class="other">
 		<% listing = conversation.listing %>
@@ -13,9 +16,9 @@
 	<div class="icons">
 		<div class="star">
 			<% if user_starred %>
-				<i id="star-icon" class="icon-star icon-3x"></i>
+				<i class="star-icon icon-star icon-3x"></i>
 			<% else %>
-				<i id="star-icon" class="icon-star-empty icon-3x"></i>
+				<i class="star-icon icon-star-empty icon-3x"></i>
 			<% end %>
 		</div>
 	</div>

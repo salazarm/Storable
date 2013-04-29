@@ -11,14 +11,14 @@
 				<div class="abutton" style="text-align: center; font-size: 14px; border-radius: 0"> Sign up to rent this space! </div>
 
 			<% else %>
-					<a class="abutton" style="text-align: center; font-size: 14px; border-radius: 0; display: block; margin-top: 13px;" 
+					<a class="abutton" style="text-align: center; font-size: 14px; border-radius: 0; display: block; margin-top: 18px;" 
 					href=<%= edit_listing_path(@listing) %>>
 						Edit Listing
 					</a>
 			<% end %>
 		</div>
 
-		<div id="listing-images-container" style="float: left; width: 600px; height: 246px; margin: 0 0 0 30px;" class="profile-section-wrapper">
+		<div id="listing-images-container" style="float: left; width: 600px; height: 251px; margin: 0 0 0 30px;" class="profile-section-wrapper">
 
 			<div class="header" style="margin: 4px 10px 10px 10px">
 				<%= @listing.title %>	
@@ -28,7 +28,7 @@
 				<div id="listing-images" style="float: left; width: <%= @listing.images.count * 220 %>px; overflow-y: hidden; overflow-x: scroll;">
 					<% @listing.images.each do |image| %>
 						<div class="listing-image">
-							<img style="width: 200px; height:200px; padding: 1px;" src="<%= image.location %>"></img>
+							<img style="width: 200px; height:200px; padding: 1px; cursor: pointer;" src="<%= image.location %>" href='<%= image.location %>' class="fancybox"></img>
 						</div>
 					<% end %>
 				</div>
