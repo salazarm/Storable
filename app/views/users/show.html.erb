@@ -2,6 +2,14 @@
 	<div id="sub-wrapper" style="margin: auto auto">
 		<div id="top-left" style="float: left; width: 200px; ">
 			<img class="pphoto" src='<%= @user.images.last ? @user.images.last.location : @user.photo %>' />
+			<% if @current_user && @user.id == @current_user.id %>
+				<span id="overlay-stuff">
+					<div id="pphoto-overlay-ppage"></div>
+				    <div id="pphoto-break"></div>
+					<div id="pphoto-overlay-text"> Change Profile Photo</div>
+				</span>
+				<div class="clearfix"></div>
+			<% end %>
 		</div>
 
 		<div id="about-wrapper" class="profile-section-wrapper">
@@ -67,3 +75,54 @@
 	});
 	$(window).trigger("resize");
 </script>
+
+<% if @current_user && @user.id == @current_user.id %>
+	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
+	<script type="text/javascript">	
+		var photo = $(".pphoto");
+		filepicker.setKey("ANiojec3SRKijkj9dvLmGz");
+		$("#overlay-stuff").click(function(){
+			filepicker.pickAndStore({
+			    	mimetype:"image/*",
+			    	'multiple': false,
+			    	services:['COMPUTER', 'FACEBOOK', 'GMAIL'],
+			    },
+			    {
+			    	location:"S3",
+			  	}, 
+			    function(fpfiles){
+			    	_.each(fpfiles, function(file){
+			    		if (photo[0].id != "none"){
+			    			removePhoto(photo[0].id);
+			    		}   
+			    		uploadPhoto(file.url);
+			    		photo[0].src = file.url;
+			    	});
+				});
+		});
+		$(".pphoto, #overlay-stuff ").mouseenter(function(){
+			$("#overlay-stuff").show();
+		}).mouseleave(function(){
+			$("#overlay-stuff").hide();
+		});
+
+		var uploadPhoto = function(url){
+			$.ajax({
+				type: "POST",
+				url: "/users/"+<%= @current_user.id %>+"/images.json",
+				data: {
+					image : {
+						location: url,
+					},
+				},
+			});
+		};
+
+		var removePhoto = function(id){
+			$.ajax({
+				url: "/users/"+<%= @current_user.id %>+"/images/"+id,
+				type: "DELETE",
+			});
+		}
+	</script>
+<% end %>
