@@ -55,8 +55,9 @@
             </span>
             <a id="login1" class="login" href="#login">Login</a>
              OR
-            <a id="signup1" class="signup" href="#signup">Signup</a>
-            <a id="signup2" class="signup hide" href="#signup">Signup</a>
+            <!-- <a id="signup1" class="signup" href="#signup">Signup</a>
+            <a id="signup2" class="signup hide" href="#signup">Signup</a> -->
+            <a href=<%= new_user_path %>>Signup</a>
             <a id="logout" class="logout-btn hide" href="#logout">Logout</a>
             <a id="login2" class="login hide" href="#login">Login</a>
         </span>
@@ -64,7 +65,11 @@
           <span id="user-email"></span>
           <ul id="user-nav"> 
             <div id="profile" class="user-menu-sel">Profile</div>
-            <a href=<%= conversations_path %> id="notabutton"><div id="notif" class="user-menu-sel">Messages (<%= new_messages_count %>)</div></a>
+            <% unless @current_user.nil? %>
+              <a href=<%= edit_user_path(@current_user) %> class="notabutton">
+                <div class="user-menu-sel">Edit Profile</div></a>
+            <% end %>
+            <a href=<%= conversations_path %> class="notabutton"><div id="notif" class="user-menu-sel">Messages (<%= new_messages_count %>)</div></a>
             <div id="logoutbtn" class="user-menu-sel">Log Out</div>
           </ul>
         </span>
