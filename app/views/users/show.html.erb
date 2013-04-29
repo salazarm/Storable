@@ -2,7 +2,7 @@
 	<div id="sub-wrapper" style="margin: auto auto">
 		<div id="top-left" style="float: left; width: 200px; ">
 			<div id="profile-photo-container" style="height: 210px;" class="grey">
-				<img src="http://i.picresize.com/images/2013/04/27/SFmNc.png"/>
+				<img src='<%= @user.images.last ? @user.images.last.location : @user.photo %>' />
 			</div>
 		</div>
 
