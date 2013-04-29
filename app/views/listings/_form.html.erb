@@ -1,14 +1,16 @@
-	Title: <%= text_field_tag :title, listing.title, :placeholder => "Candy Land" %> <br/>
-	Description: <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!" %> <br />
-	Price: <%= number_field_tag :price, listing.price , :placeholder => "1.00" %> <br />
-	Size: <%= number_field_tag :size, listing.size, :placeholder => "2.25" %><br />
-	Start Date: <%= text_field_tag :start_date, listing.start_date, :class => "ui-datepicker-target" %><br />
-	End Date: <%= text_field_tag :end_date, listing.end_date, :class => "ui-datepicker-target" %><br />
-	Street Address: <%= text_field_tag :street, listing.location.street, :placeholder => "123 Silicon Valley Express Way" %><br />
-	City: <%= text_field_tag :city, listing.location.city, :placeholder => "Mountain View" %><br />
-	State: <%= text_field_tag :state, listing.location.state, :placeholder => "California" %><br />
-	Zip: <%= text_field_tag :zip, listing.location.zip, :placeholder => "01234" %><br/><br/>
-		<a id="upload" class="abutton" style="margin-top:10px; display: inline-block;">Upload an Image</a>
+	<label>Title:</label> <%= text_field_tag :title, listing.title, :placeholder => "Candy Land" %> <br/>
+	<label>Description:</label> <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!" %> <br />
+	<label>Price:</label> <%= number_field_tag :price, listing.price , :placeholder => "1.00" %> <br />
+	<label>Size:</label> <%= number_field_tag :size, listing.size, :placeholder => "2.25" %><br />
+	<label>Start Date:</label> <%= text_field_tag :start_date, listing.start_date, :class => "ui-datepicker-target" %><br />
+	<label>End Date:</label> <%= text_field_tag :end_date, listing.end_date, :class => "ui-datepicker-target" %><br />
+	<label>Street Address:</label> <%= text_field_tag :street, listing.location.street, :placeholder => "123 Silicon Valley Express Way" %><br />
+	<label>City:</label> <%= text_field_tag :city, listing.location.city, :placeholder => "Mountain View" %><br />
+	<label>State:</label> <%= text_field_tag :state, listing.location.state, :placeholder => "California" %><br />
+	<label>Zip:</label> <%= text_field_tag :zip, listing.location.zip, :placeholder => "01234" %><br/>
+	<div class="clearfix"></div>
+	<br />
+		<a id="upload" class="abutton" style="margin-top:10px;">Upload an Image</a>
 		Click on an image to remove it
 		<div id="images" style="margin: 20px 0 0 0"></div>
 		<div class="clearfix"></div>
