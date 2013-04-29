@@ -23,11 +23,16 @@
 	display: inline-block;
     float: left;
     clear: left;
-    width: 100px;
+    width: 150px;
     text-align: right;
 }
 
-#create-listing-wrapper input {
+#create-listing-wrapper input, #create-listing-wrapper textarea {
 	display: inline-block;
   	float: left;
+}
+
+#create-listing-wrapper textarea {
+	width: 400px;
+	height: 200px;
 }
