@@ -1,13 +1,13 @@
 <% if message.user.id == @current_user.id %>
-	<div class="message" style="background-color: #D9D9D9; padding: 10px; <%= 'border-top: 1px solid #404040;' if message.id == @conversation.messages.first.id %> border-bottom: 1px solid #404040; font-size: 12px; height: 50px">
-					<a href=<%= user_path(message.user) %>><img class="user-photo" src="<%= message.user.photo %>" width="50px" height="50px" style="padding: 0 20px 20px 0; float: left;"></img></a>
+	<div class="message" style="background-color: #D9D9D9; padding: 10px; <%= 'border-top: 1px solid #404040;' if message.id == @conversation.messages.last.id %> border-bottom: 1px solid #404040; font-size: 12px; height: 50px">
+					<a href=<%= user_path(message.user) %>><img class="user-photo" src="<%= profile_picture_for(message.user) %>" width="50px" height="50px" style="padding: 0 20px 20px 0; float: left;"></img></a>
 					 <%= message.content %>
 					<div class="date"><%= Time.zone.parse(message.created_at.to_s).utc %></div>
 	</div>
 <% else %>
-	<div class="message" style="background-color: #D9D9D9; padding: 10px; <%= 'border-top: 1px solid #404040;' if message.id == @conversation.messages.first.id %> border-bottom: 1px solid #404040; font-size: 12px; height: 50px; text-align: right; margin-right: 0px; width: 780px ">
+	<div class="message" style="background-color: #D9D9D9; padding: 10px; <%= 'border-top: 1px solid #404040;' if message.id == @conversation.messages.last.id %> border-bottom: 1px solid #404040; font-size: 12px; height: 50px; text-align: right; margin-right: 0px; width: 780px ">
 					<%= message.content %>
-					<a href=<%= user_path(message.user) %>><img class="user-photo" src="<%= message.user.photo %>" width="50px" height="50px" style="padding: 0 0px 20px 20px; float: right;"></img></a>
+					<a href=<%= user_path(message.user) %>><img class="user-photo" src="<%= profile_picture_for(message.user) %>" width="50px" height="50px" style="padding: 0 0px 20px 20px; float: right;"></img></a>
 					<div class="date"><%= Time.zone.parse(message.created_at.to_s).utc %></div>
 	</div>
 <% end %>

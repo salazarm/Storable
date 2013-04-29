@@ -423,9 +423,6 @@ input, select, textarea, #message-text {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#conversations .conversation:not(:first-child) {
-    border-top: 1px solid #00aca4;
-}
 
 #mailbox-nav {
     padding: 10px 20px 10px 50px;
@@ -535,11 +532,24 @@ input, select, textarea, #message-text {
     background-color: #009F98;
     margin : 2px;
     color: #fff;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
 .profile-section-content {
     margin: 10px;
     font-size: 13px;
+}
+
+.listing img {
+    padding: 2px;
+}
+
+.listing-image {
+    border-radius: 3px;
+    border: 1px solid #404040;
+    float: left;
+    margin: 0px 10px 0px 0px;
 }
 
 /* ==========================================================================

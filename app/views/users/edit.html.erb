@@ -2,7 +2,6 @@
 <% profile_photo_id = @current_user.images.last ? @current_user.images.last.id : "none" %>
 
 <div id="edit-profile-sub-wrapper">
-
 	<img class="pphoto" src="<%=  profile_photo_location %>" id="<%= profile_photo_id  %>" ></img>
 	<span id="overlay-stuff">
 		<div id="pphoto-overlay"></div>

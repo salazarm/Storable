@@ -5,7 +5,7 @@
 		</div>
 
 		<div id="about-wrapper" class="profile-section-wrapper">
-			<div class="header">About <%= @user.first_name.nil? ? @user.email : @user.first_name + " " + @user.last_name %></div>
+			<div class="header">About <%= pretty_name(@user) %></div>
 			<div class="profile-section-content"><%= @user.about.nil? ? "This user has not written an about me section :(" : @user.about %></div>
 		</div>
 		<div class="clearfix"></div>

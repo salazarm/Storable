@@ -10,4 +10,12 @@ module ApplicationHelper
 			return 0
 		end
 	end
+
+	def profile_picture_for(user)
+		return user.images.last ? user.images.last.location : user.photo
+	end
+
+	def pretty_name(user)
+		user.first_name.nil? ? user.email : user.first_name + " " + user.last_name
+	end
 end
