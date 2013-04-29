@@ -14,7 +14,7 @@ class UsersController < ApplicationController
      user = User.new(params[:user])
      if user.save
        session[:user_id] = user.id
-       render :json => user, :only => ["id" ,"email"], :status => 200
+       redirect_to root_url
      else
        render :json => user.errors, :status => 500
      end
