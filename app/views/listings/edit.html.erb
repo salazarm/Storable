@@ -1,0 +1,10 @@
+<div style="margin: 20px 5% 0 5%;">
+
+		<%= render :partial=> "form", :locals => { :listing => @listing } %>
+	<script>
+		<% @listing.images.each do |image| %>
+			appendImage('<%= image.location %>', true, '<%= image.id %>');
+		<% end %>
+	</script>
+
+</div>

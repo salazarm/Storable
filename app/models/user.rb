@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  unloadable
   
   VALID_EMAIL_REGEX = /^.+@.+\..+$/i 
   attr_accessible :email, :about, :password, :password_confirmation

@@ -26,8 +26,15 @@ class ListingsController < ApplicationController
     end
   end
 
+  def edit
+    @listing = Listing.find_by_id(params[:id])
+    respond_with(@listing, :status => :ok)
+  end
+  
   def new
     require_login
+    @listing = Listing.new
+    @listing.location = Location.new
   end
 
   # PUT /listings/1
@@ -35,10 +42,9 @@ class ListingsController < ApplicationController
   def update
     require_login
     @listing = @current_user.listings.find(params[:id])
-
-
     if @listing.update_attributes(params[:listing])
-      respond_with(@listing, :status => :ok)
+      render :json => @listing
+      # respond_with(@listing, :status => :ok)
     else
       respond_with(@listing.errors, :status => :unprocessable_entity)
     end

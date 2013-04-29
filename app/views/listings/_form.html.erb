@@ -1,0 +1,145 @@
+	Title: <%= text_field_tag :title, listing.title, :placeholder => "Candy Land" %> <br/>
+	Description: <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!" %> <br />
+	Price: <%= number_field_tag :price, listing.price , :placeholder => "1.00" %> <br />
+	Size: <%= number_field_tag :size, listing.size, :placeholder => "2.25" %><br />
+	Start Date: <%= text_field_tag :start_date, listing.start_date, :class => "ui-datepicker-target" %><br />
+	End Date: <%= text_field_tag :end_date, listing.end_date, :class => "ui-datepicker-target" %><br />
+	Street Address: <%= text_field_tag :street, listing.location.street, :placeholder => "123 Silicon Valley Express Way" %><br />
+	City: <%= text_field_tag :city, listing.location.city, :placeholder => "Mountain View" %><br />
+	State: <%= text_field_tag :state, listing.location.state, :placeholder => "California" %><br />
+	Zip: <%= text_field_tag :zip, listing.location.zip, :placeholder => "01234" %><br/><br/>
+		<a id="upload" class="abutton" style="margin-top:10px;">Upload an Image</a>
+		Click on an image to remove it
+		<div id="images" style="margin: 20px 0 0 0"></div>
+		<div class="clearfix"></div>
+		<div id="submit_listing" class="abutton" style="display: inline;">Submit</div>
+	</div>
+	<div id="overlay">
+	    <div id="processing">
+	        <p>Processing Request...</p>
+	    </div>
+	</div>
+
+	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
+	<script>
+		$("#submit_listing").click(function(){
+			$.ajax({ 
+					url: "/listings"+'<%= @listing.id ? "/"+@listing.id.to_s+".json" : ".json" %>',
+					type: '<%= @listing.id ? "PUT" : "POST" %>',
+					data: {
+						listing: {							
+							title: $("#title").val(),
+							description : $("#description").val(),
+							price: $("#price").val(),
+							size: $("#size").val(),
+							start_date: (new Date($("#start_date").val())).toISOString(),
+							end_date: (new Date($("#end_date").val())).toISOString(),
+						}
+					},
+
+					success: function(data, status, jqXHR){
+						console.log(data);
+						makeLocation(data.id);
+						makeImages(data.id);
+					},
+
+					error : function(jqXHR, status, error){
+						alert(error);
+					}
+			});
+			
+			var makeLocation = function(list_id) {
+				$.ajax({
+					url: "/listings/"+list_id+"/locations"+'<%= @listing.location.id ? "/"+@listing.location.id.to_s : "" %>'+".json",
+					type: "PUT",
+					data: {
+						location: {
+							street: $("#street").val(),
+							city: $("#city").val(),
+							state: $("#state").val(),
+							zip: $("#zip").val()
+						}
+					},
+
+					error : function(jqXHR, status, error){
+						alert(error)
+					}
+				})
+			};
+
+			var makeImages = function(list_id) {
+				var request = function(location, list_id){
+					$.ajax({
+							url: "/listings/"+list_id+"/images.json",
+							type: "POST",
+							data: {
+								image : {
+									location : location
+								}
+							},
+
+							success : function(data, status, jqXHR){
+							},
+
+							error : function(jqXHR, status, error){
+								alert(error);
+							},
+							async: false
+					});
+				};
+				console.log("overlaying");
+				$("#overlay").show().queue(function(next){
+					_.each(images, function(img){
+						request(img, list_id);
+					});
+					next();
+				})
+				setTimeout(function() {
+				    $('#overlay').hide();
+				    window.location="/listings/"+list_id;
+				}, 1000); 
+			}
+		});
+		filepicker.setKey("ANiojec3SRKijkj9dvLmGz");
+		var images = [];
+		$('#upload').click(function(){                           
+		    filepicker.pickAndStore({
+		    	mimetype:"image/*",
+		    	'multiple': true
+		    },
+		    {
+		    	location:"S3",
+		  	}, 
+		    function(fpfiles){
+		    	_.each(fpfiles, function(file){
+		    		appendImage(file);
+		    		images.push(file.url);
+		    	});
+			});
+		});
+		var imagesDiv = $("#images");
+		var lowerIDs = function(number){
+			$("#images").children().each(function(){
+				if(this.id > number){
+					this.id -= 1;
+				}
+			});
+		}
+		var appendImage = function(image, b, title){
+			var listing_id = '<%= @listing.id %>'
+			var newImage = $("<div id='"+images.length+"' style='background: url(\""+(b ? image : image.url)+"\"); width:200px; float: left; height: 200px; background-size: 200px 200px; margin: 10px 10px 0 0; cursor: pointer; title=title'></div>");
+			newImage.click(function(){
+				$(this).remove();
+				images.splice(this.id, 1);
+				lowerIDs(this.id);
+				if(title){
+					$.ajax({
+						url: "/listings/"+listing_id+"/images/"+title,
+						type: "DELETE"
+					});
+				}
+			});
+			imagesDiv.append(newImage);
+		}
+		var deleteImage
+		</script>
