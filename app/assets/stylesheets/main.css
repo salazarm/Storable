@@ -118,7 +118,7 @@ form {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
-#nav a:not(#notabutton), #user-area, .abutton {
+#nav a:not(.notabutton), #user-area, .abutton {
     cursor: pointer;
     background-color: #009f98 ;
     color: #fff;
@@ -135,7 +135,7 @@ form {
     transition: color .15s ease-in;
 }
 
-#nav a:hover:not(#notabutton), #user-area:hover, .abutton:hover, #mailbox-nav .active {
+#nav a:hover:not(.notabutton), #user-area:hover, .abutton:hover, #mailbox-nav .active {
     color: #009f98;
     padding: 5px 10px 5px 10px;
     text-decoration: none;
@@ -153,7 +153,7 @@ form {
     border-color: #404040;
 }
 
-#notabutton {
+.notabutton {
     color: #009F98;
     text-decoration: none;
 }
