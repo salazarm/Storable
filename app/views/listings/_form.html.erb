@@ -51,7 +51,7 @@
 			var makeLocation = function(list_id) {
 				$.ajax({
 					url: "/listings/"+list_id+"/locations"+'<%= @listing.location.id ? "/"+@listing.location.id.to_s : "" %>'+".json",
-					type: "PUT",
+					type: '<%= @listing.location.id ? "PUT" : "POST" %>',
 					data: {
 						location: {
 							street: $("#street").val(),

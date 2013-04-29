@@ -7,7 +7,12 @@
 		</div>
 
 		<div id="profile-about" class="grey" style="float: left; margin: 0 0 0 20px; width: 600px; height: 210px;">
-			<h1 style="text-align: center; margin-top: 0;">About <%= @user.email %></h1>
+			<% if @user.first_name.nil? %>
+				<% pretty_name = @user.email %>
+			<% else %>
+				<% pretty_name = @user.first_name + " " + @user.last_name %>
+			<% end %>
+			<h1 style="text-align: center; margin-top: 0;">About <%= pretty_name %></h1>
 			<p style="margin: 10px;" id="about-content"><%= @user.about.nil? ? "This user has not written an about me section :(" : @user.about %></p>
 		</div>
 		<div class="clearfix"></div>
