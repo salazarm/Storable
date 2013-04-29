@@ -1,8 +1,8 @@
 <div id="listing-page-container" style="min-width: 870px;">
 	<div id="sub-wrapper" style="margin: auto">
-		<div id="top-left" style="float: left; width: 200px; display: margin-right: 20px">
-			<div id="profile-photo-container" style="height: 210px;" class="grey">
-				<img src="http://i.picresize.com/images/2013/04/27/SFmNc.png"/>
+		<div id="top-left" style="float: left; width: 206px; display: margin-right: 20px">
+			<div id="profile-photo-container" style="height: 206px;" class="grey">
+				<img class="pphoto" src='<%= @listing.user.images.last ? @listing.user.images.last.location : @listing.user.photo %>' />
 			</div>
 
 			<% if @current_user && @listing.user.id != @current_user.id %>
@@ -40,7 +40,7 @@
 		<div class="clearfix"></div>
 		<div id="profile-stats-container" style="float: left; width: 200px; font-size: 14px;">
 
-			<div id="renter-stats" class="grey" style="height: 200px; margin: 20px 0 0 0px; width: 200px;">
+			<div id="renter-stats" class="grey" style="height: 200px; margin: 20px 0 0 0px; width: 206px;">
 				<div style="text-align: center; padding: 10px 0 0 0">Renter Stats</div>
 				<ul id="renter-stats-list">
 					<li>Rented: 0</li>
@@ -52,7 +52,7 @@
 				</ul>
 			</div>
 
-			<div id="host-stats" class="grey" style="height: 200px; margin: 20px 0 0 0px; width: 200px;">
+			<div id="host-stats" class="grey" style="height: 200px; margin: 20px 0 0 0px; width: 206px;">
 				<div style="text-align: center; padding: 10px 0 0 0">Host Stats</div>
 				<ul id="host-stats-list">
 					<li>Hosted: 0</li>
