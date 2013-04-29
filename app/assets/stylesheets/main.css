@@ -443,7 +443,7 @@ input, select, textarea, #message-text {
     background-image: ;
 }
 
-#pphoto-overlay {
+#pphoto-overlay, #pphoto-overlay-ppage {
     background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%, rgba(22,0,0,.9) 90%); /* FF3.6+ */
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,.40)), color-stop(90%,rgba(22,0,0,.9))); /* Chrome,Safari4+ */
     background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.8) 90%); /* Chrome10+,Safari5.1+ */
@@ -467,6 +467,17 @@ input, select, textarea, #message-text {
     position: absolute;
     display: block;
     margin: -209px 0 0 3px;
+    z-index: 3;
+    cursor: pointer;
+     border-radius: 3px;
+}
+
+#pphoto-overlay-ppage {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    display: block;
+    margin: -203px 0 0 3px;
     z-index: 3;
     cursor: pointer;
      border-radius: 3px;
