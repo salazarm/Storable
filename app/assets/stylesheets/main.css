@@ -60,7 +60,7 @@ textarea {
    Author's custom styles
    ========================================================================== */
 html {
-    background-color: #04bf9d;
+    background: url("https://drpyjw32lhcoa.cloudfront.net/66d7185/img/landingv2/subtle_surface.png");
     font-family: 'Arvo', serif;
 }
 
@@ -112,7 +112,7 @@ form {
 }
 #nav {
     margin: 0 0 0 0;
-    color: #04bf9d;
+    color: #444;
     padding: 10px 20px 11px 20px;
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%); /* FF3.6+ */
@@ -126,10 +126,9 @@ form {
 
 #nav a:not(.notabutton), #user-area, .abutton {
     cursor: pointer;
-    background-color: #009f98 ;
+    background-color: #444 ;
     color: #fff;
-    border-radius: 3px;
-    padding: 5px 11px 5px 11px;
+    padding: 6px 11px 6px 11px;
     text-decoration: none;
     -webkit-transition: background-color .15s ease-in;
     -moz-transition: background-color .15s ease-in;
@@ -142,8 +141,8 @@ form {
 }
 
 #nav a:hover:not(.notabutton), #user-area:hover, .abutton:hover, #mailbox-nav .active {
-    color: #009f98;
-    padding: 5px 10px 5px 10px;
+    color: #444;
+    padding: 6px 11px 6px 11px;
     text-decoration: none;
     -webkit-transition: color .45s ease-in;
     -moz-transition: color .45s ease-in;
@@ -154,13 +153,10 @@ form {
     -moz-transition: background-color .15s ease-in;
     -o-transition: background-color .15s ease-in;
     transition: background-color .15s ease-in;
-    border-width: 1px;
-    border-style: dashed;
-    border-color: #404040;
 }
 
 .notabutton {
-    color: #009F98;
+    color: #444;
     text-decoration: none;
 }
 
@@ -171,7 +167,7 @@ form {
 
 .user-menu-sel:hover {
     color: #fff;
-    background-color: #009f98;
+    background-color: #444;
 }
 
 #location {
@@ -258,7 +254,7 @@ input, select, textarea, #message-text {
 
 #search_form {
     margin-top: -2px;
-    background: #009F98;
+    background: #444;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -510,8 +506,17 @@ input, select, textarea, #message-text {
     cursor: pointer;
 }
 
+.light-shadow {
+    -webkit-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    -box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    background: white;
+}
 .pphoto {
-    border-radius: 3px;
+    -webkit-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    -box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    background: white;
     padding: 2px;
     border: 1px solid #606060;
     background-color: #fff;
@@ -530,21 +535,37 @@ input, select, textarea, #message-text {
 
 .profile-section-wrapper {
     font-family: 'Open Sans', sans-serif;
-    background-color: #fff;
-    border-radius: 3px;
+    border-top: 1px #DDD solid;
+    border-bottom: 1px #DDD solid;
+    border-radius: 0px;
     float: left; 
     margin: 0 0 0 20px; 
+    -webkit-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    -box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    background: white;
+}
+
+.profile-section-wrapper-custom {
+    -webkit-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    -box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    background: white;
+    font-family: 'Open Sans', sans-serif;
+    border-top: 1px #DDD solid;
+    border-bottom: 1px #DDD solid;
+    border-radius: 0px;
+
 }
 
 .header {
     text-align: center; 
     margin-top: 0;
     height: 22px;
-    background-color: #009F98;
+    background-color: #444;
     margin : 2px;
     color: #fff;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+
 }
 
 .profile-section-content {

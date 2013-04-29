@@ -1,7 +1,7 @@
 <div id="profile-page-container" style="margin: 20px 5% 0 5%; min-width: 870px;">
 	<div id="sub-wrapper" style="margin: auto auto">
 		<div id="top-left" style="float: left; width: 200px; ">
-			<img class="pphoto" src='<%= @user.images.last ? @user.images.last.location : @user.photo %>' />
+			<img class="pphoto" src='<%= profile_picture_for(@user) %>' />
 			<% if @current_user && @user.id == @current_user.id %>
 				<span id="overlay-stuff">
 					<div id="pphoto-overlay-ppage"></div>
