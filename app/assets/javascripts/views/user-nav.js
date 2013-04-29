@@ -13,7 +13,7 @@ App.Views.User_Nav = Backbone.View.extend({
 	},
 
 	go_to_profile : function() {
-		window.location = "../users/"+this.model.get("id");
+		window.location = "/users/"+this.model.get("id");
 	},
 
 	show_user_dropdown : function() {
