@@ -348,6 +348,15 @@ input, select, textarea, #message-text {
     cursor: pointer;
 }
 
+.image-heading {
+    color: #fff; 
+    background-color: rgba(0,0,0,.6); 
+    text-align:center; 
+    text-overflow: ellipsis; 
+    height: 23px; 
+    white-space: nowrap; 
+}
+
 #overlay {
      display:none;
      position: absolute;
@@ -560,6 +569,8 @@ input, select, textarea, #message-text {
     background-color: #fff;
     width: 200px;
     height: 200px;
+    background-size: 204px 204px;
+    background-repeat: no-repeat;
 }
 
 #overlay-stuff {

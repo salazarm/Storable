@@ -3,6 +3,7 @@ class Conversation < ActiveRecord::Base
   attr_accessible :host_id, :renter_id, :listing_id, 
                   :renter_starred, :host_starred,
                   :renter_read, :host_read
+                  
 
   attr_readonly :host_id, :renter_id, :listing_id
   belongs_to :listing

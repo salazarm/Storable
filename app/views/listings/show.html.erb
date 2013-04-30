@@ -1,7 +1,13 @@
 <div id="listing-page-container" style="min-width: 870px;">
 	<div id="sub-wrapper" style="margin: auto">
 		<div id="top-left" style="float: left; width: 206px; display: margin-right: 20px">
-			<img src="<%= profile_picture_for(@listing.user) %>" width-"200px" height="200px" class="pphoto"/>
+			<a href='<%= user_path(@listing.user) %>' style="color: #fff; text-decoration: none;" >
+				<div id="pphoto" class="pphoto" style="background-image: url('<%=profile_picture_for(@listing.user) %>');">
+					<div class="image-heading" style="display: none;">
+						<%= @listing.user.pretty_name %>
+					</div>
+				</div>
+			</a>
 
 			<% if @current_user && @listing.user.id != @current_user.id %>
 				<div id="message-lister" class="abutton" style="text-align: center; font-size: 14px; border-radius: 0; border-radius 3px">
@@ -113,6 +119,11 @@
 		sub_wrapper.css("margin-top", "20px")
 	});
 	$(window).trigger("resize");
+	$("#pphoto").hover(function(){
+		$("#pphoto .image-heading").slideDown(100).fadeIn(100);
+	}, function(){
+		$("#pphoto .image-heading").slideUp(100).fadeOut(100);
+	});
 	var overlay = $("#overlay");
 	var message_sent = $("#message-sent");
 	var message_send = $("#message-send");

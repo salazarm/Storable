@@ -13,6 +13,4 @@ class Message < ActiveRecord::Base
 			conversation.update_attribute(:renter_read, false)
 		end
 	end
-
-
 end
