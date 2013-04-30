@@ -22,10 +22,10 @@ class ConversationsController < ApplicationController
   def show
     if current_user.host_conversations.exists?(:id => params[:id])
       @conversation = current_user.host_conversations.find(params[:id])
-      @conversation.update_attribute(:host_read, true)
+      @conversation.update_column(:host_read, true)
     elsif current_user.renter_conversations.exists?(:id => params[:id])
       @conversation = current_user.renter_conversations.find(params[:id])
-      @conversation.update_attribute(:renter_read, true)
+      @conversation.update_column(:renter_read, true)
     end
     respond_with(@conversation, :status => :ok)
   end
@@ -33,10 +33,8 @@ class ConversationsController < ApplicationController
   def update
     if current_user.host_conversations.exists?(:id => params[:id])
       @conversation = current_user.host_conversations.find(params[:id])
-      @conversation.update_attribute(:renter_read, false)
     elsif current_user.renter_conversations.exists?(:id => params[:id])
       @conversation = current_user.renter_conversations.find(params[:id]) 
-      @conversation.update_attribute(:host_read, false) 
     end
 
     if @conversation

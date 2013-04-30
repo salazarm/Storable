@@ -5,7 +5,7 @@ module ApplicationHelper
 
 	def new_messages_count
 		if @current_user
-			return @current_user.host_conversations.where('host_read != ?', true).count + @current_user.renter_conversations.where('renter_read != ?', true).count
+			return @current_user.host_conversations.where(:host_read => false).count + @current_user.renter_conversations.where(:renter_read => :false).count
 		else
 			return 0
 		end
