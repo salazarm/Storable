@@ -24,7 +24,7 @@
 
 	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
 	<script>
-		$("#submit_listing").click(function(){
+		$("#submit_listing").one("click",function(){
 			$.ajax({ 
 					url: "/listings"+'<%= @listing.id ? "/"+@listing.id.to_s+".json" : ".json" %>',
 					type: '<%= @listing.id ? "PUT" : "POST" %>',

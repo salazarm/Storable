@@ -450,9 +450,6 @@ input, select, textarea, #message-text {
     text-overflow: ellipsis;
 }
 
-#mailbox .favorite {
-    background-image: ;
-}
 
 #pphoto-overlay, #pphoto-overlay-ppage, .overlay-div {
     background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%, rgba(22,0,0,.9) 90%); /* FF3.6+ */

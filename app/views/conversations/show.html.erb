@@ -14,7 +14,7 @@
 </div>
 
 <script>
-	$("#submit").click(function(){
+	$("#submit").one("click",function(){
 		$.ajax({
 			url : '<%= messages_path%>'+".json",
 			type: "POST",

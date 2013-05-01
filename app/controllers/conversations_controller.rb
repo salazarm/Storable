@@ -39,14 +39,14 @@ class ConversationsController < ApplicationController
       begin @conversation.update_column(:host_starred, params[:listing][:starred])
         respond_with(@conversation, :status => :ok)
       rescue ActiveRecordError
-        render :json => { "error" : "Could not star message" }, :status => 500
+        render :json => { "error" => "Could not star message" }, :status => 500
       end
     elsif current_user.renter_conversations.exists?(:id => params[:id])
       @conversation = current_user.renter_conversations.find(params[:id]) 
       begin @conversation.update_column(:renter_starred, params[:listing][:starred])
         respond_with(@conversation, :status => :ok)
       rescue ActiveRecordError
-        render :json => { "error" : "Could not star message" }, :status => 500
+        render :json => { "error" => "Could not star message" }, :status => 500
       end
     else
       redirect_to root_url
