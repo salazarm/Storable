@@ -2,18 +2,15 @@ class MessagesController < ApplicationController
   respond_to :json
   before_filter :require_login, :get_or_create_conversation
 
-  # POST /messages
-  # POST /messages.json
+
   def create
     @message = @conversation.messages.new(params[:message])
     @message.user_id = @current_user.id
-
     if @message.save
       respond_with(@message, :status => :created)
     else
       respond_with(@message.errors, :status => :unprocessable_entity)
     end
-
   end
 
 
@@ -35,8 +32,6 @@ class MessagesController < ApplicationController
         end
       end
     end
-    puts @conversation
     redirect_to root_url unless defined?(@conversation)
-      
   end
 end

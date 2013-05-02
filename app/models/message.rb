@@ -7,8 +7,10 @@ class Message < ActiveRecord::Base
 	after_save :touch_conversation
 
 	def touch_conversation
-		conversation.touch
-		conversation.is_read = false
+		if user.id == conversation.renter.id
+			conversation.update_attribute(:host_read, false)
+		else
+			conversation.update_attribute(:renter_read, false)
+		end
 	end
-
 end

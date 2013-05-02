@@ -24,7 +24,12 @@
 </script>
 <script id="starred-messages" type="HTML/cached-results">
 	<% @conversations[:all_conversations].each do |conversation| %>
-		<% if conversation.is_starred %>
+		<% if conversation.host.id == @current_user.id %>
+			<% starred = conversation.host_starred %>
+		<% else %>
+			<% starred = conversation.renter_starred %>
+		<% end %>
+		<% if starred %>
 			<%= render :partial => "conversation", :locals => {:conversation => conversation, :other => (conversation.host.id != @current_user.id) ? conversation.host : conversation.renter } %>
 		<% end %>
 	<% end %>
@@ -36,7 +41,7 @@
 	<% else %>
 		<% read = conversation.renter_read %>
 	<% end %>
-	<% if read %>
+	<% unless read %>
 		<%= render :partial => "conversation", :locals => {:conversation => conversation, :other => (conversation.host.id != @current_user.id) ? conversation.host : conversation.renter } %>
 	<% end %>
 <% end %>
