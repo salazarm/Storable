@@ -14,21 +14,27 @@
 </div>
 
 <script>
-	$("#submit").one("click",function(){
-		$.ajax({
-			url : '<%= messages_path%>'+".json",
-			type: "POST",
-			data: {
-				listing_id: '<%= @conversation.listing_id %>',
-				message: {
-					content: $("#text-area").html().replace(/<div>/gi,'<br>').replace(/<\/div>/gi,''),
+	var clicks = 0;
+	$("#submit").click(function(){
+		var content = $("#text-area").html().replace(/<div>/gi,'<br>').replace(/<\/div>/gi,'')
+		console.log(content.length);
+		if (content.length >3 && clicks == 0) { 
+			clicks +=1;
+			$.ajax({
+				url : '<%= messages_path%>'+".json",
+				type: "POST",
+				data: {
+					listing_id: '<%= @conversation.listing_id %>',
+					message: {
+						content: content ,
+					},
+					renter_id: '<%= other.id %>'
 				},
-				renter_id: '<%= other.id %>'
-			},
-			success: function(){
-				window.location = window.location;
-			}
-		});
+				success: function(){
+					window.location = window.location;
+				}
+			});
+		}
 	});
 	var get_seconds = function(date_str) {
         var seconds = ((new Date).getTime() - (new Date(date_str)).getTime()) / 1000;
