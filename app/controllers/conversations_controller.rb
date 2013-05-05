@@ -6,16 +6,7 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.json
   def index
-    # @conversations = @current_user.conversationsToJSON
-    host_convos    = current_user.host_conversations.all.sort_by(&:updated_at).reverse
-    rentee_convos  = current_user.renter_conversations.all.sort_by(&:updated_at).reverse
-    all_convos = (host_convos+rentee_convos).sort_by(&:updated_at).reverse
-    @conversations = {
-          :host_conversations => host_convos,
-          :rentee_conversations => rentee_convos,
-          :all_conversations => all_convos
-        }
-
+    @conversations = @current_user.conversationsToJSON
     respond_with(@conversations, :status => :ok)
   end
 
