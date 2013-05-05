@@ -104,20 +104,12 @@ App.Views.Auth = Backbone.View.extend({
 			password_confirmation: this.signup_passwordc_field.val()
 		}, {
 			success : function(model, response, options) {
-				App.User.set({
-					loggedIn: true,
-					password: null, 
-					email: response.email
-				});
-				that.signup_passwordc_field.val("");
-				that.signup_password_field.val("");
-				that.signup_email_field.val("");
 				window.location="/listings";
 			},
 			error : function(model, response, options) {
 				that.signup_password_field.removeClass("error");
-		    that.signup_passwordc_field.removeClass("error");
-		    that.signup_email_field.removeClass("error");
+			    that.signup_passwordc_field.removeClass("error");
+			    that.signup_email_field.removeClass("error");
 				r = JSON.parse(response.responseText);
 		    for (var re in r){
 		    	if (re == "password_digest" || re == "password"){

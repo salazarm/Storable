@@ -24,7 +24,8 @@ App.Views.Conversations = Backbone.View.extend({
 		this.toggle_renting = this.$("#toggle-renting-messages");
 		this.toggle_unread = this.$("#toggle-unread-messages");
 		this.toggle_starred = this.$("#toggle-starred-messages");
-		this.tabs = [ this.toggle_all, this.toggle_starred, this.toggle_unread, this.toggle_host, this.toggle_renting ];
+		this.tabs = [ this.toggle_all, this.toggle_starred, this.toggle_unread, 
+					  this.toggle_host, this.toggle_renting ];
 		this.all_messages();
 		setInterval(function(){
 			if (App.User.get("loggedIn")) {
@@ -32,7 +33,13 @@ App.Views.Conversations = Backbone.View.extend({
 					success: function(data, response, options){
 						that.render();
 						data.models.filter(function(message){
-							return (Date.now()-(new Date(message.attributes.update_at)) < 1000*10) && message.closed == null ;
+
+							return (Date.now()-(new Date(message.get("update_at"))) < 1000*10) &&
+							 message.closed == null && 
+							 message.get("last_id") != App.User.get("id");
+
+						}).forEach(function(message){
+							console.log(message);
 						});
 
 					},
@@ -51,30 +58,32 @@ App.Views.Conversations = Backbone.View.extend({
  	 	if (icon.hasClass("icon-star-empty")){
 		 	icon.removeClass("icon-star-empty");
 		 	icon.addClass("icon-star");
-		  if(bool){
-			 	var id = icon.parent().parent().parent()[0].id
-			 	$.ajax({
-			 		url: '/conversations' +'/'+ id,
-			 		type: "PUT",
-			 		data: {
-			 			star: true
-			 		}
-			 	});
-		  }
 	    } else {
 		 	icon.removeClass("icon-star");
 		 	icon.addClass("icon-star-empty");
-		 	if(bool){
-		 		var id = icon.parent().parent().parent()[0].id
+		}
+	 	if(bool){
+	 		var id = icon.parent().parent().parent()[0].id
+	 		if(icon.hasClass("empty")){
+		 		icon.removeClass("empty");
 			 	$.ajax({
+			 		type: "PUT",
+			 		url: '/conversations' +'/'+id,
+			 		data: {
+			 			star : true
+			 		}
+			 	});
+		 	} else {
+		 		icon.addClass("empty");
+		 		$.ajax({
 			 		type: "PUT",
 			 		url: '/conversations' +'/'+id,
 			 		data: {
 			 			star : false
 			 		}
 			 	});
-			}
-		}
+		 	}
+		 }
 	},
 
 	render : function(){

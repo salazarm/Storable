@@ -40,12 +40,12 @@ class User < ActiveRecord::Base
   def conversationsToJSON
     convos = Array.new
     (host_conversations+renter_conversations).sort_by(&:updated_at).reverse.each do |convo|
-      if id == convo.host_id
-        read = convo.host_read
-        starred = convo.host_starred
-      else
+      if id == convo.renter_id
         read = convo.renter_read
         starred = convo.renter_starred
+      else
+        read = convo.host_read
+        starred = convo.host_starred
       end
       convos.push({
         :id => convo.id,

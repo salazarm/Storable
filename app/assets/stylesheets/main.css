@@ -640,6 +640,76 @@ input, select, textarea, #message-text {
 #conversation-header.header a{
     color: #fff;
 }
+
+#new-messages {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#new-messages img {
+    float: left;
+}
+
+#new-messages .new-message .info {
+    float: right;
+    display: inline;
+    width: 220px;
+}
+
+#new-messages .new-message .from {
+    float: left;
+    font-weight: bolder;
+    font-size: 14px;
+    overflow: hidden;
+    width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+#new-messages .regarding {
+    float: right;
+    font-weight: bold;
+    font-size: 14px;
+    overflow: hidden;
+    width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#new-messages .synopsis {
+    word-wrap: break-word;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 220px;
+    height: 10px;
+    display: block;
+    font-size: 123px;
+}
+
+#new-messages .new-message {
+    overflow: hidden;
+    width: 280px;
+    height: 50px;
+    padding: 8px;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    border-top: 1px #DDD solid;
+    border-bottom: 1px #DDD solid;
+    border-radius: 0px;
+    background: white;
+}
+
+#new-messages .new-message-wrapper {
+    -webkit-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.8);
+    -box-shadow: 0 8px 10px rgba(0, 0, 0, 0.8);
+}
+
+
+
 /* ==========================================================================
    Media Queries
    ========================================================================== */
