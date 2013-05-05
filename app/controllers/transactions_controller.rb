@@ -30,6 +30,10 @@ class TransactionsController < ApplicationController
     listing = Listing.find(params[:listing_id])
     Transaction.create_transaction_listing(listing, @transaction)
 
+    # Update conversation so host sees renter wants to proceed
+    conversation = Conversation.create_or_get_conversation(params, current_user)
+    conversation.request_submit
+
     if @transaction.save
       respond_with(@transaction, :status => :created)
     else
