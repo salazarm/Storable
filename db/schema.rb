@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130505035317) do
+ActiveRecord::Schema.define(:version => 20130505201510) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "renter_id"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20130505035317) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "listing_id"
+    t.boolean  "is_read"
+    t.boolean  "is_starred"
     t.boolean  "host_starred"
     t.boolean  "host_read"
     t.boolean  "renter_starred"
@@ -61,8 +63,11 @@ ActiveRecord::Schema.define(:version => 20130505035317) do
     t.integer  "conversation_id"
     t.integer  "user_id"
     t.text     "content"
+    t.boolean  "is_starred"
+    t.boolean  "is_read"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.text     "title"
   end
 
   create_table "reserved_dates", :force => true do |t|
@@ -72,6 +77,31 @@ ActiveRecord::Schema.define(:version => 20130505035317) do
     t.date     "end_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "transaction_listings", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "price"
+    t.float    "size"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "listing_id"
+    t.integer  "transaction_id"
+  end
+
+  create_table "transactions", :force => true do |t|
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "host_id"
+    t.integer  "renter_id"
+    t.boolean  "host_accepted"
+    t.string   "stripeToken"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "users", :force => true do |t|
