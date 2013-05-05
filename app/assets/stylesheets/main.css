@@ -662,7 +662,7 @@ input, select, textarea, #message-text {
 #new-messages .new-message .from {
     float: left;
     font-weight: bolder;
-    font-size: 14px;
+    font-size: 13px;
     overflow: hidden;
     width: 100px;
     white-space: nowrap;
@@ -672,7 +672,7 @@ input, select, textarea, #message-text {
 #new-messages .regarding {
     float: right;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     overflow: hidden;
     width: 100px;
     white-space: nowrap;
