@@ -55,7 +55,7 @@ App.Views.Conversations = Backbone.View.extend({
 						var el = $(".new-message").last()
 						el.hide().show("slide", { direction: "down" }, 1000);
 						setTimeout(function(){
-							el.hide("slide", { direction: "up" }, 1000)
+							el.hide("slide", { direction: "down" }, 1000)
 						}, 5000)
 					});
 					if(!that.showing){
