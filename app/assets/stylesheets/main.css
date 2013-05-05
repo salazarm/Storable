@@ -662,50 +662,33 @@ input, select, textarea, #message-text {
 #new-messages .new-message .from {
     float: left;
     font-weight: bolder;
-    font-size: 13px;
-    overflow: hidden;
-    width: 100px;
-    white-space: nowrap;
-    text-overflow: ellipsis
+    font-size: 14px;
 }
 
 #new-messages .regarding {
     float: right;
     font-weight: bold;
-    font-size: 13px;
-    overflow: hidden;
-    width: 100px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    font-size: 14px;
 }
 
 #new-messages .synopsis {
-    word-wrap: break-word;
-    white-space: nowrap;
     text-overflow: ellipsis;
     width: 220px;
-    height: 10px;
-    display: block;
-    font-size: 123px;
+    height: 30px;
+    overflow: hidden;
+    font-size: 12px;
 }
 
 #new-messages .new-message {
-    overflow: hidden;
     width: 280px;
     height: 50px;
     padding: 8px;
     font-size: 13px;
     font-family: 'Open Sans', sans-serif;
-    border-top: 1px #DDD solid;
-    border-bottom: 1px #DDD solid;
-    border-radius: 0px;
     background: white;
-}
-
-#new-messages .new-message-wrapper {
-    -webkit-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow: 0 8px 10px rgba(0, 0, 0, 0.8);
-    -box-shadow: 0 8px 10px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.8);
+    -box-shadow: -2px px 5px rgba(0, 0, 0, 0.8);
 }
 
 

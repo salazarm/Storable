@@ -3,7 +3,7 @@ App.Views.Conversations = Backbone.View.extend({
 
 	model: App.User,
 	collection: App.Collections.Conversations,
-	showing : [],
+	showing : false,
 
 	el: $("#conversations-container"),
 
@@ -16,6 +16,9 @@ App.Views.Conversations = Backbone.View.extend({
 	},
 
 	initialize: function() {
+		if ($("#conversation-template").size()!=0){
+			this.template = _.template($("#conversation-template").html());
+		}
 		this.collection = new App.Collections.Conversations({});
 		this.conversations = this.$("#conversations");
 		that = this;
@@ -26,34 +29,47 @@ App.Views.Conversations = Backbone.View.extend({
 		this.toggle_starred = this.$("#toggle-starred-messages");
 		this.tabs = [ this.toggle_all, this.toggle_starred, this.toggle_unread, 
 					  this.toggle_host, this.toggle_renting ];
-		this.all_messages();
+		this.new_message_template = _.template($("#new-message-template").html());
+		this.new_messages = $("#new-messages");
 		setInterval(function(){
-			if (App.User.get("loggedIn")) {
-				that.collection.fetch({
-					success: function(data, response, options){
-						that.render();
-						data.models.filter(function(message){
-
-							return (Date.now()-(new Date(message.get("update_at"))) < 1000*10) &&
-							 message.closed == null && 
-							 message.get("last_id") != App.User.get("id");
-
-						}).forEach(function(message){
-							console.log(message);
-						});
-
-					},
-					error: function(model, response, options){
-						console.log(response);
-					}
-				});
-			}
-		}, 3000);
-		if ($("#conversation-template").size()!=0){
-			this.template = _.template($("#conversation-template").html());
-		}
+			that.fetch();
+		}, 5000);
+		that.fetch();
 	},
 	
+	fetch : function(){
+		if (App.User.get("loggedIn")) {
+			that = this;
+			that.collection.fetch({
+				success: function(data, response, options){
+					that.render();
+					data.models.filter(function(message){
+
+						return (Date.now()-(new Date(message.get("update_at"))).getTime() < 1000*10) &&
+						 message.closed == null && 
+						 message.get("last_id") != App.User.get("id");
+
+					}).forEach(function(message){
+						var new_message = $(that.new_message_template(message.attributes));
+						new_message.hide(0);
+						that.new_messages.append(new_message);
+						new_message.slideUp(200);
+						setTimeout(function(){
+							new_message.slideDown(200);
+						}, 2000);
+					});
+					if(!that.showing){
+						that.all_messages();
+					}
+
+				},
+				error: function(model, response, options){
+					console.log(response);
+				}
+			});
+		}
+	},
+
 	toggleIconClasses : function(bool, icon){
  	 	if (icon.hasClass("icon-star-empty")){
 		 	icon.removeClass("icon-star-empty");
@@ -66,6 +82,11 @@ App.Views.Conversations = Backbone.View.extend({
 	 		var id = icon.parent().parent().parent()[0].id
 	 		if(icon.hasClass("empty")){
 		 		icon.removeClass("empty");
+		 		this.collection.filter(function(model){
+		 			return model.get("id") == id;
+		 		}).forEach(function(model){
+		 			model.set({"starred" : true });
+		 		});
 			 	$.ajax({
 			 		type: "PUT",
 			 		url: '/conversations' +'/'+id,
@@ -75,6 +96,11 @@ App.Views.Conversations = Backbone.View.extend({
 			 	});
 		 	} else {
 		 		icon.addClass("empty");
+		 		this.collection.filter(function(model){
+		 			return model.get("id") == id;
+		 		}).forEach(function(model){
+		 			model.set({"starred" : false });
+		 		});
 		 		$.ajax({
 			 		type: "PUT",
 			 		url: '/conversations' +'/'+id,
@@ -115,6 +141,7 @@ App.Views.Conversations = Backbone.View.extend({
 		this.active = this.toggle_all;
 		this.toggle_all.addClass("active");
 		this.showing = this.collection.all_messages();
+		this.render();
 	},
 
 	hosting_messages : function(){
@@ -122,6 +149,7 @@ App.Views.Conversations = Backbone.View.extend({
 		this.active = this.toggle_host;
 		this.toggle_host.addClass("active");
 		this.showing = this.collection.hosting_messages();
+		this.render();
 	},
 
 	renting_messages : function(){
@@ -129,6 +157,7 @@ App.Views.Conversations = Backbone.View.extend({
 		this.active = this.toggle_renting;
 		this.toggle_renting.addClass("active");
 		this.showing = this.collection.renting_messages();
+		this.render();
 	},
 
 	starred_messages : function(){
@@ -136,6 +165,7 @@ App.Views.Conversations = Backbone.View.extend({
 		this.active = this.toggle_starred;
 		this.toggle_starred.addClass("active");
 		this.showing = this.collection.starred_messages();
+		this.render();
 	},
 
 	unread_messages : function(){
@@ -143,6 +173,7 @@ App.Views.Conversations = Backbone.View.extend({
 		this.active = this.toggle_unread;
 		this.toggle_unread.addClass("active");
 		this.showing = this.collection.unread_messages();
+		this.render();
 	},
 
 });
