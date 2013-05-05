@@ -61,7 +61,8 @@ class User < ActiveRecord::Base
         :content => convo.messages.last.content,
         :last_id => convo.messages.last.user_id,
         :last_name => convo.messages.last.user.pretty_name,
-        :last_photo => convo.messages.last.user.profile_photo
+        :last_photo => convo.messages.last.user.profile_photo,
+        :updated_at => convo.messages.last.created_at
       })
     end
     return convos

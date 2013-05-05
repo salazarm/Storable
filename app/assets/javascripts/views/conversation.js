@@ -25,13 +25,18 @@ App.Views.Conversations = Backbone.View.extend({
 		this.toggle_unread = this.$("#toggle-unread-messages");
 		this.toggle_starred = this.$("#toggle-starred-messages");
 		this.tabs = [ this.toggle_all, this.toggle_starred, this.toggle_unread, this.toggle_host, this.toggle_renting ];
-		this.template = _.template($("#conversation-template").html());
 		this.all_messages();
 		setInterval(function(){
 			if (App.User.get("loggedIn")) {
 				that.collection.fetch({
-					success: function(){
+					success: function(data, response, options){
 						that.render();
+						data.models.filter(function(message){
+							return (Date.now()-(new Date(message.attributes.update_at)) < 1000*10) && message.closed == null ;
+						}).each({
+							
+						})
+
 					},
 					error: function(model, response, options){
 						console.log(response);
@@ -39,15 +44,19 @@ App.Views.Conversations = Backbone.View.extend({
 				});
 			}
 		}, 1500);
+		if ($("#conversation-template").size()!=0){
+			this.template = _.template($("#conversation-template").html());
+		}
 	},
 
 	render : function(){
-		this.conversations.html('');
-		that = this;
-		_.each(this.showing, function(conversation) {	
-			console.log(conversation);
-			this.$(conversations).append(that.template(conversation.attributes));
-		});
+		if ($("#conversation-template").size()!=0){
+			this.conversations.html('');
+			that = this;
+			_.each(this.showing, function(conversation) {	
+				this.$(conversations).append(that.template(conversation.attributes));
+			});
+		}
 	},
 
 	clean : function(){
