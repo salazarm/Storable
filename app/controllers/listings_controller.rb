@@ -54,27 +54,33 @@ class ListingsController < ApplicationController
     address = params[:address]
     radius = params[:radius]
 
-
+    #first filter by locations within radius miles of the given address
     @locations = Location.near(address, radius)
-    @listings = []
-    @locations.each do |location| 
-      @listings.push(location.listing)
+
+    #if start date is passed in as a paramter then filter by that as well
+    if params.has_key?(:start_date)
+       start_date = params[:start_date]
+
+
+       @locations = @locations.joins(:listing).where('listings.start_date <= ?', start_date).group('listings.id')
+
+       @exclusions_start = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date).group('listings.id')
     end
 
-    if params.has_key?(:start_date) && params.has_key?(:end_date)
-      start_date = params[:start_date]
-      end_date = params[:end_date]
+    if params.has_key?(:end_date)
+       end_date = params[:end_date]
+       @locations = @locations.joins(:listing).where('listings.end_date >= ?', end_date).group('listings.id')
 
-      #a = Listing.joins(:reserved_dates).where('listings.start_date <= ? AND listings.end_date >= ?','2013-05-10','2013-05-20').having('(reserved_dates.start_date >= ? AND reserved_dates.start_date <= ?) OR (reserved_dates.end_date >= ? AND reserved_dates.end_date <= ?)','2013-05-10','2013-05-20','2013-05-10','2013-05-20').group('listings.id')
-
-      #find all listings which have reserved dates that conflict with my given start and end dates
-      a = Listing.joins(:reserved_dates).where('listings.start_date <= ? AND listings.end_date >= ?',start_date,end_date).having('(reserved_dates.start_date >= ? AND reserved_dates.start_date <= ?) OR (reserved_dates.end_date >= ? AND reserved_dates.end_date <= ?)',start_date,end_date,start_date,end_date).group('listings.id')
-
-      @listings = @listings - a
-
+       @exclusions_end = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date).group('listings.id')
     end
 
-    render :json => @listings
+    if defined?(@exclusions_start)
+      @locations = @locations - @exclusions_start
+    elsif 
+      @locations = @locations - @exclusions_end
+    end
+
+   render :json => @locations
   end
 
   # DELETE /listings/1
