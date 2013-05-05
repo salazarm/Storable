@@ -25,7 +25,7 @@ App.Collections.Conversations = Backbone.Collection.extend({
 
 	unread_messages : function(){
 		return this.filter(function(message){
-			return message.get("read");
+			return !message.get("read");
 		});
 	},
 

@@ -2,7 +2,7 @@
 	<div id="sub-wrapper" style="margin: auto">
 		<div id="top-left" style="float: left; width: 206px; display: margin-right: 20px">
 			<a href='<%= user_path(@listing.user) %>' style="color: #fff; text-decoration: none;" >
-				<div id="pphoto" class="pphoto" style="background-image: url('<%=profile_picture_for(@listing.user) %>');">
+				<div id="pphoto" class="pphoto" style="background-image: url('<%= @listing.user.profile_photo %>');">
 					<div class="image-heading" style="display: none;">
 						<%= @listing.user.pretty_name %>
 					</div>

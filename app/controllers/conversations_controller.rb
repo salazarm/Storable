@@ -27,16 +27,18 @@ class ConversationsController < ApplicationController
   def update
     if current_user.host_conversations.exists?(:id => params[:id])
       @conversation = current_user.host_conversations.find(params[:id])
-      begin @conversation.update_column(:host_starred, params[:listing][:starred])
-        respond_with(@conversation, :status => :ok)
-      rescue ActiveRecordError
+      if @conversation.update_attribute(:host_starred, params[:star])
+        Rails.cache.delete("/conversations/#{@conversation.id}")
+        render :json => true
+      else
         render :json => { "error" => "Could not star message" }, :status => 500
       end
     elsif current_user.renter_conversations.exists?(:id => params[:id])
       @conversation = current_user.renter_conversations.find(params[:id]) 
-      begin @conversation.update_column(:renter_starred, params[:listing][:starred])
-        respond_with(@conversation, :status => :ok)
-      rescue ActiveRecordError
+      if @conversation.update_attribute(:renter_starred, params[:star])
+        Rails.cache.delete("/conversations/#{@conversation.id}")
+        render :json => true
+      else
         render :json => { "error" => "Could not star message" }, :status => 500
       end
     else

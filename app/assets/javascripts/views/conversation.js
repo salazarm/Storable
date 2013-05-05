@@ -33,9 +33,7 @@ App.Views.Conversations = Backbone.View.extend({
 						that.render();
 						data.models.filter(function(message){
 							return (Date.now()-(new Date(message.attributes.update_at)) < 1000*10) && message.closed == null ;
-						}).each({
-							
-						})
+						});
 
 					},
 					error: function(model, response, options){
@@ -43,9 +41,39 @@ App.Views.Conversations = Backbone.View.extend({
 					}
 				});
 			}
-		}, 1500);
+		}, 3000);
 		if ($("#conversation-template").size()!=0){
 			this.template = _.template($("#conversation-template").html());
+		}
+	},
+	
+	toggleIconClasses : function(bool, icon){
+ 	 	if (icon.hasClass("icon-star-empty")){
+		 	icon.removeClass("icon-star-empty");
+		 	icon.addClass("icon-star");
+		  if(bool){
+			 	var id = icon.parent().parent().parent()[0].id
+			 	$.ajax({
+			 		url: '/conversations' +'/'+ id,
+			 		type: "PUT",
+			 		data: {
+			 			star: true
+			 		}
+			 	});
+		  }
+	    } else {
+		 	icon.removeClass("icon-star");
+		 	icon.addClass("icon-star-empty");
+		 	if(bool){
+		 		var id = icon.parent().parent().parent()[0].id
+			 	$.ajax({
+			 		type: "PUT",
+			 		url: '/conversations' +'/'+id,
+			 		data: {
+			 			star : false
+			 		}
+			 	});
+			}
 		}
 	},
 
@@ -54,7 +82,15 @@ App.Views.Conversations = Backbone.View.extend({
 			this.conversations.html('');
 			that = this;
 			_.each(this.showing, function(conversation) {	
+				self = that;
 				this.$(conversations).append(that.template(conversation.attributes));
+				$(".star-icon").last().click(function(){
+				 	self.toggleIconClasses(true, $(this));
+				}).mouseover(function(){
+				 	self.toggleIconClasses(false, $(this));
+				}).mouseleave(function(){
+				 	self.toggleIconClasses(false, $(this));
+				});
 			});
 		}
 	},
