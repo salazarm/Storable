@@ -12,4 +12,14 @@ class Listing < ActiveRecord::Base
       super(:include =>[:images, :location])
     end
 
+    def create_reserved_date(transaction, listing)
+	  reserved_date = listing.reserved_dates.build(
+	  	:listing_id => listing.id,
+	  	:renter_id  => transaction.renter_id,
+	  	:start_date => transaction.start_date,
+	  	:end_date   => transaction.end_date
+      )
+      reserved_date.save()
+    end
+
 end
