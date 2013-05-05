@@ -74,13 +74,25 @@ class ListingsController < ApplicationController
        @exclusions_end = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date).group('listings.id')
     end
 
+
+    if params.has_key?(:space)
+      @locations = @locations.where('listings.size > ?', params[:space])
+    end
+
+
     if defined?(@exclusions_start)
       @locations = @locations - @exclusions_start
     elsif 
       @locations = @locations - @exclusions_end
     end
 
-   render :json => @locations
+
+    @listings = []
+    @locations.each do |location| 
+        @listings.push(location.listing)
+    end
+  
+   render :json => @listings
   end
 
   # DELETE /listings/1
