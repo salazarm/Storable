@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130505201510) do
+ActiveRecord::Schema.define(:version => 20130505220606) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "renter_id"
     t.integer  "host_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "listing_id"
     t.boolean  "is_read"
     t.boolean  "is_starred"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20130505201510) do
     t.boolean  "host_read"
     t.boolean  "renter_starred"
     t.boolean  "renter_read"
+    t.boolean  "request_submitted"
   end
 
   create_table "images", :force => true do |t|
