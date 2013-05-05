@@ -104,7 +104,6 @@ form {
 
 #checkinWrapper, #checkoutWrapper {
     width: 136px;
-    margin: 0 5px 0 ;
 }
 
 a.vglnk {
@@ -175,7 +174,20 @@ a.vglnk {
 }
 
 #location {
-    width: 350px;
+    width: 275px;
+}
+
+#email-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 20px;
+    display: inline-block;
+}
+
+#email-content div {
+    display: inline;
+    overflow: hidden;
 }
 
 .search-area input[type="text"] {
@@ -187,16 +199,17 @@ a.vglnk {
 }
 
 .search-area {
+    width: 100%;
+    background-color: #404040;
     text-shadow: 0 0 15px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6);
 }
 
 .search-area input[type='text'] :not(.error), .search-area .dropdown {
     text-shadow: 0 1px 1px #fff;
-    padding: 8px 12px;
     font-size: 14px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
     line-height: 18px;
@@ -213,15 +226,11 @@ input.error {
 
 input, select, textarea, #message-text {
     outline-width: 0;
-    text-shadow: 0 0 15px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6);
     height: 23px;
     margin: 0;
     width: 110px;
-    -webkit-box-shadow: inset 1px 1px 5px rgba(0,0,0,0.4);
-    box-shadow: inset 1px 1px 5px rgba(0,0,0,0.4);
-    border: 1px dashed #404040;
     text-shadow: 0 1px 1px #fff;
-    padding: 2px 4px;
+    padding: 2px 4px;   
     font-size: 17px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -248,8 +257,10 @@ input, select, textarea, #message-text {
 }
 
 #search-bar {
-    -webkit-box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
-    box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
+    padding: 5px;
+    width: 99%;
+    margin: 0 auto;
+    display: inline;
 }
 
 #ui-datepicker-div {
@@ -257,14 +268,7 @@ input, select, textarea, #message-text {
 }
 
 #search_form {
-    margin-top: -2px;
-    background: #444;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    border: 3px dashed rgba(0,0,0,0.8);
-    padding: 4px;
-    line-height: 1.2;
+    margin: 5px 0px -2px 10px;
 }
 
 #message {
@@ -698,6 +702,11 @@ input, select, textarea, #message-text {
     margin-bottom: 10px;
 }
 
+#search-button {
+    background-color: #fff;
+    text-decoration: none;
+    text-shadow: none;
+}
 
 
 /* ==========================================================================

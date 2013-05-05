@@ -32,8 +32,10 @@
 				[[ } else { ]]
 					<span class="unread">UNREAD</span>
 				[[ } ]]
-				<a href='[[= "/conversations/"+id ]]'>
-					[[= content ]]
+				<a class="email-content" href='[[= "/conversations/"+id ]]'>
+					<div id="email-content">
+						[[= content ]]
+					</div>
 				</a> 
 			</div>
 			<div class="address">
@@ -64,4 +66,27 @@
 		sub_wrapper.css("margin-top", "20px")
 	});
 	$(window).trigger("resize");
+	$(function(){
+
+$('[contenteditable=true')
+	.live("keypress", function(e){
+	  if (e.which == 13) {
+	    if (window.getSelection) {
+	      var selection = window.getSelection(),
+	          range = selection.getRangeAt(0),
+	          br = document.createElement("br");
+	      console.log(selection);
+	      range.deleteContents();
+	      range.insertNode(br);
+	      range.setStartAfter(br);
+	      range.setEndAfter(br);
+	      range.collapse(false);
+	      selection.removeAllRanges();
+	      selection.addRange(range);
+	      return false;
+	    }
+	  }
+	});
+});
+
 </script>

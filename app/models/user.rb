@@ -53,10 +53,7 @@ class User < ActiveRecord::Base
         :starred => starred,
         :listing_id => convo.listing_id,
         :listing_title => convo.listing.title,
-        :address => convo.listing.location.street + ", " +
-                    convo.listing.location.city + ", " +
-                    convo.listing.location.state + " " +
-                    convo.listing.location.zip.to_s,
+        :address => convo.listing.location.full_street_address,
         :is_host => convo.listing.user_id == id,
         :content => convo.messages.last.content,
         :last_id => convo.messages.last.user_id,

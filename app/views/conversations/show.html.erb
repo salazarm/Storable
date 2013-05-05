@@ -21,7 +21,7 @@
 			data: {
 				listing_id: '<%= @conversation.listing_id %>',
 				message: {
-					content: $("#text-area").html()
+					content: $("#text-area").html().replace(/<div>/gi,'<br>').replace(/<\/div>/gi,''),
 				},
 				renter_id: '<%= other.id %>'
 			},
