@@ -51,30 +51,8 @@ class ListingsController < ApplicationController
   end
 
   def search
-    address = params[:address]
-    radius = params[:radius]
-
-
-    @locations = Location.near(address, radius)
-    @listings = []
-    @locations.each do |location| 
-      @listings.push(location.listing)
-    end
-
-    if params.has_key?(:start_date) && params.has_key?(:end_date)
-      start_date = params[:start_date]
-      end_date = params[:end_date]
-
-      #a = Listing.joins(:reserved_dates).where('listings.start_date <= ? AND listings.end_date >= ?','2013-05-10','2013-05-20').having('(reserved_dates.start_date >= ? AND reserved_dates.start_date <= ?) OR (reserved_dates.end_date >= ? AND reserved_dates.end_date <= ?)','2013-05-10','2013-05-20','2013-05-10','2013-05-20').group('listings.id')
-
-      #find all listings which have reserved dates that conflict with my given start and end dates
-      a = Listing.joins(:reserved_dates).where('listings.start_date <= ? AND listings.end_date >= ?',start_date,end_date).having('(reserved_dates.start_date >= ? AND reserved_dates.start_date <= ?) OR (reserved_dates.end_date >= ? AND reserved_dates.end_date <= ?)',start_date,end_date,start_date,end_date).group('listings.id')
-
-      @listings = @listings - a
-
-    end
-
-    render :json => @listings
+   @listings = Listing.search(params)
+   render :json => @listings
   end
 
   # DELETE /listings/1

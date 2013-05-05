@@ -13,6 +13,9 @@
 				<div id="message-lister" class="abutton" style="text-align: center; font-size: 14px; border-radius: 0; border-radius 3px">
 					Message <%= @listing.user.email %>
 				</div>
+				<div id="rent-listing" class="abutton" style="text-align: center; font-size: 14px; border-radius: 0; border-radius 3px">
+					Rent Me!
+				</div>
 			<% elsif !@current_user %>
 				<div class="abutton" style="text-align: center; font-size: 14px; border-radius: 0"> Sign up to rent this space! </div>
 
@@ -157,3 +160,43 @@
 		})
 	});
 </script>
+
+<% if @current_user %>
+	<script src="https://checkout.stripe.com/v2/checkout.js"></script>
+	<script>
+	    $('#rent-listing').click(function(){
+	      var token = function(res){
+	        $.ajax({
+				url: "/users/" + "<%= @current_user.id %>" + "/transactions",
+				type: "POST",
+				dataType: 'json',
+				data: {
+					listing_id: <%= @listing.id %>,
+					transaction: {
+						host_id: <%= @listing.user.id %>,
+						renter_id: <%= @current_user.id %>,
+						stripeToken : res.id,
+						start_date: '2013-02-23',	// TODO(marco): change to actual start date
+						end_date: '2013-02-27'		// TODO(marco): change to actual end date
+					}
+				},
+				success: function(data){
+				console.log(data)
+				}
+				});
+	      };
+
+	      StripeCheckout.open({
+	        key:         'pk_test_jfyQ2QqVi1q5Z8IE0kfwvnpv',
+	        address:     true,
+	        amount:      "<%= @listing.price %>",
+	        name:        "<%= @listing.title %>",
+	        description: "<%= @listing.description %>",
+	        panelLabel:  'Checkout',
+	        token:       token
+	      });
+
+	      return false;
+	    });
+	  </script>
+<% end %>
