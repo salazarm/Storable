@@ -6,7 +6,7 @@ class Listing < ActiveRecord::Base
     has_many :conversations
 		has_many :images, :as => :imageable
 
-    has_many :reserved_listings
+    has_many :reserved_dates
 
     def as_json(options={})
       super(:include =>[:images, :location])

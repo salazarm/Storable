@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130505034400) do
+ActiveRecord::Schema.define(:version => 20130505035317) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "renter_id"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20130505034400) do
     t.text     "title"
   end
 
-  create_table "reserved_listings", :force => true do |t|
+  create_table "reserved_dates", :force => true do |t|
     t.integer  "listing_id"
     t.integer  "renter_id"
     t.date     "start_date"
