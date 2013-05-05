@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130428131322) do
+ActiveRecord::Schema.define(:version => 20130505034400) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "renter_id"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20130428131322) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "listing_id"
+    t.boolean  "is_read"
+    t.boolean  "is_starred"
     t.boolean  "host_starred"
     t.boolean  "host_read"
     t.boolean  "renter_starred"
@@ -53,14 +55,28 @@ ActiveRecord::Schema.define(:version => 20130428131322) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "messages", :force => true do |t|
     t.integer  "conversation_id"
     t.integer  "user_id"
     t.text     "content"
+    t.boolean  "is_starred"
+    t.boolean  "is_read"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.text     "title"
+  end
+
+  create_table "reserved_listings", :force => true do |t|
+    t.integer  "listing_id"
+    t.integer  "renter_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

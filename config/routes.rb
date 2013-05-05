@@ -9,6 +9,9 @@ Teamchill::Application.routes.draw do
   end
   resources :sessions
 
+
+  post 'listings/search' => "listings#search"
+
   resources :listings do
     resources :locations
     resources :images

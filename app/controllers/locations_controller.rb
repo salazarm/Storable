@@ -10,7 +10,7 @@ class LocationsController < ApplicationController
     if @location.save
       respond_with(@listing, @location, :status => :created)
     else
-      respond_with(@listing, @location.errors, :status => :unprocessable_entity)
+      respond_with(@listing, @location, :status => :unprocessable_entity)
     end
 
   end
@@ -23,7 +23,7 @@ class LocationsController < ApplicationController
     if @location.update_attributes(params[:location])
       respond_with(@listing, @location, :status => :ok)
     else
-      respond_with(@listing, @location.errors, :status => :unprocessable_entity)
+      respond_with(@listing, @location, :status => :unprocessable_entity)
     end
 
   end
@@ -36,7 +36,7 @@ class LocationsController < ApplicationController
     if @location.destroy
         respond_with :status => :ok
     else
-        respond_with(@listing, @location.errors, :status => :unprocessable_entity)
+        respond_with(@listing, @location, :status => :unprocessable_entity)
     end
 
   end

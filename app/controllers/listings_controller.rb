@@ -44,11 +44,24 @@ class ListingsController < ApplicationController
     @listing = @current_user.listings.find(params[:id])
     if @listing.update_attributes(params[:listing])
       render :json => @listing
-      # respond_with(@listing, :status => :ok)
     else
       respond_with(@listing.errors, :status => :unprocessable_entity)
     end
     
+  end
+
+  def search
+    address = params[:address]
+    radius = params[:radius]
+
+
+    @locations = Location.near(address, radius)
+    @listings = []
+    @locations.each do |location| 
+      @listings.push(location.listing)
+    end
+
+    render :json => @listings
   end
 
   # DELETE /listings/1
