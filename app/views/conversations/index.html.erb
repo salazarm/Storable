@@ -27,9 +27,14 @@
 		</div>
 		<div class="other">
 			<div class="synopsis">
+				[[ if (read){ ]] 
+					<span class="read">READ</span>
+				[[ } else { ]]
+					<span class="unread">UNREAD</span>
+				[[ } ]]
 				<a href='[[= "/conversations/"+id ]]'>
 					[[= content ]]
-				</a>
+				</a> 
 			</div>
 			<div class="address">
 				[[= address ]]

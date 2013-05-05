@@ -643,10 +643,11 @@ input, select, textarea, #message-text {
 
 #new-messages {
     position: fixed;
-    bottom: 15px;
+    bottom: 0px;
     right: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 320px;
 }
 
 #new-messages img {
@@ -657,6 +658,11 @@ input, select, textarea, #message-text {
     float: right;
     display: inline;
     width: 220px;
+}
+
+#new-messages a {
+    text-decoration: none;
+    color: #404040;
 }
 
 #new-messages .new-message .from {
@@ -686,9 +692,10 @@ input, select, textarea, #message-text {
     font-size: 13px;
     font-family: 'Open Sans', sans-serif;
     background: white;
-    -webkit-box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.8);
-    -box-shadow: -2px px 5px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.4);
+    -box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
 }
 
 
@@ -786,6 +793,41 @@ input, select, textarea, #message-text {
     text-overflow: ellipsis; overflow: hidden; font-size: 12px; display: inline-block; width: 90px; height: 50px; margin-left: 60px; margin-top: 13px;
 }
 
+.read {
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 14px;
+    display: inline-block;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    vertical-align: baseline;
+    margin-left: 3px;
+    background-color: #468847;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.unread {
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 14px;
+    display: inline-block;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    vertical-align: baseline;
+    margin-left: 3px;
+    background-color: #b94a48;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
 
 
 /*.listing-image {

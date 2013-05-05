@@ -44,19 +44,19 @@ App.Views.Conversations = Backbone.View.extend({
 				success: function(data, response, options){
 					that.render();
 					data.models.filter(function(message){
-
-						return (Date.now()-(new Date(message.get("update_at"))).getTime() < 1000*10) &&
-						 message.closed == null && 
-						 message.get("last_id") != App.User.get("id");
+						var bool = (Date.now()-(new Date(message.get("updated_at"))).getTime() < 1000*6) && 
+						 message.get("last_id") != App.User.get("id") && (message.showed == null ||
+						  message.showed != message.get("updated_at"));
+						 message.showed = message.get("updated_at");
+						 return bool;
 
 					}).forEach(function(message){
-						var new_message = $(that.new_message_template(message.attributes));
-						new_message.hide(0);
-						that.new_messages.append(new_message);
-						new_message.slideUp(200);
+						that.new_messages.append(that.new_message_template(message.attributes));
+						var el = $(".new-message").last()
+						el.hide().show("slide", { direction: "down" }, 1000);
 						setTimeout(function(){
-							new_message.slideDown(200);
-						}, 2000);
+							el.hide("slide", { direction: "up" }, 1000)
+						}, 5000)
 					});
 					if(!that.showing){
 						that.all_messages();
