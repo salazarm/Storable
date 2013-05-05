@@ -721,6 +721,20 @@ input, select, textarea, #message-text {
     *zoom: 1;
 }
 
+.conversation {
+    height: 64px; overflow: hidden; text-overflow: ellipsis;
+}
+
+.conversation .profile img {
+    vertical-align: middle; margin-top: 10px; position: absolute;
+}
+
+.conversation .profile .name {
+    text-overflow: ellipsis; overflow: hidden; font-size: 12px; display: inline-block; width: 90px; height: 50px; margin-left: 60px; margin-top: 13px;
+}
+
+
+
 /*.listing-image {
     width: 200px; height:200px; padding: 1px;
 }*/

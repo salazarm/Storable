@@ -1,7 +1,7 @@
 <div id="profile-page-container" style="margin: 20px 5% 0 5%; min-width: 870px;">
 	<div id="sub-wrapper" style="margin: auto auto">
 		<div id="top-left" style="float: left; width: 200px; ">
-			<img class="pphoto" src='<%= profile_picture_for(@user) %>' />
+			<img class="pphoto" src='<%= @user.profile_photo %>' />
 			<% if @current_user && @user.id == @current_user.id %>
 				<span id="overlay-stuff">
 					<div id="pphoto-overlay-ppage"></div>
@@ -13,7 +13,7 @@
 		</div>
 
 		<div id="about-wrapper" class="profile-section-wrapper">
-			<div class="header">About <%= pretty_name(@user) %></div>
+			<div class="header">About <%= @user.pretty_name %></div>
 			<div class="profile-section-content"><%= @user.about.nil? ? "This user has not written an about me section :(" : @user.about %></div>
 		</div>
 		<div class="clearfix"></div>

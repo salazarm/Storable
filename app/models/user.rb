@@ -5,14 +5,12 @@ class User < ActiveRecord::Base
   
   has_secure_password
 
-
   has_many :listings
   has_many :messages
   has_many :images, :as => :imageable
 
   has_many :host_conversations, :class_name => "Conversation", :foreign_key => :host_id
   has_many :renter_conversations, :class_name => "Conversation", :foreign_key => :renter_id
-
 
   before_validation :downcase_email
   validates :email, :uniqueness => true, 
@@ -42,22 +40,28 @@ class User < ActiveRecord::Base
   def conversationsToJSON
     convos = Array.new
     (host_conversations+renter_conversations).sort_by(&:updated_at).reverse.each do |convo|
+      if id == convo.host_id
+        read = convo.host_read
+        starred = convo.host_starred
+      else
+        read = convo.renter_read
+        starred = convo.renter_starred
+      end
       convos.push({
-        :host_id => convo.host_id,
-        :host_image => convo.host_image,
-        :host_name => convo.host.pretty_name,
-        :renter_id => convo.renter_id,
-        :renter_image => convo.renter_image,
-        :renter_name => convo.renter.pretty_name,
-        :list_id => convo.list_id,
-        :list_title => convo.list.title,
-        :address => convo.list.location.street + ", " +
-                    convo.list.location.city + ", " +
-                    convo.list.location.state + " " +
-                    convo.list.location.zip.to_s,
-        :content => convo.messages.last.content
-
-
+        :id => convo.id,
+        :read => read,
+        :starred => starred,
+        :listing_id => convo.listing_id,
+        :listing_title => convo.listing.title,
+        :address => convo.listing.location.street + ", " +
+                    convo.listing.location.city + ", " +
+                    convo.listing.location.state + " " +
+                    convo.listing.location.zip.to_s,
+        :is_host => convo.listing.user_id == id,
+        :content => convo.messages.last.content,
+        :last_id => convo.messages.last.user_id,
+        :last_name => convo.messages.last.user.pretty_name,
+        :last_photo => convo.messages.last.user.profile_photo
       })
     end
     return convos
@@ -67,9 +71,8 @@ class User < ActiveRecord::Base
     first_name.nil? ? email : first_name + " " + last_name
   end
 
-  # returns default photo
-  def photo
-    return DEFAULT_PHOTO
+  def profile_photo
+    return images.last ? images.last.location : DEFAULT_PHOTO
   end
 
    # Overrides humanized attribute names
