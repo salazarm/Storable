@@ -51,47 +51,7 @@ class ListingsController < ApplicationController
   end
 
   def search
-    address = params[:address]
-    radius = params[:radius]
-
-    #first filter by locations within radius miles of the given address
-    @locations = Location.near(address, radius)
-
-    #if start date is passed in as a paramter then filter by that as well
-    if params.has_key?(:start_date)
-       start_date = params[:start_date]
-
-
-       @locations = @locations.joins(:listing).where('listings.start_date <= ?', start_date).group('listings.id')
-
-       @exclusions_start = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date).group('listings.id')
-    end
-
-    if params.has_key?(:end_date)
-       end_date = params[:end_date]
-       @locations = @locations.joins(:listing).where('listings.end_date >= ?', end_date).group('listings.id')
-
-       @exclusions_end = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date).group('listings.id')
-    end
-
-
-    if params.has_key?(:space)
-      @locations = @locations.where('listings.size > ?', params[:space])
-    end
-
-
-    if defined?(@exclusions_start)
-      @locations = @locations - @exclusions_start
-    elsif 
-      @locations = @locations - @exclusions_end
-    end
-
-
-    @listings = []
-    @locations.each do |location| 
-        @listings.push(location.listing)
-    end
-  
+   @listings = Listing.search(params)
    render :json => @listings
   end
 
