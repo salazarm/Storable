@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   has_many :host_conversations, :class_name => "Conversation", :foreign_key => :host_id
   has_many :renter_conversations, :class_name => "Conversation", :foreign_key => :renter_id
 
+  has_many :host_transactions, :class_name => "Transaction", :foreign_key => :host_id
+  has_many :renter_transactions, :class_name => "Transaction", :foreign_key => :renter_id
+
   before_validation :downcase_email
   validates :email, :uniqueness => true, 
              :format => {:with => VALID_EMAIL_REGEX }
