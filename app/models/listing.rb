@@ -54,9 +54,9 @@ class Listing < ActiveRecord::Base
         end
 
 
-        if defined?(exclusions_start)
+        if defined?(exclusions_start) && !exclusions_start.nil?
           locations = locations - exclusions_start
-        elsif 
+        elsif defined?(exclusions_end) && !exclusions_end.nil?
           locations = locations - exclusions_end
         end
 

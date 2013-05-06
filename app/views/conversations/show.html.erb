@@ -17,7 +17,9 @@
 	var clicks = 0;
 	$("#submit").click(function(){
 		var content = $("#text-area").html().replace(/<div>/gi,'<br>').replace(/<\/div>/gi,'')
+		console.log("clicks"+clicks);
 		console.log(content.length);
+		console.log(content.length > 3)
 		if (content.length >3 && clicks == 0) { 
 			clicks +=1;
 			$.ajax({
@@ -31,7 +33,8 @@
 					renter_id: '<%= other.id %>'
 				},
 				success: function(){
-					window.location = window.location;
+					console.log("success");
+					location.reload(true);
 				}
 			});
 		}

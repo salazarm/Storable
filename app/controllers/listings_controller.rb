@@ -52,6 +52,7 @@ class ListingsController < ApplicationController
 
   def search
    @listings = Listing.search(params)
+   puts @listings
    render :json => @listings
   end
 

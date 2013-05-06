@@ -22,16 +22,6 @@ App.Views.Auth = Backbone.View.extend({
 		"click .signupbtn" : "do_signup",
 	},
 
-	// submit: function(e) {
-	// 	if (e.keyCode == 13){
-	// 		if (this.$("login_form").is(":visible")){
-	// 			this.do_login(e);
-	// 		} else {
-	// 			this.do_signup(e);
-	// 		}
-	// 	}
-	// },
-
 	initialize : function() {
 		this.$el.show();
 		this.listenTo(this.model, "change", this.render);

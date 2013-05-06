@@ -4,7 +4,7 @@ class Message < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :conversation
 
-	after_save :touch_conversation
+	after_create :touch_conversation
 
 	def touch_conversation
 		if user.id == conversation.renter.id

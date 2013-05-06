@@ -11,7 +11,7 @@ Teamchill::Application.routes.draw do
   resources :sessions
 
 
-  post 'listings/search' => "listings#search"
+  get 'listings/search' => "listings#search"
 
   resources :listings do
     resources :locations
