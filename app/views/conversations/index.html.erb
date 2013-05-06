@@ -61,7 +61,7 @@
 	var sub_wrapper = $("#conversations-container");
 	$(window).resize(function(){
 		var w = $(window).width();
-		var newW = Math.floor((w-820)/2);
+		var newW = Math.max(10,Math.floor((w-820)/2))+ "px";
 		sub_wrapper.css("margin-left", newW);
 		sub_wrapper.css("margin-top", "20px")
 	});

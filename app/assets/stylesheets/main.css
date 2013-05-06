@@ -896,6 +896,7 @@ select#miles {
 
 #miles-container{
     float: left;
+    margin-left: 10px;
 }
 
 a.fancy_btn {
