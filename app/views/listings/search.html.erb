@@ -1,7 +1,40 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSq0Qw3aSRAe15spI8_fDzKHtUqyUtYeE&sensor=true"></script>
-<div id="search-wrapper" style="min-width: 900px;">
-<div id="map">
-  <div id="map-canvas"/>
+<link href='http://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<div id="search-wrapper" style="min-width: 900px; background-color: white; height: 100%;">
+  <div style="height:20px"></div>
+  <div id="map-canvas" class="awesome-box"></div>
+  <div class="awesome-box" style="margin: 20px 30px 0px 30px; padding: 10px">
+    Results: <%= @listings.count %>
+  </div>
+  <div id="results">
+    <% @listings.each do |listing| %>
+      <div class="search-listing-wrapper">
+        <div class="left">
+          <a class="search-listing-image-wrapper">
+            <a href="<%= listing_path(listing) %>"><img width="116px" height="76px" src='<%= listing.images.first.location %>'></img>
+            </a>
+          </a>
+        </div>
+        <div class="left">
+          <div class="top">
+            <a href="<%= listing_path(listing)%>"><img class="user-icon left" src='<%= listing.user.profile_photo %>' width="50px" height="50px">
+            </img>
+            </a>
+            <div class="top-info left">
+              <a href="<%= user_path(listing.user) %>" class="title"><%= listing.title %></a>
+              <span class="address"><%= listing.location.full_street_address %></span>
+            </div>
+          </div>
+          <div class="bottom">
+
+          </div>
+        </div>
+        <div class="right">
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    <% end %>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -14,11 +47,34 @@
     var map = new google.maps.Map(document.getElementById("map-canvas"),
         mapOptions);
     <% @listings.each do |listing| %>
-      new google.maps.Marker({
+      var marker = new google.maps.Marker({
         position: new google.maps.LatLng(<%= listing.location.latitude%>,<%= listing.location.longitude %>),
         title:"<%= listing.title %>",
         map: map,
       });
+      var boxText = document.createElement("div");
+      boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: white; padding: 5px;";
+      boxText.innerHTML = '<%= listing.description %>';
+      var myOptions = {
+                 content: boxText
+                ,disableAutoPan: false
+                ,maxWidth: 0
+                ,pixelOffset: new google.maps.Size(-140, 0)
+                ,zIndex: null
+                ,boxStyle: { 
+                  background: "white"
+                  ,opacity: 1
+                  ,width: "280px"
+                 }
+                ,closeBoxMargin: "10px 2px 2px 2px"
+                ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+                ,infoBoxClearance: new google.maps.Size(1, 1)
+                ,isHidden: false
+                ,pane: "floatPane"
+                ,enableEventPropagation: false
+        };
+        window.ib = new InfoBox(myOptions);
+        ib.open(map, marker);
     <% end %>
   }
   google.maps.event.addDomListener(window, 'load', initialize);
