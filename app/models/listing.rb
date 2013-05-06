@@ -37,7 +37,7 @@ class Listing < ActiveRecord::Base
         if search_params.has_key?(:start_date)
 
            #get the start date
-           start_date = search_params[:start_date]
+           start_date = Date.parse(search_params[:start_date])
 
            #find all locations that have a start date earlier than the one passed in
            locations = locations.joins(:listing).where('listings.start_date <= ?', start_date).group('listings.id')
@@ -51,7 +51,7 @@ class Listing < ActiveRecord::Base
         if search_params.has_key?(:end_date)
 
            #get the end date
-           end_date = search_params[:end_date]
+           end_date = Date.parse(search_params[:end_date])
 
            #find all locations that have a end date later than the one passed in
            locations = locations.joins(:listing).where('listings.end_date >= ?', end_date).group('listings.id')

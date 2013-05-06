@@ -180,8 +180,8 @@
       var miles = $("#miles").val();
       params= "?address="+location;
       params+="&radius="+miles;
-      if (checkIn)  params+="&start_date="+checkIn;
-      if (checkOut) params+="&end_date="+checkOut;
+      if (checkIn)  params+="&start_date="+new Date(checkIn).toString();
+      if (checkOut) params+="&end_date="+ new Date(checkOut).toString();
       window.location = "/listings/search"+params;
     });
   </script>
