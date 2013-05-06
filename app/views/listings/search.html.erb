@@ -17,11 +17,11 @@
         </div>
         <div class="left">
           <div class="top">
-            <a href="<%= listing_path(listing)%>"><img class="user-icon left" src='<%= listing.user.profile_photo %>' width="50px" height="50px">
+            <a href="<%=user_path(listing.user) %>"><img class="user-icon left" src='<%= listing.user.profile_photo %>' width="50px" height="50px">
             </img>
             </a>
             <div class="top-info left">
-              <a href="<%= user_path(listing.user) %>" class="title"><%= listing.title %></a>
+              <a href="<%= listing_path(listing) %>" class="title"><%= listing.title %></a>
               <span class="address"><%= listing.location.full_street_address %></span>
             </div>
           </div>
