@@ -61,7 +61,7 @@ $(document).ready(function(){
   function initialize() {
     var mapOptions = {
       center: new google.maps.LatLng(<%= @listings.first.location.latitude %>, <%= @listings.first.location.longitude %>),
-      zoom: 11,
+      zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById("map-canvas"),
