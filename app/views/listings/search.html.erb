@@ -11,9 +11,14 @@
       zoom: 11,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    window.map = new google.maps.Map(document.getElementById("map-canvas"),
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
         mapOptions);
+    <% @listings.each do |listing| %>
+      (new google.maps.Marker({
+        position: new google.maps.LatLng(<%= listing.location.latitude%>,<%= listing.location.longitude %>),
+        title:'<%= listing.title %>'
+      })).setMap(map);
+    <% end %>
   }
   google.maps.event.addDomListener(window, 'load', initialize);
-
 </script>
