@@ -51,7 +51,7 @@
     <% @listings.each_with_index do |listing, index| %>
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(<%= listing.location.latitude%>,<%= listing.location.longitude %>),
-        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=<%= index + 1%>|FF0000|000000',
+        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=<%= index + 1%>|B9CCEB|000000',
         title:"<%= listing.title %>",
         map: map,
       });
