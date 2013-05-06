@@ -52,7 +52,6 @@ class ListingsController < ApplicationController
   #search for listings based on various parameters
   def search
    @listings = Listing.search(params)
-   puts @listings
    respond_with @listings
   end
 

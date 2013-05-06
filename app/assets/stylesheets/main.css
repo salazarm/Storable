@@ -936,6 +936,12 @@ a.fancy_btn::before {
     box-shadow: inset 0px 1px 1px #909193, 0px 1px 0px #fff;
 }
 
+#map-canvas {
+    height: 250px;
+    width: 850px;
+    margin: 0 auto;
+}
+
 /*.listing-image {
     width: 200px; height:200px; padding: 1px;
 }*/
