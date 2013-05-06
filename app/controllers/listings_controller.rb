@@ -53,7 +53,7 @@ class ListingsController < ApplicationController
   def search
    @listings = Listing.search(params)
    puts @listings
-   render :json => @listings
+   respond_with @listings
   end
 
   #delete a listing

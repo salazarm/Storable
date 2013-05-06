@@ -178,23 +178,11 @@
       var checkIn = $("#checkin").val();
       var checkOut = $("#checkout").val();
       var miles = $("#miles").val();
-      data = {
-        address : location,
-        radius : miles
-      }
-      if (checkIn)  data.start_date = checkIn;
-      if (checkOut) data.end_date = checkOut;
-      if (miles && location) {
-        $.ajax({
-        url : '/listings/search',
-        type: "GET",
-        data: data,
-
-        success: function(){
-          console.log("success");
-        }
-      });
-      }
+      params= "?address="+location;
+      params+="&radius="+miles;
+      if (checkIn)  params+="&start_date="+checkIn;
+      if (checkOut) params+="&end_date="+checkOut;
+      window.location = "/listings/search"+params;
     });
   </script>
 </body>
