@@ -920,6 +920,18 @@ a.fancy_btn {
 
 }
 
+.map_number {
+    position: absolute;
+    background: #ffffff;
+    padding: 8px 3px 0 1px;
+    color: #929292;
+    left: 3px;
+    top: 3px;
+    height: 8px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+}
+
 .search-listing-image-wrapper {
     margin-right: 10px;
     padding: 3px;
@@ -1000,7 +1012,7 @@ a.fancy_btn {
 }
 
 .search-listing-wrapper:hover {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9!important;
 }
 
 .left {

@@ -75,11 +75,11 @@ class Listing < ActiveRecord::Base
 
         #find the listings corresponding to the locations and return that
         listings = []
-        locations.each do |location| 
+        locations.each do |location|
             listings.push(location.listing)
         end
 
-        return listings
+        return listings.compact
     end
 
 end

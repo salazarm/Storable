@@ -10,10 +10,11 @@
   <% end %>
   <div id="results">
     <% if @listings.count >0 %>
-      <% @listings.each do |listing| %>
+      <% @listings.each_with_index do |listing, index| %>
         <div class="search-listing-wrapper">
           <div class="left">
               <a class="search-listing-image-wrapper" href="<%= listing_path(listing) %>"><img width="116px" height="76px" src='<%= listing.images.last.location %>'></img>
+                <div class="map_number"><%= index + 1 %></div>
               </a>
           </div>
           <div class="left">
@@ -51,46 +52,58 @@
 </div>
 
 <% if @listings.count >0 %>
-  <script type="text/javascript">
-    function initialize() {
-      var mapOptions = {
-        center: new google.maps.LatLng(<%= @listings.first.location.latitude %>, <%= @listings.first.location.longitude %>),
-        zoom: 11,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      var map = new google.maps.Map(document.getElementById("map-canvas"),
-          mapOptions);
-      <% @listings.each do |listing| %>
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(<%= listing.location.latitude%>,<%= listing.location.longitude %>),
-          title:"<%= listing.title %>",
-          map: map,
-        });
-        var boxText = document.createElement("div");
-        boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: white; padding: 5px;";
-        boxText.innerHTML = '<%= listing.description %>';
-        var myOptions = {
-                   content: boxText
-                  ,disableAutoPan: false
-                  ,maxWidth: 0
-                  ,pixelOffset: new google.maps.Size(-140, 0)
-                  ,zIndex: null
-                  ,boxStyle: { 
-                    background: "white"
-                    ,opacity: 1
-                    ,width: "280px"
-                   }
-                  ,closeBoxMargin: "10px 2px 2px 2px"
-                  ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
-                  ,infoBoxClearance: new google.maps.Size(1, 1)
-                  ,isHidden: false
-                  ,pane: "floatPane"
-                  ,enableEventPropagation: false
-          };
-          window.ib = new InfoBox(myOptions);
-          ib.open(map, marker);
-      <% end %>
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
-  </script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(<%= @listings.first.location.latitude %>, <%= @listings.first.location.longitude %>),
+      zoom: 11,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+
+    var infowindow = new google.maps.InfoWindow();
+    <% @listings.each_with_index do |listing, index| %>
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(<%= listing.location.latitude%>,<%= listing.location.longitude %>),
+        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=<%= index + 1%>|B9CCEB|000000',
+        title:"<%= listing.title %>",
+        map: map,
+      });
+
+      var content = "<a href='<%=listing_path(listing)%>'><%= listing.title %> </a><br /> Description: <%= listing.description %> <br /> Price: $<%= listing.price %></div>"
+
+      makeInfoWindowEvent(map, infowindow, content, marker, <%= listing.id %>);
+
+
+        
+    <% end %>
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+  function makeInfoWindowEvent(map, infowindow, contentString, marker, id) {
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(contentString);
+      infowindow.open(map, marker);
+    });
+
+    google.maps.event.addListener(marker, 'mouseover', function() {
+      $('#'+id).css('background-color','#f9f9f9')
+    });
+
+    google.maps.event.addListener(marker, 'mouseout', function() {
+      console.log('da')
+      $('#'+id).css('background-color','#ffffff')
+    });
+
+
+  }
+
+  })
+
+</script>
 <% end %>
