@@ -48,14 +48,16 @@
         mapOptions);
 
     var infowindow = new google.maps.InfoWindow();
-    <% @listings.each do |listing| %>
+    <% @listings.each_with_index do |listing, index| %>
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(<%= listing.location.latitude%>,<%= listing.location.longitude %>),
+        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=<%= index + 1%>|FF0000|000000',
         title:"<%= listing.title %>",
         map: map,
       });
 
       var content = "<a href='<%=listing_path(listing)%>'>Title: <%= listing.title %> </a><br /> Description: <%= listing.description %> <br /> Price: $<%= listing.price %></div>"
+
       makeInfoWindowEvent(map, infowindow, content, marker);
 
         
@@ -64,10 +66,10 @@
   google.maps.event.addDomListener(window, 'load', initialize);
 
   function makeInfoWindowEvent(map, infowindow, contentString, marker) {
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(contentString);
-    infowindow.open(map, marker);
-  });
-}
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(contentString);
+      infowindow.open(map, marker);
+    });
+  }
 
 </script>
