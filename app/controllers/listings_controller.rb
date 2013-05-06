@@ -52,7 +52,11 @@ class ListingsController < ApplicationController
   #search for listings based on various parameters
   def search
    @listings = Listing.search(params)
-   respond_with @listings
+   @response = {
+      :listings => @listings,
+      :params => params,
+   }
+   respond_with @response
   end
 
   #delete a listing

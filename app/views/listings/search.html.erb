@@ -1,3 +1,4 @@
+<% @listings = @response[:listings] %>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSq0Qw3aSRAe15spI8_fDzKHtUqyUtYeE&sensor=true"></script>
 <link href='http://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
 <div id="search-wrapper" style="min-width: 900px; background-color: white; height: 100%;">
@@ -54,11 +55,18 @@
 
 <% if @listings.count >0 %>
 <script type="text/javascript">
-
 $(document).ready(function(){
 
 
   function initialize() {
+    $("#find_space").trigger("click");
+    $("#location").val('<%= @response[:params][:address] %>');
+    $("#checkin").val('<%= @response[:params][:start_date] %>');
+    $("#checkout").val('<%= @response[:params][:end_date] %>');
+    $("#miles").val('<%= @response[:params][:radius] %>');
+    
+
+
     var mapOptions = {
       center: new google.maps.LatLng(<%= @listings.first.location.latitude %>, <%= @listings.first.location.longitude %>),
       zoom: 11,
