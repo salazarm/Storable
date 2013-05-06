@@ -52,9 +52,10 @@
 
 		<div class="clearfix"></div>
 
-		<div class="profile-section-wrapper" id="listings-wrapper" style="width: 820px; height: 220px; margin: 20px 0 0 0px; overflow-y: hidden; overflow-x: scroll;" class="grey" >
+		<div class="profile-section-wrapper" id="listings-wrapper" class="grey" >
+			<div class="header">Listings</div>
 
-			<div id="profile-listings" style="width: <%= 220*@user.listings.count %>px; height: 200px; overflow-x: hidden; overflow-y: hidden;">
+			<div id="profile-listings" style="width: <%= 220*@user.listings.count %>px;">
 
 				<% @user.listings.each do |listing| %>
 					<%= render :partial => 'shared/listing_icon', :locals => { :listing => listing } %>

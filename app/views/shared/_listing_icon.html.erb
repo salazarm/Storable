@@ -1,7 +1,15 @@
 <a href='<%= listing_path(listing.id) %>' style="overflow:hidden;"> 
-	<div id="listing" style="float:left; height: 200px; width: 200px; margin: 10px 10px 0 10px; background-color: #fff; background-image: url('<%= listing.images.last ? listing.images.last.location : '' %>'); background-size: 200px 200px; overflow-x: hidden;">
-		<div style="color: #fff; background: rgba(0,0,0,.7); text-align: center; overflow: hidden; text-overflow: ellipsis; height: 23px; white-space: nowrap;">
-			<%= listing.title %>
+	<div class="listing-icon" style="background-image: url('<%= listing.images.last ? listing.images.last.location : '' %>');">
+		<div class="listing-icon-overlay">
+			<div class="listing-icon-title">
+				<%= listing.title %> 
+			</div>
+			<div class="listing-icon-price">
+				$<%= listing.price %>
+			</div>
+			<div class"listing-icon-permonth">
+				Per Month
+			</div>
 		</div>
 	</div>
 </a>
