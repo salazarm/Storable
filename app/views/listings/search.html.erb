@@ -53,20 +53,12 @@
   </div>
 </div>
 
-<% if @listings.count >0 %>
 <script type="text/javascript">
+<% if @listings.count >0 %>
 $(document).ready(function(){
 
 
-  function initialize() {
-    $("#find_space").trigger("click");
-    $("#location").val('<%= @response[:params][:address] %>');
-    $("#checkin").val('<%= @response[:params][:start_date] %>');
-    $("#checkout").val('<%= @response[:params][:end_date] %>');
-    $("#miles").val('<%= @response[:params][:radius] %>');
-    
-
-
+  function initialize() {   
     var mapOptions = {
       center: new google.maps.LatLng(<%= @listings.first.location.latitude %>, <%= @listings.first.location.longitude %>),
       zoom: 12,
@@ -112,7 +104,14 @@ $(document).ready(function(){
 
   }
 
-  })
-
-</script>
+  });
 <% end %>
+$(document).ready(function(){
+    $("#find_space").trigger("click");
+    $("#location").val('<%= @response[:params][:address] %>');
+    $("#checkin").val('<%= @response[:params][:start_date] %>');
+    $("#checkout").val('<%= @response[:params][:end_date] %>');
+    $("#miles").val('<%= @response[:params][:radius] %>');
+ });
+</script>
+
