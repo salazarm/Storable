@@ -1,21 +1,19 @@
 class ListingsController < ApplicationController
   respond_to :json, :html
-  # GET /listings
-  # GET /listings.json
+  
+  #get all the listings
   def index
     @listings = Listing.all
      respond_with(@listings, :status => :ok)
   end
 
-  # GET /listings/1
-  # GET /listings/1.json
+  #show details for a particular listing
   def show
     @listing = Listing.find(params[:id])
     respond_with(@listing, :status => :ok)
   end
 
-  # POST /listings
-  # POST /listings.json
+  #create a listing for this user
   def create
    @listing = @current_user.listings.build(params[:listing])
 
@@ -26,19 +24,20 @@ class ListingsController < ApplicationController
     end
   end
 
+  #edit a particular listing
   def edit
     @listing = Listing.find_by_id(params[:id])
     respond_with(@listing, :status => :ok)
   end
-  
+    
+  #define a new listing
   def new
     require_login
     @listing = Listing.new
     @listing.location = Location.new
   end
 
-  # PUT /listings/1
-  # PUT /listings/1.json
+  #update the details of a listing
   def update
     require_login
     @listing = @current_user.listings.find(params[:id])
@@ -50,14 +49,14 @@ class ListingsController < ApplicationController
     
   end
 
+  #search for listings based on various parameters
   def search
    @listings = Listing.search(params)
    puts @listings
    render :json => @listings
   end
 
-  # DELETE /listings/1
-  # DELETE /listings/1.json
+  #delete a listing
   def destroy
     @listing = @current_user.listings.find(params[:id])
 

@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20130505220606) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.integer  "listing_id"
+    t.boolean  "is_read"
+    t.boolean  "is_starred"
     t.boolean  "host_starred"
     t.boolean  "host_read"
     t.boolean  "renter_starred"
@@ -62,8 +64,11 @@ ActiveRecord::Schema.define(:version => 20130505220606) do
     t.integer  "conversation_id"
     t.integer  "user_id"
     t.text     "content"
+    t.boolean  "is_starred"
+    t.boolean  "is_read"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.text     "title"
   end
 
   create_table "reserved_dates", :force => true do |t|
