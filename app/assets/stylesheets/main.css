@@ -917,7 +917,21 @@ a.fancy_btn {
     margin: 0 auto;
     width: 830px;
     font-family: 'Arimo', sans-serif;
+}
 
+.google-description {
+    padding: 5px;
+    background-color: rgba(200,200,0,.05);
+    text-shadow: 0 1px 1px #fff;
+    border: 1px solid #c8c8c8;
+    border-color: rgba(0,0,0,0.2);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .map_number {

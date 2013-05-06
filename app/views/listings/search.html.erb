@@ -53,7 +53,29 @@
   </div>
 </div>
 
+<script type="text/template" id="google-popup-template">
+  <a href='/listings/[[=id ]]'>
+    <div style='float: left; margin-right: 20px'>
+        <img style='display: inline-block; float: left;' src='[[= images[images.length - 1].location ]]' width='100px' height='100px'>
+        </img>
+    </div>
+  </a>
+  <div style='float: left;'>
+    <a style='color: #1d95cb; text-decoration: none; margin: 0 auto; display: inline;' href='/listings/[[=id ]]'>
+      <div style='margin: 0 auto; display: inline;'>
+        [[= title ]]
+      </div>
+    </a>
+    <div class='google-description'>
+    [[= description ]]
+    </div>
+    <div class="g_popupprice">
+      Price: $[[= price ]]
+    </div>
+  </div>
+</script>
 <script type="text/javascript">
+
 <% if @listings.count >0 %>
 $(document).ready(function(){
 
@@ -68,6 +90,7 @@ $(document).ready(function(){
         mapOptions);
 
     var infowindow = new google.maps.InfoWindow();
+    var g_template = _.template($("#google-popup-template").html());
     <% @listings.each_with_index do |listing, index| %>
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(<%= listing.location.latitude%>,<%= listing.location.longitude %>),
@@ -76,7 +99,7 @@ $(document).ready(function(){
         map: map,
       });
 
-      var content = "<a href='<%=listing_path(listing)%>'><%= listing.title %> </a><br /> Description: <%= listing.description %> <br /> Price: $<%= listing.price %></div>"
+      var content = g_template(JSON.parse('<%= raw listing.to_json %>'));
 
       makeInfoWindowEvent(map, infowindow, content, marker, <%= listing.id %>);
 
@@ -97,7 +120,6 @@ $(document).ready(function(){
     });
 
     google.maps.event.addListener(marker, 'mouseout', function() {
-      console.log('da')
       $('#'+id).css('background-color','#ffffff')
     });
   
