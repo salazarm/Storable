@@ -1,3 +1,0 @@
-<% conversations.each do |conversation| %>
-	<%= render :partial => "conversation", :locals => {:conversation => conversation, :other => (conversation.host.id != @current_user.id) ? conversation.host : conversation.renter } %>
-<% end %>
