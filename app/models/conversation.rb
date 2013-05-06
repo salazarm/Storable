@@ -16,6 +16,8 @@ class Conversation < ActiveRecord::Base
       super(:include =>[:messages])
   end
 
+  #this method will either return a conversation or create one if it doesn't exist
+  #Note that a conversation can only be created by a renter
   def self.create_or_get_conversation(params, current_user)
     #user_id is equal to the id of the person that this message is directed towards
     listing = Listing.find(params[:listing_id])
