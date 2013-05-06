@@ -979,7 +979,7 @@ a.fancy_btn {
 }
 
 .search-listing-wrapper:hover {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9!important;
 }
 
 .left {

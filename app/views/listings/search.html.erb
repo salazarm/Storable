@@ -8,7 +8,7 @@
   </div>
   <div id="results">
     <% @listings.each do |listing| %>
-      <div class="search-listing-wrapper">
+      <div class="search-listing-wrapper" id = "<%= listing.id%>">
         <div class="left">
           <a class="search-listing-image-wrapper">
             <a href="<%= listing_path(listing) %>"><img width="116px" height="76px" src='<%= listing.images.first.location %>'></img>
@@ -38,6 +38,10 @@
 </div>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+
+
   function initialize() {
     var mapOptions = {
       center: new google.maps.LatLng(<%= @listings.first.location.latitude %>, <%= @listings.first.location.longitude %>),
@@ -58,18 +62,32 @@
 
       var content = "<a href='<%=listing_path(listing)%>'>Title: <%= listing.title %> </a><br /> Description: <%= listing.description %> <br /> Price: $<%= listing.price %></div>"
 
-      makeInfoWindowEvent(map, infowindow, content, marker);
+      makeInfoWindowEvent(map, infowindow, content, marker, <%= listing.id %>);
+
 
         
     <% end %>
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
-  function makeInfoWindowEvent(map, infowindow, contentString, marker) {
+  function makeInfoWindowEvent(map, infowindow, contentString, marker, id) {
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.setContent(contentString);
       infowindow.open(map, marker);
     });
+
+    google.maps.event.addListener(marker, 'mouseover', function() {
+      $('#'+id).css('background-color','#f9f9f9')
+    });
+
+    google.maps.event.addListener(marker, 'mouseout', function() {
+      console.log('da')
+      $('#'+id).css('background-color','#ffffff')
+    });
+
+
   }
+
+  })
 
 </script>
