@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :host_transactions, :class_name => "Transaction", :foreign_key => :host_id
   has_many :renter_transactions, :class_name => "Transaction", :foreign_key => :renter_id
 
+  has_many :user_reviews, :foreign_key => :reviewer_id
+  has_many :transaction_reviews, :foreign_key => :reviewer_id
+
   before_validation :downcase_email
   validates :email, :uniqueness => true, 
              :format => {:with => VALID_EMAIL_REGEX }
