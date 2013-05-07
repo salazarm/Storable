@@ -1132,20 +1132,6 @@ a.fancy_btn :active {
     background-image: linear-gradient(bottom, rgb(171,27,27) 100%, rgb(212,51,51) 0%);
 }
 
-a.fancy_btn::before {
-    background-color:#ccd0d5;
-    content:"";
-    display:block;
-    position:absolute;
-    width:100%;
-    height:100%;
-    padding:8px;
-    left:-8px;
-    top:-8px;
-    z-index:-1;
-    border-radius: 5px;
-    box-shadow: inset 0px 1px 1px #909193, 0px 1px 0px #fff;
-}
 
 .well {
     background-color: #fafafa;
