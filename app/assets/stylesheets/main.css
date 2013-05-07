@@ -1070,6 +1070,10 @@ a.fancy_btn {
     max-width: 368px;
 }
 
+#results .address {
+    text-align: right;
+}
+
 .search-listing-wrapper:hover {
     background-color: #f9f9f9!important;
 }
