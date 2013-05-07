@@ -1,20 +1,23 @@
 class TransactionsController < ApplicationController
-  respond_to :json
+  respond_to :json, :html
 
   before_filter :require_login
 
   # GET /users/1/transactions.json
   def index
-    @transactions = current_user.host_transactions + current_user.renter_transactions
-    respond_with(@transactions.to_json, :status => :ok)
+    @transactions = @current_user.host_transactions + @current_user.renter_transactions
+    # respond_with(@current_user.host_transactions, :status => :ok)
+    respond_with(@transactions, :status => :ok)
   end
 
   # GET /users/1/transactions/1.json
   def show
-    if current_user.host_transactions.exists?(:id => params[:id])
+    if @current_user.host_transactions.exists?(:id => params[:id])
       @transaction = current_user.host_transactions.find(params[:id])
-    elsif current_user.renter_transactions.exists?(:id => params[:id])
+    elsif @current_user.renter_transactions.exists?(:id => params[:id])
       @transaction = current_user.renter_transactions.find(params[:id])
+    else
+       respond_with("You are not the host or renter of this transaction", :status => :unprocessable_entity)
     end
     respond_with(@transaction, :status => :ok)
   end
@@ -35,7 +38,7 @@ class TransactionsController < ApplicationController
     conversation.request_submit
 
     if @transaction.save
-      respond_with(@transaction, :status => :created)
+      render :json => @transaction
     else
       respond_with(@transaction.errors, :status => :unprocessable_entity)
     end

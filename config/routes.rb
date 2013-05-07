@@ -13,6 +13,7 @@ Teamchill::Application.routes.draw do
 
 
   get 'listings/search' => "listings#search"
+  get 'listings/:id/checkout' => 'listings#checkout'
 
   resources :listings do
     resources :locations

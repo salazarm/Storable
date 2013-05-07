@@ -59,6 +59,12 @@ class ListingsController < ApplicationController
    respond_with @response
   end
 
+  #checkout a listing
+  def checkout
+    @listing = Listing.find(params[:id])
+    respond_with(@listing, :status => :ok)
+  end
+
   #delete a listing
   def destroy
     @listing = @current_user.listings.find(params[:id])
