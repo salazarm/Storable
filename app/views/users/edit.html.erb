@@ -7,16 +7,18 @@
 	    </div>
 	    <%= form_for(@current_user) do |f| %>
 	    <div style="padding: 20px;">
-	    	<div id="edit-profile-photo" style="margin: 0 auto; display: inline-block; float: left; background-image: url(<%=  @current_user.profile_photo %>); background-size: 200px 200px; width: 200px; height: 200px;">
-	    		<div class="listing-icon-overlay">
-	    			<div class="profile-icon-changetext">
-	    			Change Profile Picture
-		    		</div>
+	    	<div id="edit-profile-photo">
+		    	<div id="<%= @current_user.images.last ? @current_user.images.last.id : 'none' %>" style="margin: 0 auto; display: inline-block; float: left; background-image: url(<%=  @current_user.profile_photo %>); background-size: 200px 200px; width: 200px; height: 200px;">
+		    		<div class="no-opacity listing-icon-overlay">
+		    			<div class="profile-icon-changetext">
+		    			Change Profile Picture
+			    		</div>
+			    	</div>
 		    	</div>
-	    	</div>
-			<div class="edit-profile-about">
-				<%= f.label :about, :class=>"textfield-label text-left" %><br />
-			    <%= f.text_area :about, :class=>"edit-input edit-textarea" %>
+				<div class="edit-profile-about">
+					<%= f.label :about, :class=>"textfield-label text-left	" %><br />
+				    <%= f.text_area :about, :class=>"edit-input edit-textarea" %>
+				</div>
 			</div>
 		</div>
 		
@@ -37,7 +39,7 @@
 
 <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
 <script type="text/javascript">	
-	var photo = $(".pphoto");
+	var photo = $("#edit-profile-photo").children();
 	filepicker.setKey("ANiojec3SRKijkj9dvLmGz");
 	$("#edit-profile-photo").click(function(){
 		filepicker.pickAndStore({
@@ -54,14 +56,9 @@
 		    			removePhoto(photo[0].id);
 		    		}   
 		    		uploadPhoto(file.url);
-		    		photo[0].src = file.url;
+		    		photo[0].backgroundImage = "url("+file.url+");";
 		    	});
 			});
-	});
-	$(".pphoto, #overlay-stuff ").mouseenter(function(){
-		$("#overlay-stuff").show();
-	}).mouseleave(function(){
-		$("#overlay-stuff").hide();
 	});
 	var uploadPhoto = function(url){
 		$.ajax({
