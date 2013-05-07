@@ -25,8 +25,8 @@ $(function() {
   });
   $(window).trigger("resize");
     $(".listing-icon").hover(function(){
-         $(($(this)[0].children[0])).slideDown(200, 'swing');
+         $(($(this)[0].children[0])).slideUp(200, 'swing');
     }, function(){
-        $(($(this)[0].children[0])).slideUp(200, 'swing');
+        $(($(this)[0].children[0])).slideDown(200, 'swing');
     })
 });

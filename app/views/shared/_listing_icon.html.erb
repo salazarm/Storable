@@ -1,6 +1,6 @@
 <a href='<%= listing_path(listing.id) %>' style="overflow:hidden;"> 
 	<div class="listing-icon" style="background-image: url('<%= listing.images.last ? listing.images.last.location : '' %>');">
-		<div class="listing-icon-overlay" style="display: none;">
+		<div class="listing-icon-overlay">
 			<div class="listing-overlay-wrapper">
 				<div class="listing-icon-title">
 					<div class="title-bottom"><%= listing.title %>
