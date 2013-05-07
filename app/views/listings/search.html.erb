@@ -131,8 +131,8 @@ $(document).ready(function(){
 $(document).ready(function(){
     $("#find_space").trigger("click");
     $("#location").val('<%= @response[:params][:address] %>');
-    $("#checkin").val('<%= @response[:params][:start_date] %>');
-    $("#checkout").val('<%= @response[:params][:end_date] %>');
+    $("#checkin").val($.datepicker.formatDate('mm/dd/yy', new Date('<%= @response[:params][:start_date] %>')));
+    $("#checkout").val($.datepicker.formatDate('mm/dd/yy', new Date('<%= @response[:params][:end_date] %>')));
     $("#miles").val('<%= @response[:params][:radius] %>');
  });
 </script>
