@@ -7,6 +7,7 @@ Teamchill::Application.routes.draw do
   resources :users do
     resources :images
     resources :transactions
+    resources :reviews
   end
   resources :sessions
 
@@ -16,6 +17,7 @@ Teamchill::Application.routes.draw do
   resources :listings do
     resources :locations
     resources :images
+    resources :reviews
   end
 
   resources :messages
