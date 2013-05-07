@@ -1014,11 +1014,19 @@ a.fancy_btn {
     margin-top: 4px;
 }
 
+
+
 .listing-icon-overlay {
-    /*display: none;*/
+    cursor: pointer;
+    opacity: 0;
     color: #fff; 
-    -webkit-box-shadow: inset 0 0 400px rgba(0,0,0,0.9),0 0 0 #000;
-    box-shadow: inset 0 0 400px rgba(0,0,0,0.9),0 0 0 #000; 
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%, rgba(22,0,0,.9) 90%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,.40)), color-stop(90%,rgba(22,0,0,.9))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.8) 90%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.9) 90%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.9) 90%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(0,0,0,.40) 0%,rgba(22,0,0,.9) 90%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#160000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */ 
     text-align: center; 
     overflow: hidden; 
     text-overflow: ellipsis; 
@@ -1026,6 +1034,13 @@ a.fancy_btn {
     white-space: nowrap;
     text-align: center;
     text-shadow: 0 5px 5px rgba(0,0,0,.9);
+}
+.listing-icon-overlay:hover {
+    opacity: 1;
+}
+
+.profile-icon-changetext {
+    margin-top: 90px;
 }
 
 .listing-icon-title {
@@ -1041,6 +1056,12 @@ a.fancy_btn {
     text-overflow: ellipsis;
     position: absolute;
     bottom: 20px;
+}
+
+.text-one-line {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .listing-overlay-wrapper {
@@ -1234,8 +1255,8 @@ a.fancy_btn::before {
 }
 
 .edit-textarea {
-    height: 178px;
-    width: 400px;
+    height: 157px;
+    width: 411px;
 }
 .edit-input {
     margin-bottom: 0;
@@ -1302,7 +1323,10 @@ a.fancy_btn::before {
     cursor: pointer;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     list-style: disc;
+}
 
+.text-left {
+    text-align: left;
 }
 /* ==========================================================================
    Print styles

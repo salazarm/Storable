@@ -7,16 +7,15 @@
 	    </div>
 	    <%= form_for(@current_user) do |f| %>
 	    <div style="padding: 20px;">
-	    	<div style="margin: 0 auto; display: inline-block; float: left;">
-				<img class="pphoto" src="<%=  @current_user.profile_photo %>" id="<%= profile_photo_id  %>" ></img>
-				<span id="overlay-stuff">
-					<div id="pphoto-overlay"></div>
-				    <div id="pphoto-break"></div>
-					<div id="pphoto-overlay-text"> Change Profile Photo</div>
-				</span>
-			</div>
+	    	<div id="edit-profile-photo" style="margin: 0 auto; display: inline-block; float: left; background-image: url(<%=  @current_user.profile_photo %>); background-size: 200px 200px; width: 200px; height: 200px;">
+	    		<div class="listing-icon-overlay">
+	    			<div class="profile-icon-changetext">
+	    			Change Profile Picture
+		    		</div>
+		    	</div>
+	    	</div>
 			<div class="edit-profile-about">
-				<%= f.label :about, :class=>"textfield-label" %><br />
+				<%= f.label :about, :class=>"textfield-label text-left" %><br />
 			    <%= f.text_area :about, :class=>"edit-input edit-textarea" %>
 			</div>
 		</div>
@@ -40,7 +39,7 @@
 <script type="text/javascript">	
 	var photo = $(".pphoto");
 	filepicker.setKey("ANiojec3SRKijkj9dvLmGz");
-	$("#overlay-stuff").click(function(){
+	$("#edit-profile-photo").click(function(){
 		filepicker.pickAndStore({
 		    	mimetype:"image/*",
 		    	'multiple': false,
