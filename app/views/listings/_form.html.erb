@@ -1,21 +1,47 @@
-	<label>Title:</label> <%= text_field_tag :title, listing.title, :placeholder => "Candy Land" %> <br/>
-	<label>Description:</label> <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!" %> <br />
-	<label>Price:</label> <%= number_field_tag :price, listing.price , :placeholder => "1.00" %> <br />
-	<label>Size:</label> <%= number_field_tag :size, listing.size, :placeholder => "2.25" %><br />
-	<label>Start Date:</label> <%= text_field_tag :start_date, listing.start_date, :class => "ui-datepicker-target" %><br />
-	<label>End Date:</label> <%= text_field_tag :end_date, listing.end_date, :class => "ui-datepicker-target" %><br />
-	<label>Street Address:</label> <%= text_field_tag :street, listing.location.street, :placeholder => "123 Silicon Valley Express Way" %><br />
-	<label>City:</label> <%= text_field_tag :city, listing.location.city, :placeholder => "Mountain View" %><br />
-	<label>State:</label> <%= text_field_tag :state, listing.location.state, :placeholder => "California" %><br />
-	<label>Zip:</label> <%= text_field_tag :zip, listing.location.zip, :placeholder => "01234" %><br/>
-	<div class="clearfix"></div>
-	<br />
-		<a id="upload" class="abutton" style="margin-top:10px;">Upload an Image</a>
-		Click on an image to remove it
-		<div id="images" style="margin: 20px 0 0 0"></div>
-		<div class="clearfix"></div>
-		<div id="submit_listing" class="abutton" style="display: inline;">Submit</div>
+<div class="well panel-border">	
+	<div class="panel-header-gray">
+		<h3>About Your Storage Space</h3>
+		<p>How big is your storage space? Do you store things like food? Will you shine a guy's trophy everyday? How far are you willing to go to be awesome storage space host?</p>
 	</div>
+	<div class="pad">
+		<div class="control-group">
+			<label class="textfield-label">Title:</label> <%= text_field_tag :title, listing.title, :placeholder => "Candy Land", :class=> "edit-input edit-textfield"  %>
+		</div> 
+		<div class="control-group">
+			<label class="textfield-label">Description:</label> <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!", :class=> "edit-input edit-textarea", :style=>"margin-left: 5px;" %>
+		</div> 
+		<div class="control-group">
+			<label class="textfield-label">Price:</label> <%= number_field_tag :price, listing.price , :placeholder => "1.00", :class=> "edit-input", :style=>"margin-left: 5px;"  %>
+			<label class="textfield-label">Size:</label> <%= number_field_tag :size, listing.size, :placeholder => "2.25", :class=> "edit-input", :style=>"margin-left: 5px;"  %>
+		</div> 
+		<div class="control-group">
+			<label class="textfield-label">Start Date:</label> <%= text_field_tag :start_date, listing.start_date, :class => "ui-datepicker-target edit-input", :style=>"margin-left: 5px;" %>
+			<label class="textfield-label">End Date:</label> <%= text_field_tag :end_date, listing.end_date, :class => "ui-datepicker-target edit-input", :style=>"margin-left: 5px;" %>
+		</div> 
+		<div class="control-group">
+			<label class="textfield-label">Address:</label> <%= text_field_tag :street, listing.location.street, :placeholder => "123 Silicon Valley Express Way", :class=> "edit-input edit-textfield"  %>
+		</div> 
+		<div class="control-group">
+			<label class="textfield-label">City:</label> <%= text_field_tag :city, listing.location.city, :placeholder => "Mountain View", :class=> "edit-input edit-textfield"  %>
+		</div> 
+		<div class="control-group">
+			<label class="textfield-label">State:</label> <%= text_field_tag :state, listing.location.state, :placeholder => "California", :class=> "edit-input edit-textfield"  %>
+		</div> 
+		<div class="control-group">
+			<label class="textfield-label">Zip:</label> <%= text_field_tag :zip, listing.location.zip, :placeholder => "01234", :class=> "edit-input edit-textfield"  %>
+		</div> 
+		<div class="control-group">
+			<div id="listing-image-uploads">
+				<a id="upload" class="abutton" style="margin-top:10px;">Upload an Image</a>
+				<span class="click-to-remove ">Click on an image to remove it</span>
+				<div id="images" style="margin: 20px 0 0 0">
+				</div>
+				<div id="submit_listing" class="abutton" style="display: inline;">
+					Submit
+				</div>
+			</div> 
+	</div>
+</div>
 	<div id="overlay">
 	    <div id="processing">
 	        <p>Processing Request...</p>

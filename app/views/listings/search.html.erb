@@ -129,7 +129,7 @@ $(document).ready(function(){
   });
 <% end %>
 $(document).ready(function(){
-    $("#find_space").trigger("click");
+    $("#find_space").trigger("click").hide();
     $("#location").val('<%= @response[:params][:address] %>');
     <% if @response[:params][:start_date] %>
     $("#checkin").val($.datepicker.formatDate('mm/dd/yy', new Date('<%= @response[:params][:start_date] %>')));
@@ -138,6 +138,7 @@ $(document).ready(function(){
     $("#checkout").val($.datepicker.formatDate('mm/dd/yy', new Date('<%= @response[:params][:end_date] %>')));
     <% end %>
     $("#miles").val('<%= @response[:params][:radius] %>');
+    $("#close_search").hide();
  });
 </script>
 
