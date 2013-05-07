@@ -69,7 +69,7 @@
 	$(function(){
 
 $('[contenteditable=true]')
-	.live("keypress", function(e){
+	.on("keypress", function(e){
 	  if (e.which == 13) {
 	    if (window.getSelection) {
 	      var selection = window.getSelection(),
