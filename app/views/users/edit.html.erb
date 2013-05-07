@@ -1,15 +1,38 @@
 <% profile_photo_id = @current_user.images.last ? @current_user.images.last.id : "none" %>
 
 <div id="edit-profile-sub-wrapper">
-	<img class="pphoto" src="<%=  @current_user.profile_photo %>" id="<%= profile_photo_id  %>" ></img>
-	<span id="overlay-stuff">
-		<div id="pphoto-overlay"></div>
-	    <div id="pphoto-break"></div>
-		<div id="pphoto-overlay-text"> Change Profile Photo</div>
-	</span>
-	<div class="clearfix"></div>
-	<div id="form">
-		<%= render 'form', :signup => false %>
+	<div class="box-2">
+		<div class="full-heading">
+	      Edit profile
+	    </div>
+	    <%= form_for(@current_user) do |f| %>
+	    <div style="padding: 20px;">
+	    	<div style="margin: 0 auto; display: inline-block; float: left;">
+				<img class="pphoto" src="<%=  @current_user.profile_photo %>" id="<%= profile_photo_id  %>" ></img>
+				<span id="overlay-stuff">
+					<div id="pphoto-overlay"></div>
+				    <div id="pphoto-break"></div>
+					<div id="pphoto-overlay-text"> Change Profile Photo</div>
+				</span>
+			</div>
+			<div class="edit-profile-about">
+				<%= f.label :about, :class=>"textfield-label" %><br />
+			    <%= f.text_area :about, :class=>"edit-input edit-textarea" %>
+			</div>
+		</div>
+		
+		<div class="clearfix"></div>
+		<div style="padding: 20px;">
+			<div>
+			    <%= f.label :first_name, :class=>"textfield-label" %>
+			    <%= f.text_field :first_name, :class=>"edit-input edit-textfield" %>
+			</div>
+			<div>
+			    <%= f.label :last_name, :class=>"textfield-label" %>
+			    <%= f.text_field :last_name, :class=>"edit-input edit-textfield" %>
+			</div>
+		</div>
+		<% end %>
 	</div>
 </div>
 
@@ -41,7 +64,6 @@
 	}).mouseleave(function(){
 		$("#overlay-stuff").hide();
 	});
-
 	var uploadPhoto = function(url){
 		$.ajax({
 			type: "POST",
@@ -53,7 +75,6 @@
 			},
 		});
 	};
-
 	var removePhoto = function(id){
 		$.ajax({
 			url: "/users/"+<%= @current_user.id %>+"/images/"+id,
