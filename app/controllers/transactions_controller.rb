@@ -25,33 +25,36 @@ class TransactionsController < ApplicationController
   # POST /user/1/transactions.json
   def create
 
+    listing = Listing.find(params[:listing_id])
+
     # Add default value of host_accepted => false to transaction
     params[:transaction][:host_accepted] = false
 
-    start_date = params[:transaction][start_date]
-    end_date = params[:transaction][end_date]
+    start_date = params[:transaction][:start_date]
+    end_date = params[:transaction][:end_date]
 
-    conflicts = Listing.joins(:reserved_dates).where(:listing_id => params[:listing_id]).where('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date).where('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date)
-    
-    if conflicts.length > 0
+    reservations_conflicts = Listing.joins(:reserved_dates).where(:id => params[:listing_id]).where('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date).where('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date)
+  
+    if reservations_conflicts.length > 0 || !(listing.start_date <= Date.parse(start_date) && listing.end_date >= Date.parse(start_date)) 
       render :json => { error: ["Your dates are invalid. Someone has already booked for a portion of them."]}
-    end 
+    else 
 
-    @transaction = Transaction.new(params[:transaction])
+      @transaction = Transaction.new(params[:transaction])
 
-    listing = Listing.find(params[:listing_id])
-    Transaction.create_transaction_listing(listing, @transaction)
-    
-    # Update conversation so host sees renter wants to proceed
-    # conversation = Conversation.create_or_get_conversation(params, current_user)
-    # conversation.request_submit
+      
+      Transaction.create_transaction_listing(listing, @transaction)
+      
+      # Update conversation so host sees renter wants to proceed
+      # conversation = Conversation.create_or_get_conversation(params, current_user)
+      # conversation.request_submit
 
 
 
-    if @transaction.save
-      render :json => @transaction
-    else
-      respond_with(@transaction.errors, :status => :unprocessable_entity)
+      if @transaction.save
+        render :json => @transaction
+      else
+        respond_with(@transaction.errors, :status => :unprocessable_entity)
+      end
     end
 
   end
