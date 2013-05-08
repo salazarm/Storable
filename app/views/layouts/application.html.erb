@@ -77,11 +77,16 @@
         </span>
       </div>
 
-      <div class="search-area hidden">
+      <div class="search-area hidden" id="search-area-bar">
         <div id="search-bar">
-          <%= render :partial=> "/shared/search_bar", :locals => { :showX => true } %>
+          <%= render :partial=> '/shared/search_bar', :locals => { :showX => true } %>
         </div>
       </div>
+      <script>
+        if (window.location.pathname === "/") {
+            $("#search-area-bar").remove();
+        }
+      </script>
     </div>
 
   </div>
@@ -143,14 +148,16 @@
     });
   </script>
   <script>
-    // location search input autocomplete
-    var input = document.getElementById('location');
-    var options = {
-      types: ['geocode'],
-      componentRestrictions: {country: 'us'}
-    };
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
-    console.log(autocomplete);
+    function initialize() {
+      // location search input autocomplete
+      var input = (document.getElementById('location'));
+      var options = {
+        types: ['geocode'],
+        componentRestrictions: {country: 'us'}
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
   </script>
 </body>
 </html>

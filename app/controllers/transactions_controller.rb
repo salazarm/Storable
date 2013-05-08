@@ -5,9 +5,16 @@ class TransactionsController < ApplicationController
 
   # GET /users/1/transactions.json
   def index
-    @transactions = @current_user.host_transactions + @current_user.renter_transactions
-    # respond_with(@current_user.host_transactions, :status => :ok)
+
+    @pending_host_transactions = @current_user.host_transactions.where(:host_seen => false)
+    @pending_renter_transactions = @current_user.renter_transactions.where(:host_seen => false)
+
+    @past_host_transactions = @current_user.host_transactions.where(:host_seen => true, :host_accepted => true)
+    @past_renter_transactions = @current_user.renter_transactions.where(:host_seen => true, :host_accepted => true)
+
+    @transactions = {:pending_host_transactions => @pending_host_transactions, :pending_renter_transactions => @pending_renter_transactions, :past_host_transactions => @past_host_transactions, :past_renter_transactions => @past_renter_transactions}
     respond_with(@transactions, :status => :ok)
+
   end
 
   # GET /users/1/transactions/1.json
@@ -48,7 +55,7 @@ class TransactionsController < ApplicationController
       # conversation = Conversation.create_or_get_conversation(params, current_user)
       # conversation.request_submit
 
-
+      @transaction.price = @transaction.calc_price
 
       if @transaction.save
         render :json => @transaction
@@ -65,6 +72,7 @@ class TransactionsController < ApplicationController
       @transaction = current_user.host_transactions.find(params[:id])
 
       @transaction.update_attributes({:host_accepted => params[:host_accepted]})
+      @transaction.update_attributes({:host_seen => true})
 
       transaction_listing = @transaction.transaction_listing
 
@@ -73,13 +81,11 @@ class TransactionsController < ApplicationController
       listing.create_reserved_date(@transaction, listing)
 
       #### STRIPE PAYMENT HANDLING ####
-
-      Stripe.api_key = "sk_test_y5dqWUhct4bMB66OxMiqNY3G"
-
+      
       # Create the charge on Stripe's servers - this will charge the user's card
       begin
         charge = Stripe::Charge.create(
-          :amount => transaction_listing.price, # amount in cents
+          :amount => listing.price, # amount in cents
           :currency => "usd",
           :card => @transaction.stripeToken,
           :description => transaction_listing.title

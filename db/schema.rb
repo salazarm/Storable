@@ -11,6 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20130506203127) do
 
   create_table "conversations", :force => true do |t|
@@ -115,6 +116,12 @@ ActiveRecord::Schema.define(:version => 20130506203127) do
     t.string   "stripeToken"
     t.date     "start_date"
     t.date     "end_date"
+<<<<<<< HEAD
+=======
+    t.boolean  "host_seen",     :default => false
+    t.boolean  "host_accepted", :default => false
+    t.integer  "price"
+>>>>>>> 86c3b47a59dac98c532e8dd899156f11e945af65
   end
 
   create_table "users", :force => true do |t|
