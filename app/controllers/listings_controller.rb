@@ -65,6 +65,10 @@ class ListingsController < ApplicationController
     respond_with(@listing, :status => :ok)
   end
 
+  # dummy function for showing home page
+  def home
+  end
+
   #delete a listing
   def destroy
     @listing = @current_user.listings.find(params[:id])
