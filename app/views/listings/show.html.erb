@@ -47,7 +47,7 @@
 								</tr>
 								<tr>
 									<td>Price</td>
-									<td class="value">$<%= @listing.price/100.0 %> / month</td>
+									<td class="value">$<%= @listing.price/100.0 %> / month*</td>
 								</tr>
 								<tr>
 									<td>Country</td>
@@ -223,39 +223,58 @@
 	<script src="https://checkout.stripe.com/v2/checkout.js"></script>
 	<script>
 	    $('#book_it_button').click(function(){
-	      var token = function(res){
-	        $.ajax({
-				url: "/users/" + "<%= @current_user.id %>" + "/transactions",
-				type: "POST",
-				dataType: 'json',
-				data: {
-					listing_id: <%= @listing.id %>,
-					transaction: {
-						host_id: <%= @listing.user.id %>,
-						renter_id: <%= @current_user.id %>,
-						stripeToken : res.id,
-						start_date: $("#checkin-order").val(),	// TODO(marco): change to actual start date
-						end_date: $("#checkout-order").val()		// TODO(marco): change to actual end date
-					}
-				},
-				success: function(data){
-				console.log(data)
+	    	$("#checkin-order").removeClass("error");
+	    	$("#checkout-order").removeClass("error");
+				function parseDate(str) {
+			    var mdy = str.split('/')
+			    return new Date(mdy[2], mdy[0]-1, mdy[1]);
 				}
-				});
-	      };
 
-	      StripeCheckout.open({
-	        key:         'pk_test_jfyQ2QqVi1q5Z8IE0kfwvnpv',
-	        address:     true,
-	        amount:      "<%= @listing.price %>",
-	        name:        "<%= @listing.title %>",
-	        description: "<%= @listing.description %>",
-	        panelLabel:  'Checkout',
-	        token:       token
-	      });
+				function daydiff(first, second) {
+				    return (second-first)/(1000*60*60*24)
+				}
+	    	var start = $("#checkin-order").val();
+	    	var end = $("#checkout-order").val();
+				var days = daydiff( parseDate(start), parseDate(end) );
 
-	      return false;
-	    });
+				if( !days || days <= 0 || (new Date()) > (new Date(start))){
+					if ( new Date(start) > new Date() || days <= 0){}else{ $("#checkin-order").addClass("error"); }
+					if ( new Date(end) >new Date()  || days <= 0) {}else { $("#checkout-order").addClass("error"); }
+					console.log("error");
+				} else {
+		      var token = function(res){
+				    $.ajax({
+							url: "/users/" + "<%= @current_user.id %>" + "/transactions",
+							type: "POST",
+							dataType: 'json',
+							data: {
+								listing_id: <%= @listing.id %>,
+								transaction: {
+									host_id: <%= @listing.user.id %>,
+									renter_id: <%= @current_user.id %>,
+									stripeToken : res.id,
+									start_date: start,
+									end_date: end
+								}
+							},
+								success: function(data){
+								console.log(data)
+							}
+						});
+					};
+
+		      StripeCheckout.open({
+		        key:         'pk_test_jfyQ2QqVi1q5Z8IE0kfwvnpv',
+		        address:     true,
+		        amount:      <%= @listing.price %>*days/30.0,
+		        name:        "<%= @listing.title %>",
+		        description: "<%= @listing.description %>",
+		        panelLabel:  'Checkout',
+		        token:       token
+		      });
+		      return false;
+		    }
+			});
 	  </script>
 <% else %>
 	<script>

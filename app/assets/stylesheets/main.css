@@ -1821,6 +1821,12 @@ border: 1px solid #ccc;
 -moz-border-radius: 3px;
 border-radius: 3px;
 }
+#checkin-order.error, #checkout-order.error {
+    outline: none;
+    box-shadow: 0 0 3px rgba(255,0,0,.5);
+    border: 1px solid rgba(200,100,100,.5);
+}
+
 .book_it_section {
     .row-fluid:before, .row-fluid:after, .row:before, .row:after, .row-golden:before, .row-golden:after, .row-golden-fluid:before, .row-golden-fluid:after {
 display: table;
