@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  DEFAULT_PHOTO = "http://i.picresize.com/images/2013/04/27/SFmNc.png"
+  DEFAULT_PHOTO = "https://a0.muscache.com/airbnb/static/user_pic-225x225-63c61cbeda6f7fa57047b852c5fb7e86.png"
   VALID_EMAIL_REGEX = /^.+@.+\..+$/i 
   attr_accessible :email, :about, :password, :password_confirmation, :first_name, :last_name
   

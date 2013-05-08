@@ -11,20 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508051852) do
+ActiveRecord::Schema.define(:version => 20130506203127) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "renter_id"
     t.integer  "host_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "listing_id"
-    t.boolean  "is_read"
-    t.boolean  "is_starred"
     t.boolean  "host_starred"
     t.boolean  "host_read"
     t.boolean  "renter_starred"
     t.boolean  "renter_read"
+    t.boolean  "request_submitted"
   end
 
   create_table "images", :force => true do |t|
@@ -63,11 +62,8 @@ ActiveRecord::Schema.define(:version => 20130508051852) do
     t.integer  "conversation_id"
     t.integer  "user_id"
     t.text     "content"
-    t.boolean  "is_starred"
-    t.boolean  "is_read"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.text     "title"
   end
 
   create_table "reserved_dates", :force => true do |t|
@@ -111,15 +107,14 @@ ActiveRecord::Schema.define(:version => 20130508051852) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "host_id"
     t.integer  "renter_id"
+    t.boolean  "host_accepted"
     t.string   "stripeToken"
     t.date     "start_date"
     t.date     "end_date"
-    t.boolean  "host_seen",     :default => false
-    t.boolean  "host_accepted", :default => false
   end
 
   create_table "users", :force => true do |t|
