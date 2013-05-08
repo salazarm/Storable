@@ -49,11 +49,9 @@
                     <div class="left">
                       <div class="profile-pic">
                         <div class="matte-media-box">
-                          <a href="<%= user_path(review.reviewer) %>" rel="nofollow">
-                            <img width="68px" height="68px" src="<%= review.reviewer.profile_photo %>">
-                          </a>
+                          <a href="<%= user_path(review.reviewer) %>" rel="nofollow"><img class="lazy" height="68" src="<%= review.reviewer.profile_photo%>"  width="68" style="display: inline;"></a>
                         </div>
-                        <span class="name"><a href="<%= user_path(review.reviewer) %>"><%= review.reviewer.first_name %></a></span>
+                          <span class="name"><a href="<%= user_path(review.reviewer)%>" rel="nofollow"><%= review.reviewer.first_name %></a></span>
                       </div>
                     </div>
                     <div class="right">
@@ -61,6 +59,11 @@
                         <p class="message">
                           <%= review.content %>
                         </p>
+                          <div class="listing-name">
+                            <span class="icon icon-home"></span>
+                            <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
+                          </div>
+                          <p class="date"><% review.created_at %></p>
                       </div>
                     </div>
                   </div>
@@ -82,11 +85,9 @@
                     <div class="left">
                       <div class="profile-pic">
                         <div class="matte-media-box">
-                          <a href="<%= user_path(review.reviewer) %>" rel="nofollow">
-                            <img width="68px" height="68px" src="<%= review.reviewer.profile_photo %>">
-                          </a>
+                          <a href="<%= user_path(review.reviewer)%>" rel="nofollow"><img class="lazy" height="68" src="<%= review.reviewer.profile_photo%>"  width="68" style="display: inline;"></a>
                         </div>
-                        <span class="name"><a href="<%= user_path(review.reviewer) %>"><%= review.reviewer.first_name %></a></span>
+                          <span class="name"><a href="<%= user_path(review.reviewer)%>" rel="nofollow"><%= review.reviewer.first_name %></a></span>
                       </div>
                     </div>
                     <div class="right">
@@ -94,6 +95,11 @@
                         <p class="message">
                           <%= review.content %>
                         </p>
+                          <div class="listing-name">
+                            <span class="icon icon-home"></span>
+                            <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
+                          </div>
+                          <p class="date"><% review.created_at %></p>
                       </div>
                     </div>
                   </div>

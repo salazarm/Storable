@@ -41,12 +41,16 @@
   <% @transactions[:past_renter_transactions].each do |transaction| %>
     <div class="transaction-box">
       <div class="left">
-        <div class="top">
-          <a href="<%= user_path(listing.user)%>" style=' background-image: url(<%= listing.user.profile_photo %>);' class="user-icon left">
+          <a class="search-listing-image-wrapper" href="<%= listing_path(transaction.transaction_listing.listing) %>"><img width="116px" height="76px" src='<%= transaction.transaction_listing.listing.images.last.location %>'></img>
           </a>
-          <div class="top-info left">
-            <a href="<%= listing_path(listing) %>" class="title"><%= listing.title %><span class="new_icon"></span></a>
-            <span class="address"><%= listing.location.full_street_address %></span>
+        </div>
+      <div class="left">
+        <div class="top">
+          <a href="<%= user_path(transaction.host) %>" style=' background-image: url(<%= transaction.host.profile_photo %>);' class="user-icon left">
+          </a>
+          <div class="top-info left" style="margin: 5px">
+            <a href="<%= listing_path(transaction.transaction_listing.listing) %>" class="title"><%= transaction.transaction_listing.listing.title %><span class="new_icon"></span></a>
+            <div><span class="address" style="text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;color: #848484;text-align: -webkit-match-parent;line-height: 18px;font-size: 13px; max-width: 368px;"><%= transaction.transaction_listing.listing.location.full_street_address %></span></div>
           </div>
         </div>
       </div>

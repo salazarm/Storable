@@ -54,7 +54,12 @@ textarea {
     color: #000;
     padding: 0.2em 0;
 }
-
+li {
+line-height: 18px;
+}
+li {
+text-align: -webkit-match-parent;
+}
 
 /* ==========================================================================
    Author's custom styles
@@ -74,6 +79,12 @@ form {
 
 .hide {
     display:none;
+}
+p {
+margin: 0 0 9px;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+font-size: 13px;
+line-height: 18px;
 }
 
 .yellow {
@@ -167,6 +178,9 @@ a.vglnk {
 
 #location {
     width: 275px;
+}
+.reviews-list-item .right>.speech-bubble {
+width: 640px;
 }
 
 #email-content {
@@ -649,7 +663,7 @@ input.highlight {
     white-space: nowrap; 
 }
 
-#overlay {
+#overlay, #confirmation-overlay {
      display:none;
      position: fixed;
      left: 0px;
@@ -1714,7 +1728,13 @@ a.fancy_btn {
     float: right;
 }
 .reviews-list-item .right>.speech-bubble {
-width: 640px;
+width: 600px;
+font-weight: 12px;
+}
+.speech-bubble:before {
+border-right-color: rgba(0,0,0,0.2);
+top: 9px;
+left: -7px;
 }
 .speech-bubble:before {
 content: '';
@@ -1724,16 +1744,15 @@ border-bottom: 7px solid transparent;
 border-top: 7px solid transparent;
 position: absolute;
 }
-.speech-bubble:before {
-border-right-color: rgba(0,0,0,0.2);
-top: 9px;
-left: -7px;
-}
 .speech-bubble:after {
 border-right-color: #fefefe;
 top: 10px;
 left: -6px;
 }
+.matte-media-box img {
+border: 1px solid #777;
+}
+
 .speech-bubble:after {
 content: '';
 display: inline-block;
