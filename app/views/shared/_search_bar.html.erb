@@ -47,3 +47,11 @@
 		$("#checkout").datepicker("show");
 	});
 </script>
+<script>
+	$("input").focusin(function() {
+		$(this).addClass('highlight');
+	});
+	$("input").focusout(function() {
+		$(this).removeClass('highlight');
+	});
+</script>

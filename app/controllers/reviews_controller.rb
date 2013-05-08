@@ -26,14 +26,18 @@ class ReviewsController < ApplicationController
     elsif params[:type] == "TransactionReview"
       listing = Listing.find(params[:listing_id])
       if listing.can_review(current_user)
-        @review = @current_user.transaction_reviews.build(params[:review])
+        @review = listing.transaction_reviews.build(params[:review])
+        @review.listing_id = listing.id
+        @review.reviewee_id = current_user.id
+
+        ###TODO fill in all the other fields like transaction id
       end
     end
 
     if @review.save
-      respond_with(@review, :status => :created)
+      respond_with(listing, @review, :status => :created)
     else
-      respond_with(@review.errors, :status => :unprocessable_entity)
+      respond_with(listing, @review.errors, :status => :unprocessable_entity)
     end
   end
 
