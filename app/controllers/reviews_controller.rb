@@ -28,8 +28,8 @@ class ReviewsController < ApplicationController
       if listing.can_review(current_user)
         @review = listing.transaction_reviews.build(params[:review])
         @review.listing_id = listing.id
-        @review.reviewee_id = current_user.id
-
+        @review.reviewer_id = current_user.id
+        @review.reviewee_id = listing.user_id
         ###TODO fill in all the other fields like transaction id
       end
     end

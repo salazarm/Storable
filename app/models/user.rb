@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :renter_transactions, :class_name => "Transaction", :foreign_key => :renter_id
 
   has_many :user_reviews, :foreign_key => :reviewer_id
-  has_many :transaction_reviews, :foreign_key => :reviewer_id
+  has_many :transaction_reviews, :foreign_key => :reviewee_id
 
   before_validation :downcase_email
   validates :email, :uniqueness => true, 
