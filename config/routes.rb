@@ -13,6 +13,7 @@ Teamchill::Application.routes.draw do
 
 
   get 'listings/search' => "listings#search"
+  get 'listings/:id/checkout' => 'listings#checkout'
 
   resources :listings do
     resources :locations
@@ -23,7 +24,8 @@ Teamchill::Application.routes.draw do
   resources :messages
   resources :conversations
 
-  root :to => "listings#index"
+  root :to => "listings#home"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -34,7 +34,7 @@
   <div style="width: 100%; min-width: 870px;">
     <div id="top-wrapper">
       <div id="nav" class="grey" >
-        <span id="logo"></span>
+        <a href="/" class="notabutton"><img src="/storable-small.png" style="margin: -8px 5px -10px 0;"></img></a>
         <a id="find_space" class="fancy_btn" href="#search">Find Space</a>
         <%= link_to "List Space", new_listing_path, :id=> "list_space", :class=>"hidden fancy_btn" %>
         <!-- <div style="margin: 0 auto; display: inline; width: 50%" id="message"></div> -->
@@ -78,44 +78,7 @@
 
       <div class="search-area hidden">
         <div id="search-bar">
-          <form action="/search" id="search_form" style="min-width: 961px; height: 40px;">
-            <div class="input-wrapper inline" style="display: inline-block; margin-right: 14px; float: left;">
-              <input type="text" class="location" autocomplete="off" id="location" name="location" placeholder="Where do you need storage?">
-            </div>
-            <div id="checkinWrapper" class="input-wrapper inline" style="display: inline-block; float: left;">
-              <input type="text" id="checkin" class="checkin search-option ui-datepicker-target" name="checkin" placeholder="Check in">
-              <span class="search-area-icon"></span>
-            </div>
-            <div id="checkoutWrapper" class="input-wrapper inline" style="display: inline-block; float: left" >
-              <input type="text" id="checkout" class="checkout search-option ui-datepicker-target" name="checkout" placeholder="Check out">
-              <span class="search-area-icon search-area-icon-checkout"></span>
-            </div>
-            <div id="spaceWrapper" class="input-wrapper inline" style="display: inline-block; float: left;">
-              <input type="text" id="space" name="space" placeholder="Storage Space">
-              <span class="search-area-icon search-area-icon-storage-box"></span>
-            </div>
-            <div id="miles-container">
-              <div style="margin-top: -20px">
-                <select id="miles">
-                  <option value="1">1 Mile</option>
-                  <option value="2">2 Miles</option>
-                  <option value="5">5 Miles</option>
-                  <option value="10">10 Miles</option>
-                  <option value="25">25 Miles</option>
-                  <option value="50">50 Miles</option>
-                  <option value="100">100 Miles</option>
-                </select>
-              </div>
-            </div>
-            <div style="float: left;" >
-              <div id="search-submit" class="fancy_btn2">
-                Submit
-              </div>
-            </div>
-            <div class="input-wrapper inline">
-              <a href="#close" id="close_search" style="color: #fff; text-decoration: none; font-size: 24px;">X</a>
-            </div>
-          </form>
+          <%= render :partial=> "/shared/search_bar", :locals => { :showX => true } %>
         </div>
       </div>
     </div>
@@ -164,11 +127,12 @@
         user = new App.Models.User({});
     <% end %>
     App.init(user);
-    $("#search-submit").click(function(){
-      var location = $("#location").val();
-      var checkIn = $("#checkin").val();
-      var checkOut = $("#checkout").val();
-      var miles = $("#miles").val();
+    $(".search-submit").click(function(){
+      var searchForm = $(this).parent().parent();
+      var location = searchForm.find(".location").val();
+      var checkIn = searchForm.find(".checkin").val();
+      var checkOut = searchForm.find(".checkout").val();
+      var miles = searchForm.find(".miles").val();
       params= "?address="+location;
       params+="&radius="+miles;
       if (checkIn)  params+="&start_date="+new Date(checkIn).toString();

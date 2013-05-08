@@ -26,8 +26,16 @@ class ListingsController < ApplicationController
 
   #edit a particular listing
   def edit
-    @listing = Listing.find_by_id(params[:id])
-    respond_with(@listing, :status => :ok)
+    @listing = @current_user.listings.find_by_id(params[:id])
+    if @listing
+      respond_with(@listing, :status => :ok)
+    else
+      redirect_to root_url
+    end
+  end
+
+   # dummy function for showing home page
+  def home
   end
     
   #define a new listing
@@ -59,6 +67,12 @@ class ListingsController < ApplicationController
    respond_with @response
   end
 
+  #checkout a listing
+  def checkout
+    @listing = Listing.find(params[:id])
+    respond_with(@listing, :status => :ok)
+  end
+
   #delete a listing
   def destroy
     @listing = @current_user.listings.find(params[:id])
@@ -70,3 +84,4 @@ class ListingsController < ApplicationController
     end
   end
 end
+
