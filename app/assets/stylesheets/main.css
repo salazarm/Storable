@@ -992,7 +992,7 @@ a.fancy_btn {
 .price {
     font-size: 36px;
     line-height: 44px;
-    padding: 2px 10px 0 0;
+    padding: 2px 0px 0 0;
     color: #393c3d;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
