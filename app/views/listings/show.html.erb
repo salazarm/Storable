@@ -19,7 +19,7 @@
 					<div id="photos" class="main_content tab-pane active">
 						<div class="image-placeholder">
 							<!--  some image -->
-							<div id="galleria_container" style="height: 426px; width: 639px">
+							<div id="galleria_container">
 								<% @listing.images.each do |image| %>
 									<img src="<%= image.location %>">
 								<% end %>
@@ -75,8 +75,8 @@
 		  	<div id="book_it" class="panel-border space2">
 		  		<div class="panel-header-light">
 		  			<div id="pricing" class="book_it_section">
-		  				<p>From</p>
-		  				<h2 id="price_amount">$<%= @listing.price %><h2>
+		  				<p style="margin: 10px; padding:0;">From</p>
+		  				<h2 id="price_amount" style="margin: 0;">$<%= @listing.price %><h2>
 		  					<span id="per_month">Per Month</span>
 		  			</div>
 		  		</div>
@@ -86,7 +86,7 @@
   </div>
 <script>
 	$(document).ready( function(){
-		 Galleria.loadTheme('/galleria/themes/miniml/galleria.miniml.min.js');
+		 Galleria.loadTheme('/galleria/themes/classic/galleria.classic.min.js');
 		 console.log("running");
 		 Galleria.run('#galleria_container');
 	});
