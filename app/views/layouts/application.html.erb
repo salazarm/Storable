@@ -72,6 +72,8 @@
                 <div class="user-menu-sel">Edit Profile</div></a>
             <% end %>
             <a href=<%= conversations_path %> class="notabutton"><div id="notif" class="user-menu-sel">Messages (<%= new_messages_count %>)</div></a>
+            <a href=<%= user_transactions_path(@current_user) %> class="notabutton"><div id="notif" class="user-menu-sel">Transactions</div></a>
+            
             <div id="logoutbtn" class="user-menu-sel">Log Out</div>
           </ul>
         </span>
@@ -142,8 +144,8 @@
       var miles = searchForm.find(".miles").val();
       params= "?address="+location;
       params+="&radius="+miles;
-      if (checkIn)  params+="&start_date="+new Date(checkIn).toString();
-      if (checkOut) params+="&end_date="+ new Date(checkOut).toString();
+      if (checkIn)  params+="&start_date="+new Date(checkIn).toDateString();
+      if (checkOut) params+="&end_date="+ new Date(checkOut).toDateString();
       window.location = "/listings/search"+params;
     });
   </script>
