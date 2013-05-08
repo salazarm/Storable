@@ -272,8 +272,8 @@
 									host_id: <%= @listing.user.id %>,
 									renter_id: <%= @current_user.id %>,
 									stripeToken : res.id,
-									start_date: new Date(start).toString(),
-									end_date: new Date(end).toString()
+									start_date: new Date(start).toDateString(),
+									end_date: new Date(end).toDateString()
 								}
 							},
 								success: function(data){
