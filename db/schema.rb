@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20130506203127) do
+ActiveRecord::Schema.define(:version => 20130508072243) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "renter_id"
@@ -121,7 +120,11 @@ ActiveRecord::Schema.define(:version => 20130506203127) do
     t.boolean  "host_seen",     :default => false
     t.boolean  "host_accepted", :default => false
     t.integer  "price"
+<<<<<<< HEAD
 >>>>>>> 86c3b47a59dac98c532e8dd899156f11e945af65
+=======
+    t.integer  "listing_id"
+>>>>>>> a0adcaaa5d074f9b498394ebe36126a8383dc659
   end
 
   create_table "users", :force => true do |t|

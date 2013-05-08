@@ -3,7 +3,7 @@
     $(document).ready(function(){
         $('.transaction-approve').click(function(){
             var accepted = false
-            if ($(this).attr('id').indexOf('approve')){
+            if ($(this).attr('id').indexOf('approve') != -1){
                 accepted = true
             }
             $.ajax({

@@ -36,7 +36,7 @@ class TransactionsController < ApplicationController
 
     # Add default value of host_accepted => false to transaction
     params[:transaction][:host_accepted] = false
-
+    params[:transaction][:listing_id] = params[:listing_id]
     start_date = params[:transaction][:start_date]
     end_date = params[:transaction][:end_date]
 
@@ -81,7 +81,7 @@ class TransactionsController < ApplicationController
       listing.create_reserved_date(@transaction, listing)
 
       #### STRIPE PAYMENT HANDLING ####
-      
+
       # Create the charge on Stripe's servers - this will charge the user's card
       begin
         charge = Stripe::Charge.create(
