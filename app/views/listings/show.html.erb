@@ -90,9 +90,31 @@
 				<div class="nav nav-tabs panel-background-gray panel-photos">Reviews</div>
 					<div class="tab-content panel-padding clearfix">
 				  	<% @listing.transaction_reviews.each do |review| %>
-						<%= review.content %>
-						<br />
-					<% end %>
+							<li class="reviews-list-item space1 clearfix" style="list-style: none;">
+                  <div class="overflow">
+                    <div class="left">
+                      <div class="profile-pic">
+                        <div class="matte-media-box">
+                          <a href="<%= user_path(review.reviewer) %>" rel="nofollow"><img class="lazy" height="68" src="<%= review.reviewer.profile_photo%>"  width="68" style="display: inline;"></a>
+                        </div>
+                          <span class="name"><a href="<%= user_path(review.reviewer)%>" rel="nofollow"><%= review.reviewer.first_name %></a></span>
+                      </div>
+                    </div>
+                    <div class="right">
+                      <div class="speech-bubble" style="width: 540px;">
+                        <p class="message">
+                          <%= review.content %>
+                        </p>
+                          <div class="listing-name">
+                            <span class="icon icon-home"></span>
+                            <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
+                          </div>
+                          <p class="date"><% review.created_at %></p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+						<% end %>
 				  </div>
 				</div>
 			</div>

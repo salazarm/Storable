@@ -1731,19 +1731,6 @@ a.fancy_btn {
 width: 600px;
 font-weight: 12px;
 }
-.speech-bubble:before {
-border-right-color: rgba(0,0,0,0.2);
-top: 9px;
-left: -7px;
-}
-.speech-bubble:before {
-content: '';
-display: inline-block;
-border-right: 7px solid transparent;
-border-bottom: 7px solid transparent;
-border-top: 7px solid transparent;
-position: absolute;
-}
 .speech-bubble:after {
 border-right-color: #fefefe;
 top: 10px;
@@ -2389,4 +2376,18 @@ h1 {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
     font-weight: bold;
+}
+
+.speech-bubble:before {
+border-right-color: rgba(0,0,0,0.2);
+top: 9px;
+left: -7px;
+}
+.speech-bubble:before {
+content: '';
+display: inline-block;
+border-right: 7px solid transparent;
+border-bottom: 7px solid transparent;
+border-top: 7px solid transparent;
+position: absolute;
 }
