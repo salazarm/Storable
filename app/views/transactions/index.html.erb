@@ -1,13 +1,99 @@
-<h1>Listing transactions</h1>
+<head>
+    <script>
+    $(document).ready(function(){
+        $('.transaction-approve').click(function(){
+            var accepted = false
+            if ($(this).attr('id').indexOf('approve')){
+                accepted = true
+            }
+            $.ajax({
+                url: "/users/" + "<%= @current_user.id %>" + "/transactions/" + $(this).attr('id').replace("approve-","").replace("decline-",""),
+                type: "PUT",
+                dataType: 'json',
+                data: {
+                    host_accepted: accepted
+                },
+                success: function(data){
+                    console.log(data)
+                }
+            });
+        });
+
+    });
+
+    </script>
+</head>
+
+
+<h1>Pending Host Transactions</h1>
 
 <table>
   <tr>
     <th></th>
   </tr>
 
-<% @transactions.each do |transaction| %>
+<% @transactions[:pending_host_transactions].each do |transaction| %>
   <tr>
-    <td><%= transaction %></td>
+    <td><%= transaction.id %></td>
+    <td><%= transaction.price %></td>
+    <td><div id="approve-<%= transaction.id %>" class="transaction-approve abutton" style="display: inline;">Approve</div></td>
+     <td><div id="decline-<%= transaction.id %>" class="transaction-approve abutton" style="display: inline;">Decline</div></td>
+  </tr>
+<% end %>
+</table>
+
+
+
+
+
+<h1>Pending Renter Transactions</h1>
+
+<table>
+  <tr>
+    <th></th>
+  </tr>
+
+<% @transactions[:pending_renter_transactions].each do |transaction| %>
+  <tr>
+    <td><%= transaction.id %></td>
+    <td><%= transaction.price %></td>
+  </tr>
+<% end %>
+</table>
+
+
+
+
+
+<h1>Past Host Transactions</h1>
+
+<table>
+  <tr>
+    <th></th>
+  </tr>
+
+<% @transactions[:past_host_transactions].each do |transaction| %>
+  <tr>
+    <td><%= transaction.id %></td>
+    <td><%= transaction.price %></td>
+  </tr>
+<% end %>
+</table>
+
+
+
+
+<h1>Past Host Transactions</h1>
+
+<table>
+  <tr>
+    <th></th>
+  </tr>
+
+<% @transactions[:past_renter_transactions].each do |transaction| %>
+  <tr>
+    <td><%= transaction.id %></td>
+    <td><%= transaction.price %></td>
   </tr>
 <% end %>
 </table>
