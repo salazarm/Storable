@@ -34,7 +34,7 @@
 				},
 				success: function(){
 					console.log("success");
-					location.reload(true);
+					window.location = window.location.origin + window.location.pathname;
 				}
 			});
 		}

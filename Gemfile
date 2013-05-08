@@ -36,7 +36,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'geocoder'
 
 # Stripe payment gem
-gem "stripe", "~> 1.8.2"
+gem "stripe"
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="right">
-            <div class="price">$<%=listing.price %></div>
+            <div class="price">$<%= sprintf('%.2f',listing.price/100.0) %></div>
             <div class="address">Per Month</div>
           </div>
         </div>
@@ -99,7 +99,7 @@ $(document).ready(function(){
         map: map,
       });
 
-      var content = g_template(JSON.parse('<%= raw listing.to_json %>'));
+      var content = g_template(<%= raw listing.to_json %>);
 
       makeInfoWindowEvent(map, infowindow, content, marker, <%= listing.id %>);
 

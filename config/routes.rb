@@ -8,6 +8,7 @@ Teamchill::Application.routes.draw do
     resources :images
     resources :transactions
     resources :reviews
+    resources :user_reviews, :controller => "reviews", :type => "UserReview"
   end
   resources :sessions
 
@@ -18,7 +19,7 @@ Teamchill::Application.routes.draw do
   resources :listings do
     resources :locations
     resources :images
-    resources :reviews
+    resources :transaction_reviews, :controller => "reviews", :type => "TransactionReview"
   end
 
   resources :messages

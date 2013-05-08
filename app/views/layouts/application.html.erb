@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+  <script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
   <%= csrf_meta_tags %>
  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <script>
@@ -71,16 +72,24 @@
                 <div class="user-menu-sel">Edit Profile</div></a>
             <% end %>
             <a href=<%= conversations_path %> class="notabutton"><div id="notif" class="user-menu-sel">Messages (<%= new_messages_count %>)</div></a>
+            <% if @current_user %>
+            <a href=<%= user_transactions_path(@current_user) %> class="notabutton"><div id="notif" class="user-menu-sel">Transactions</div></a>
+            <% end %>
             <div id="logoutbtn" class="user-menu-sel">Log Out</div>
           </ul>
         </span>
       </div>
 
-      <div class="search-area hidden">
-        <div id="search-bar">
-          <%= render :partial=> "/shared/search_bar", :locals => { :showX => true } %>
+      <div class="search-area hidden" id="search-area-bar">
+        <div id="search-bar" style="width: 981px; margin: 0 auto;">
+          <%= render :partial=> '/shared/search_bar', :locals => { :showX => true } %>
         </div>
       </div>
+      <script>
+        if (window.location.pathname === "/") {
+            $("#search-area-bar").remove();
+        }
+      </script>
     </div>
 
   </div>
@@ -127,6 +136,7 @@
         user = new App.Models.User({});
     <% end %>
     App.init(user);
+
     $(".search-submit").click(function(){
       var searchForm = $(this).parent().parent();
       var location = searchForm.find(".location").val();
@@ -135,10 +145,22 @@
       var miles = searchForm.find(".miles").val();
       params= "?address="+location;
       params+="&radius="+miles;
-      if (checkIn)  params+="&start_date="+new Date(checkIn).toString();
-      if (checkOut) params+="&end_date="+ new Date(checkOut).toString();
+      if (checkIn)  params+="&start_date="+new Date(checkIn).toDateString();
+      if (checkOut) params+="&end_date="+ new Date(checkOut).toDateString();
       window.location = "/listings/search"+params;
     });
+  </script>
+  <script>
+    function initialize() {
+      // location search input autocomplete
+      var input = (document.getElementById('location'));
+      var options = {
+        types: ['geocode'],
+        componentRestrictions: {country: 'us'}
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
   </script>
 </body>
 </html>

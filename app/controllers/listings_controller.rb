@@ -10,7 +10,14 @@ class ListingsController < ApplicationController
   #show details for a particular listing
   def show
     @listing = Listing.find(params[:id])
-    respond_with(@listing, :status => :ok)
+
+    @can_review = false
+
+    if current_user
+      @can_review = @listing.can_review(current_user)
+    end
+    
+    respond_with(@listing, @can_review, :status => :ok)
   end
 
   #create a listing for this user

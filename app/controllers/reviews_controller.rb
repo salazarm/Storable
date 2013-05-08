@@ -12,55 +12,65 @@ class ReviewsController < ApplicationController
     elsif params[:type] == "TransactionReview"
     	@reviews = Reviews.where("listing_id = ?", params[:listing_id])
     end
-    respond_with(@reviews.to_json, :status => :ok)
+    respond_with(@reviews, :status => :ok)
   end
 
   # POST /users/1/reviews.json
   # POST /listings/1/reviews.json
   def create
     if params[:type] == "UserReview"
-      @review = @current_user.user_reviews.build(params[:review])
+      user = User.find(params[:user_id])
+      if user.can_review(current_user)
+        @review = @current_user.user_reviews.build(params[:review])
+      end
     elsif params[:type] == "TransactionReview"
-      @review = @current_user.transaction_reviews.build(params[:review])
+      listing = Listing.find(params[:listing_id])
+      if listing.can_review(current_user)
+        @review = listing.transaction_reviews.build(params[:review])
+        @review.listing_id = listing.id
+        @review.reviewer_id = current_user.id
+        @review.reviewee_id = listing.user_id
+        ###TODO fill in all the other fields like transaction id
+      end
     end
 
     if @review.save
-      respond_with(@review, :status => :created)
+      respond_with(listing, @review, :status => :created)
     else
-      respond_with(@review.errors, :status => :unprocessable_entity)
+      respond_with(listing, @review.errors, :status => :unprocessable_entity)
     end
   end
 
-  # PUT /users/1/reviews/1.json
-  # PUT /transactions/1/reviews/1.json
-  def update
-    if params[:type] == "UserReview"
-      @review = @current_user.user_reviews.find(params[:id])
-    elsif params[:type] == "TransactionReview"
-      @review = @current_user.transaction_reviews.find(params[:id])
-    end
+  # # PUT /users/1/reviews/1.json
+  # # PUT /transactions/1/reviews/1.json
+  # def update
+  #   if params[:type] == "UserReview"
+  #     @review = @current_user.user_reviews.find(params[:id])
+  #   elsif params[:type] == "TransactionReview"
+  #     @review = @current_user.transaction_reviews.find(params[:id])
+  #   end
 
-    if @review.update_attributes(params[:review])
-      render :json => @listing
-    else
-      respond_with(@review.errors, :status => :unprocessable_entity)
-    end
-  end
+  #   if @review.update_attributes(params[:review])
+  #     render :json => @listing
+  #   else
+  #     respond_with(@review.errors, :status => :unprocessable_entity)
+  #   end
+  # end
 
-  # DELETE /users/1/reviews/1.json
-  # DELETE /transactions/1/reviews/1.json
-  def destroy
-    if params[:type] == "UserReview"
-      @review = @current_user.user_reviews.find(params[:id])
-    elsif params[:type] == "TransactionReview"
-      @review = @current_user.transaction_reviews.find(params[:id])
-    end
+  # # DELETE /users/1/reviews/1.json
+  # # DELETE /transactions/1/reviews/1.json
+  # def destroy
+  #   if params[:type] == "UserReview"
+  #     @review = @current_user.user_reviews.find(params[:id])
+  #   elsif params[:type] == "TransactionReview"
+  #     @review = @current_user.transaction_reviews.find(params[:id])
+  #   end
 
-    if @review.destroy
-        respond_with :status => :ok
-    else
-        respond_with(@review.errors, :status => :unprocessable_entity)
-    end
-  end
+  #   if @review.destroy
+  #       respond_with :status => :ok
+  #   else
+  #       respond_with(@review.errors, :status => :unprocessable_entity)
+  #   end
+  # end
 
 end

@@ -8,8 +8,10 @@ class Listing < ActiveRecord::Base
 
     has_many :reserved_dates
 
+    has_many :transaction_reviews, :foreign_key => :listing_id
+
     def as_json(options={})
-      super(:include =>[:images, :location])
+      super(:include =>[:images, :location, :reserved_dates, :transaction_reviews])
     end
 
     def create_reserved_date(transaction, listing)
@@ -23,7 +25,14 @@ class Listing < ActiveRecord::Base
     end
 
 
-    #tThis method searches through all the listings based on the filters that are passed in
+    def can_review(current_user)
+      num_transactions = Transaction.where(:listing_id => self[:id], :renter_id => current_user.id, :host_accepted => true).size
+      num_reviews = self.transaction_reviews.where(:reviewer_id => current_user.id).size
+    
+      return (num_transactions - num_reviews) >= 1
+    end
+
+    #This method searches through all the listings based on the filters that are passed in
     def self.search(search_params)
 
         #get the address and radius --> THESE ARE REQUIRED
@@ -40,11 +49,11 @@ class Listing < ActiveRecord::Base
            start_date = Date.parse(search_params[:start_date])
 
            #find all locations that have a start date earlier than the one passed in
-           locations = locations.joins(:listing).where('listings.start_date <= ?', start_date).group('listings.id')
+           locations = locations.joins(:listing).where('listings.start_date <= ?', start_date)
 
            #find all listings that have reservations which conflict with the start date given
            #these constitute one of the exclusion sets
-           exclusions_start = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date).group('listings.id')
+           exclusions_start = Listing.joins(:reserved_dates).where('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date)
         end
 
         #if end date is passed in as a paramter then filter by that as well
@@ -54,11 +63,12 @@ class Listing < ActiveRecord::Base
            end_date = Date.parse(search_params[:end_date])
 
            #find all locations that have a end date later than the one passed in
-           locations = locations.joins(:listing).where('listings.end_date >= ?', end_date).group('listings.id')
+           locations = locations.joins(:listing).where('listings.end_date >= ?', end_date)
 
            #find all listings that have reservations which conflict with the end date given
            #these constitute the second of the exclusion sets
-           exclusions_end = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date).group('listings.id')
+           exclusions_end = Listing.joins(:reserved_dates).where('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date)
+
         end
 
         #if space is passed in as a parameter, then further filter the locations 
@@ -66,20 +76,26 @@ class Listing < ActiveRecord::Base
           locations = locations.joins(:listing).where('listings.size > ?', search_params[:space])
         end
 
+        #collect all the listing ids
+        listing_ids = locations.collect(&:listing_id) 
 
+        #exclude all listings that conflict in terms of reserved dates
         if defined?(exclusions_start) && !exclusions_start.nil?
-          locations = locations - exclusions_start
-        elsif defined?(exclusions_end) && !exclusions_end.nil?
-          locations = locations - exclusions_end
+          listing_ids = listing_ids - exclusions_start.collect(&:id)
         end
 
-        #find the listings corresponding to the locations and return that
+        if defined?(exclusions_end) && !exclusions_end.nil?
+          listing_ids = listing_ids - exclusions_end.collect(&:id)
+        end
+
+        #find all the listing objects and return them
         listings = []
-        locations.each do |location|
-            listings.push(location.listing)
+        listing_ids.each do |listing_id|
+            listings.push(Listing.find(listing_id))
         end
 
         return listings.compact
     end
+
 
 end

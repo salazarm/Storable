@@ -1,17 +1,17 @@
 <div class="well panel-border" style="width: 800px">	
 	<div class="panel-header-gray">
 		<h3>About Your Storage Space</h3>
-		<p>How big is your storage space? Do you store things like food? Will you shine a guy's trophy everyday? How far are you willing to go to be awesome storage space host?</p>
+		<p>How big is your storage space? Do you store things like food? Will you shine a guy's trophy everyday? How far are you willing to go to be an awesome storage space host?</p>
 	</div>
 	<div class="pad">
 		<div class="control-group">
 			<label class="textfield-label">Title:</label> <%= text_field_tag :title, listing.title, :placeholder => "Candy Land", :class=> "edit-input edit-textfield"  %>
 		</div> 
 		<div class="control-group">
-			<label class="textfield-label">Description:</label> <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!", :class=> "edit-input edit-textarea", :style=>"margin-left: 5px; width: 535px;" %>
+			<label class="textfield-label">Description:</label> <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!", :class=> "edit-input edit-textarea", :style=>"margin-left: 5px; width: 535px" %>
 		</div> 
 		<div class="control-group">
-			<label class="textfield-label">Price:</label> <%= number_field_tag :price, listing.price , :placeholder => "1.00", :class=> "edit-input", :style=>"margin-left: 5px;"  %>
+			<label class="textfield-label" style="font-size: 12px;">Price Per Month:</label> <%= text_field_tag :price, listing.price , :placeholder => "1.00", :class=> "edit-input", :style=>"margin-left: 5px;"  %>
 			<label class="textfield-label">Size:</label> <%= number_field_tag :size, listing.size, :placeholder => "2.25", :class=> "edit-input", :style=>"margin-left: 5px;"  %>
 		</div> 
 		<div class="control-group">
@@ -50,6 +50,7 @@
 
 	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
 	<script>
+	$(document).ready(function(){$("#price").number( true, 2 );});
 		$("#submit_listing").one("click",function(){
 			$.ajax({ 
 					url: "/listings"+'<%= @listing.id ? "/"+@listing.id.to_s+".json" : ".json" %>',
@@ -58,7 +59,7 @@
 						listing: {							
 							title: $("#title").val(),
 							description : $("#description").val(),
-							price: $("#price").val(),
+							price: $("#price").val()*100,
 							size: $("#size").val(),
 							start_date: (new Date($("#start_date").val())).toString(),
 							end_date: (new Date($("#end_date").val())).toString(),

@@ -68,7 +68,7 @@ App.Views.User_Nav = Backbone.View.extend({
 					id: null,
 					loggedIn: false,
 				});
-				location.reload(true);
+				window.location = window.location.origin + window.location.pathname;
 			}
 		});
 	}
