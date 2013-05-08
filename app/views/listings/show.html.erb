@@ -234,8 +234,8 @@
 						host_id: <%= @listing.user.id %>,
 						renter_id: <%= @current_user.id %>,
 						stripeToken : res.id,
-						start_date: '2013-02-23',	// TODO(marco): change to actual start date
-						end_date: '2013-02-27'		// TODO(marco): change to actual end date
+						start_date: $("#checkin-order").val(),	// TODO(marco): change to actual start date
+						end_date: $("#checkout-order").val()		// TODO(marco): change to actual end date
 					}
 				},
 				success: function(data){
