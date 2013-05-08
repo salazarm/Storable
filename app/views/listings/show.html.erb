@@ -47,7 +47,7 @@
 								</tr>
 								<tr>
 									<td>Price</td>
-									<td class="value">$<%= @listing.price/100.0 %> / month*</td>
+									<td class="value">$<%= sprintf('%.2f',@listing.price/100.0) %> / month*</td>
 								</tr>
 								<tr>
 									<td>Country</td>

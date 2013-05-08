@@ -533,6 +533,10 @@ input, select, textarea, #message-text {
     margin: 5px 0px -2px 10px;
 }
 
+input.highlight {
+    border: 2px solid #f3c613;
+}
+
 .custom-selector, .search-area-icon {
     background: url(https://a0.muscache.com/airbnb/static/landing_pages/home_v2/homepage-sprite-ca329641126710617b1ba4c7bdc74a7a.png) 1px -178px no-repeat;
     margin-left: -34px;
