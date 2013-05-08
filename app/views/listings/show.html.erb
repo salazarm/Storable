@@ -68,46 +68,116 @@
 
 		  </div>
 	  </div>
-	  <div id="reputation"></div>
+	  <div id="details" class="space2">
+			<div class="middle panel-border clearfix">
+			<div class="nav nav-tabs panel-background-gray panel-photos">Reputation</div>
+				<div class="tab-content panel-padding clearfix">
+					No feedback to display at this time
+				</div>
+			</div>
+	  </div>
 	</div>
 	  <div id="right_column">
-		  <div id="book_it_form" class="info">
-		  	<div id="book_it" class="panel-border space2">
-		  		<div class="panel-header-light">
-		  			<div id="pricing" class="book_it_section">
-		  				<p style="margin: 10px; padding:0;">From</p>
-		  				<h2 id="price_amount" style="margin: 0;">$<%= @listing.price %><h2>
-		  					<span id="per_month">Per Month</span>
-		  			</div>
-		  		</div>
-		  	</div>
-		  </div>
+	  	<% if @current_user != @listing.user %>
+			  <div id="book_it_form" class="info">
+			  	<div id="book_it" class="panel-border space2">
+			  		<div class="panel-header-light">
+			  			<div id="pricing" class="book_it_section">
+			  				<p style="margin: 7px 0px; padding:0;">From</p>
+			  				<h2 id="price_amount" style="margin: 0; padding: 0">$<%= @listing.price %><h2>
+			  			</div>
+			  			<div class="row-fluid">
+			  				<div class="date_section">
+			  					<label for="checkin">Check in</label>
+			  				</div>
+			  				<div class="date_section">
+			  					<label for="checkout">Check out</label>
+			  				</div>
+			  			</div>
+			  			<div class="row-fluid">
+			  				<div class="date_section">
+			  					<input class="checkin ui-datepicker-target" id="checkin-order" name="checkin-order" placeholder="mm/dd/yyyy" type="text">
+			  				</div>
+			  				<div class="date_section">
+			  					<input class="checkout ui-datepicker-target" id="checkout-order" name="checkout-order" placeholder="mm/dd/yyyy" type="text">
+			  				</div>
+			  			</div>
+			  		</div>
+				  		<div id="book_it_status" class="panel-padding">
+				  			<div id="book_it_enabled" class="clearfix">
+				  				<button type="submit" class="btn large green btn-block" id="book_it_button">
+					          <span class="book-it">
+					            BOOK IT!
+					          </span>
+					        </button>
+				  			</div>
+				  		</div>
+			  	</div>
+			  </div>
+	  	<% end %>
+		  <div id="user2">
+			  <div class="middle panel-border panel-padding clearfix">
+			  	<div class="profile_pic clearfix">
+			  		<div class="matte-media-box">
+			  			<a href="<%= user_path(@listing.user)%>">
+			  				<img height="225" width="225" src="<%= @listing.user.profile_photo %>">
+			  			</a>
+			  			<div class="img_inner_shadow"></div>
+			  		</div>
+			  	</div>
+			  	<h2 class="user_name"><a href="<%= user_path(@listing.user) %>"><%= @listing.user.pretty_name %></a></h2>
+			  	<% if @current_user != @listing.user %>
+				  	<div id="contact_wrapper" class="space1">
+				  		<button class="btn btn-block large blue" id="user_contact_link">
+				        Contact Me
+				      </button>
+				  	</div>
+				  	<% else %>
+				  	<div id="contact_wrapper" class="space1">
+				  		<a href="<%= edit_listing_path(@listing) %>"><button class="btn btn-block large blue">
+				        Edit Listing
+				      </button></a>
+				  	</div>
+				  	<% end %>
+			  </div>
+			</div>
 	  </div>
   </div>
+  <div id="overlay">
+		<div id="message-container">
+			<div id="message-wrapper">
+		    <div id="lwlb_contact_message" class="lwlb-screen" style="display: block;">
+		      <div class="content-row-wrapper">
+		        <div class="content-row">
+		          <h2>Send Message to <%= @listing.user.pretty_name%></h2>
+		        </div>
+		        <div class="content-row">
+		          <div class="full-field-block">
+		            <span id="message-send" class="suggestion">Tell <%=@listing.user.pretty_name%> what you like about their place, what matters most about your accommodation, or ask them a question.</span>
+		            <span id="message-sent" class="suggestion"> Your message has been sent! </span>
+		            <div>
+			            <textarea class="focus-on-active edit-input edit-textarea" id="question" name="question"></textarea>
+			          </div>
+		          </div>
+		           <button id="message-close" style="width: 200px" class="btn btn-block">Close</button>
+		          <button id="message-send" style="width: 200px" class="btn btn-block green">Send</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+    </div>
+	</div>
 <script>
 	$(document).ready( function(){
 		 Galleria.loadTheme('/galleria/themes/classic/galleria.classic.min.js');
 		 console.log("running");
 		 Galleria.run('#galleria_container');
 	});
-	var sub_wrapper = $("#sub-wrapper");
-	$(window).resize(function(){
-		var w = $(window).width();
-		var newW = Math.max(10,Math.floor((w-850)/2))+ "px";
-		sub_wrapper.css("margin-left", newW);
-		sub_wrapper.css("margin-top", "20px")
-	});
-	$(window).trigger("resize");
-	$("#pphoto").hover(function(){
-		$("#pphoto .image-heading").slideDown(100).fadeIn(100);
-	}, function(){
-		$("#pphoto .image-heading").slideUp(100).fadeOut(100);
-	});
 	var overlay = $("#overlay");
 	var message_sent = $("#message-sent");
 	var message_send = $("#message-send");
-	var message_text = $("#message-text");
-	$("#message-lister").click(function(){
+	var message_text = $("#question");
+	$("#user_contact_link").click(function(){
 		message_send.show();
 		message_text.show();
 		message_sent.hide();
@@ -122,7 +192,7 @@
 		message_text.hide();
 		message_sent.show();
 		message_text.html('');
-		overlay.delay(500).fadeOut(600);
+		overlay.delay(1000).fadeOut(600);
 		$.ajax({
 			url: "<%= messages_path %>"+".json",
 			type: "POST",
@@ -140,7 +210,7 @@
 <% if @current_user %>
 	<script src="https://checkout.stripe.com/v2/checkout.js"></script>
 	<script>
-	    $('#rent-listing').click(function(){
+	    $('#book_it_button').click(function(){
 	      var token = function(res){
 	        $.ajax({
 				url: "/users/" + "<%= @current_user.id %>" + "/transactions",
@@ -175,4 +245,10 @@
 	      return false;
 	    });
 	  </script>
+<% else %>
+	<script>
+		$('#book_it_button').click(function(){
+			window.location = "<%= new_user_path %>";
+		});
+	</script>
 <% end %>

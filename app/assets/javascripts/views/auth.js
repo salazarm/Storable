@@ -73,7 +73,7 @@ App.Views.Auth = Backbone.View.extend({
 				});
 				that.login_email_field.val("");
 				that.login_password_field.val("");
-				window.location="/listings";
+				window.location = window.location.origin + window.location.pathname;
 			}, 
 			error : function(model, response, options) {
 				that.login_email_field.addClass("error");
