@@ -24,7 +24,8 @@ Teamchill::Application.routes.draw do
   resources :messages
   resources :conversations
 
-  root :to => "listings#index"
+  root :to => "listings#home"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -33,6 +33,10 @@ class ListingsController < ApplicationController
       redirect_to root_url
     end
   end
+
+   # dummy function for showing home page
+  def home
+  end
     
   #define a new listing
   def new
@@ -80,3 +84,4 @@ class ListingsController < ApplicationController
     end
   end
 end
+
