@@ -9,7 +9,7 @@
                 <span class="verification_user_name"><%= @user.pretty_name %></span>
               </h2>
             <div class="caption" style="margin-top: 0px; height: 40px">
-                <h6 class="join_year">Member since <%=@user.created_at.to_formatted_s(:long)  %></h6>
+                <h6 class="join_year">Member since <%=@user.created_at.strftime("%m/%d/%Y")  %></h6>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@
                             <span class="icon icon-home"></span>
                             <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
                           </div>
-                          <p class="date"><%= review.created_at.to_formatted_s(:long) %></p>
+                          <p class="date"><%= review.created_at.strftime("%m/%d/%Y") %></p>
                       </div>
                     </div>
                   </div>
@@ -98,7 +98,7 @@
                           <span class="icon icon-home"></span>
                           <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
                         </div>
-                        <p class="date"><%= review.created_at.to_formatted_s(:long) %></p>
+                        <p class="date"><%= review.created_at.strftime("%m/%d/%Y") %></p>
                       </div>
                     </div>
                   </div>
