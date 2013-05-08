@@ -19,7 +19,7 @@
 					<div id="photos" class="main_content tab-pane active">
 						<div class="image-placeholder">
 							<!--  some image -->
-							<div id="galleria_container">
+							<div id="galleria_container" style="display: none;">
 								<% @listing.images.each do |image| %>
 									<img src="<%= image.location %>">
 								<% end %>
@@ -182,7 +182,7 @@
 <script>
 	$(document).ready( function(){
 		 Galleria.loadTheme('/galleria/themes/classic/galleria.classic.min.js');
-		 console.log("running");
+		 $('#galleria_container').show();
 		 Galleria.run('#galleria_container');
 		var overlay = $("#overlay");
 		var message_sent = $("#message-sent");
