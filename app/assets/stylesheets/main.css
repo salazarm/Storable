@@ -277,7 +277,7 @@ input, select, textarea, #message-text {
 }
 
 #home-content-container {
-    background: url(https://a0.muscache.com/airbnb/static/landing_pages/home_v2/homepage-sprite-ca329641126710617b1ba4c7bdc74a7a.png) 0px 0px no-repeat;
+    background: url(https://a0.muscache.com/airbnb/static/landing_pages/home_v2/homepage-sprite-ca329641126710617b1ba4c7bdc74a7a.png) 40px 0px no-repeat;
     position: absolute;
     bottom: 40%;
     width: 980px;
@@ -354,14 +354,19 @@ input, select, textarea, #message-text {
 
 .custom-selector, .search-area-icon {
     background: url(https://a0.muscache.com/airbnb/static/landing_pages/home_v2/homepage-sprite-ca329641126710617b1ba4c7bdc74a7a.png) 1px -178px no-repeat;
-    display: block;
+    margin-left: -34px;
     cursor: pointer;
     position: absolute;
-    top: 50%;
-    margin-top: -10px;
-    margin-left: 90px;
     width: 24px;
     height: 20px;
+}
+
+#search-bar-home .search-area-icon {
+    margin-top: 10px;
+}
+
+#search-bar .search-area-icon {
+    margin-top: 5px;
 }
 
 .search-area-icon-checkout {
