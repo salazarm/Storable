@@ -16,14 +16,13 @@ ActiveRecord::Schema.define(:version => 20130508072243) do
   create_table "conversations", :force => true do |t|
     t.integer  "renter_id"
     t.integer  "host_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "listing_id"
     t.boolean  "host_starred"
     t.boolean  "host_read"
     t.boolean  "renter_starred"
     t.boolean  "renter_read"
-    t.boolean  "request_submitted"
   end
 
   create_table "images", :force => true do |t|
@@ -107,24 +106,17 @@ ActiveRecord::Schema.define(:version => 20130508072243) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "host_id"
     t.integer  "renter_id"
-    t.boolean  "host_accepted"
     t.string   "stripeToken"
     t.date     "start_date"
     t.date     "end_date"
-<<<<<<< HEAD
-=======
     t.boolean  "host_seen",     :default => false
     t.boolean  "host_accepted", :default => false
     t.integer  "price"
-<<<<<<< HEAD
->>>>>>> 86c3b47a59dac98c532e8dd899156f11e945af65
-=======
     t.integer  "listing_id"
->>>>>>> a0adcaaa5d074f9b498394ebe36126a8383dc659
   end
 
   create_table "users", :force => true do |t|
