@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
     elsif params[:type] == "TransactionReview"
     	@reviews = Reviews.where("listing_id = ?", params[:listing_id])
     end
-    respond_with(@reviews.to_json, :status => :ok)
+    respond_with(@reviews, :status => :ok)
   end
 
   # POST /users/1/reviews.json

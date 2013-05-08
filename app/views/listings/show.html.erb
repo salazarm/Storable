@@ -73,10 +73,17 @@
 				<div class="middle panel-border clearfix">
 					<div class="nav nav-tabs panel-background-gray panel-photos">Write a Review</div>
 						<div class="tab-content panel-padding clearfix">
-							<textarea id="feedback-text-area" class="edit-input edit-textarea"></textarea>
+							<span id="review-stuff">
+								<textarea id="review-text-area" class="edit-input edit-textarea" style="width: 620px;"></textarea>
+								<div style="text-align: right">
+									<button id="review-submit" class="btn btn-large">Submit</button>
+								</div>
+							</span>
+							<span id="review-submitted-stuff" style="display:none; text-align: center;">
+								Review Submitted!
+							</span>
 						</div>
 					</div>
-				</div>
 			<% end %>
 
 			<div class="middle panel-border clearfix">
@@ -150,7 +157,7 @@
 				  	</div>
 				  	<% else %>
 				  	<div id="contact_wrapper" class="space1">
-				  		<a href="<%= new_user_path(@listing) %>"><button class="btn btn-block large blue">
+				  		<a href="<%= new_user_path %>"><button class="btn btn-block large blue">
 				        Sign up to message!
 				      </button></a>
 				  	</div>
@@ -279,6 +286,36 @@
 		      return false;
 		    }
 			});
+		<% if @can_review %>
+			var successful_submit = false;
+			$("#review-submit").click(function(){
+				console.log("clicked");
+				if ( !successful_submit ){
+					text = $("#review-text-area").val();
+					if ( text.length > 0 ){
+						successful_submit = true;
+						$.ajax({
+							url: "<%= listing_reviews_path(@listing) %>",
+							type: "POST",
+							dataType: 'json',
+							data: {
+								review : {
+									content : text,
+								}
+							},
+							success: function(data){
+								$("#review-submitted-stuff").show();
+								$("#review-stuff").hide();
+							},
+
+							error: function(){
+								successful_submit = false;
+							}
+						});
+					}
+				}
+			})
+		<% end %>
 	  </script>
 <% else %>
 	<script>
