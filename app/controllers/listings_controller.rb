@@ -11,11 +11,14 @@ class ListingsController < ApplicationController
   def show
     @listing = Listing.find(params[:id])
 
-    num_transactions = Transaction.where(:listing_id => params[:id], :renter_id => current_user.id, :host_accepted => true).size
-    num_reviews = @listing.transaction_reviews.where(:reviewer_id => current_user.id).size
-    
-    @can_review = (num_transactions - num_reviews) >= 1
+    @can_review = false
 
+    if current_user
+      num_transactions = Transaction.where(:listing_id => params[:id], :renter_id => current_user.id, :host_accepted => true).size
+      num_reviews = @listing.transaction_reviews.where(:reviewer_id => current_user.id).size
+    
+      @can_review = (num_transactions - num_reviews) >= 1
+    end
     
     respond_with(@listing, @can_review, :status => :ok)
   end
