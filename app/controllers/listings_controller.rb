@@ -26,8 +26,12 @@ class ListingsController < ApplicationController
 
   #edit a particular listing
   def edit
-    @listing = Listing.find_by_id(params[:id])
-    respond_with(@listing, :status => :ok)
+    @listing = @current_user.listings.find_by_id(params[:id])
+    if @listing
+      respond_with(@listing, :status => :ok)
+    else
+      redirect_to root_url
+    end
   end
     
   #define a new listing

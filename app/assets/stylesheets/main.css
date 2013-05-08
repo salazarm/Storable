@@ -740,6 +740,10 @@ input, select, textarea, #message-text {
 /* ==========================================================================
    Helper classes
    ========================================================================== */
+@font-face {
+    font-family: "Helvetica Neue";
+    src: url("/h.woff") format('woff');
+}
 
 .ir {
     background-color: transparent;
@@ -850,6 +854,176 @@ input, select, textarea, #message-text {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+
+#room {
+    background-color: #fafafa;
+    position: relative;
+    width: 993px;
+}
+#main_content .tab-content {
+padding: 7px;
+}
+.galleria-container {
+position: relative;
+overflow: hidden;
+height: 426px;
+width: 639px;
+}
+.image-placeholder {
+position: absolute;
+}
+#photos {
+height: 426px;
+}
+.nav.nav-tabs {
+border-bottom: 1px solid #d0d0d0;
+margin: 0;
+}
+.tab-pane {
+display: none;
+padding: 3px;
+}
+.panel-border>.nav-tabs {
+-webkit-border-top-right-radius: 5px;
+-moz-border-top-right-radius: 5px;
+border-top-right-radius: 5px;
+-webkit-border-top-left-radius: 5px;
+-moz-border-top-left-radius: 5px;
+border-top-left-radius: 5px;
+}
+.panel-background-gray {
+background-color: #e5e5e5;
+background-image: -webkit-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+background-image: -moz-linear-gradient(top, #f6f6f6 0%,#e5e5e5 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6f6f6', endColorstr='#ffe5e5e5', GradientType=0);
+}
+
+.panel-photos {
+    display: block;
+float: none;
+text-decoration: none;
+text-shadow: 0 1px 0 #fff;
+font-size: 16px;
+font-weight: bold;
+padding: 10px;
+}
+
+.tab-pane.active {
+display: block;
+}
+
+.main_content {
+width: 639px;
+height: 470px;
+float: left;
+}
+
+#room_snapshot h4 {
+    font-weight: normal;
+    padding: 0 4px 0 23px;
+    float: left;
+    margin-top: 10px;
+}
+.tab-content {
+position: relative;
+background-color: #fff;
+}
+.panel-padding {
+padding: 10px 15px;
+}
+
+.panel-border>.tab-content {
+-webkit-border-radius: 0 0 5px 5px;
+-moz-border-radius: 0 0 5px 5px;
+border-radius: 0 0 5px 5px;
+}
+
+#left_column {
+    width: 683px;
+    float: left;
+    clear: left;
+}
+.space2 {
+    margin-bottom: 25px;
+}
+
+.middle {
+    background-color: white;
+}
+
+#room .middle {
+    clear: both;
+    margin: 10px;
+    width: 663px;
+}
+
+.panel-border {
+border: 1px solid #c8c8c8;
+border-color: rgba(0,0,0,0.2);
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+h4, h5, h6 {
+    line-height: 18px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 3px 0;
+    font-weight: bold;
+    color: #393c3d;
+    text-rendering: optimizelegibility;
+}
+
+h4 {
+    display: block;
+    -webkit-margin-before: 1.33em;
+    -webkit-margin-after: 1.33em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+#display_address {
+    color: #A3B119;
+}
+
+#room_snapshot h4 {
+    font-weight: normal;
+}
+
+
+#room_snapshot {
+    width: 680px;
+    float: left;
+}
+#room_snapshot h1 {
+    padding: 0 0 0 21px;
+    float: left;
+    width: 693px;
+    margin: 0;
+}
+
+#room_snapshot h1 .overflow {
+    float: left;
+    overflow: hidden;
+    max-width: 659px;
+    height: 36px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    color: #393c3d;
+}
+
 
 select#miles {
  /*   opacity: 0;*/
@@ -1166,6 +1340,10 @@ a.fancy_btn :active {
     -webkit-box-shadow: 0 2px 2px -2px rgba(0,0,0,0.2),0 0 0 #000;
     box-shadow: 0 2px 2px -2px rgba(0,0,0,0.2),0 0 0 #000;
     border-top: 1px solid #d0d0d0;
+     "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #393c3d;
 }
 
 .panel-header-gray:first-child {
@@ -1173,6 +1351,10 @@ a.fancy_btn :active {
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
+}
+
+#back_to_search_container {
+    height: 26px;
 }
 
 .pad {
@@ -1297,6 +1479,7 @@ a.fancy_btn :active {
 .edit-mil {
     margin-left: 5px;
 }
+
 
 .edit-input {
     margin-bottom: 0;
@@ -1458,4 +1641,14 @@ a.fancy_btn :active {
     h3 {
         page-break-after: avoid;
     }
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
 }
