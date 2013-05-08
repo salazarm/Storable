@@ -508,6 +508,12 @@ input, select, textarea, #message-text {
     height: 30px;
 }
 
+#search-bar .search-submit {
+    height: 23px;
+    padding: 7px 5px 0px;
+    text-align: center;
+}
+
 #search-bar-home .search-submit {
     width: 85px;
     height: 28px;
