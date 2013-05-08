@@ -105,7 +105,7 @@
                         <p class="message">
                           <%= review.content %>
                         </p>
-                          <p class="date"><%= review.created_at %></p>
+                          <p class="date"><%= review.created_at.strftime("%m/%d/%Y") %></p>
                       </div>
                     </div>
                   </div>
