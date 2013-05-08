@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+  <script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
   <%= csrf_meta_tags %>
  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <script>
@@ -127,6 +128,7 @@
         user = new App.Models.User({});
     <% end %>
     App.init(user);
+
     $(".search-submit").click(function(){
       var searchForm = $(this).parent().parent();
       var location = searchForm.find(".location").val();
@@ -139,6 +141,16 @@
       if (checkOut) params+="&end_date="+ new Date(checkOut).toString();
       window.location = "/listings/search"+params;
     });
+  </script>
+  <script>
+    // location search input autocomplete
+    var input = document.getElementById('location');
+    var options = {
+      types: ['geocode'],
+      componentRestrictions: {country: 'us'}
+    };
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    console.log(autocomplete);
   </script>
 </body>
 </html>
