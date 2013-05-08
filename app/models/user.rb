@@ -83,4 +83,13 @@ class User < ActiveRecord::Base
   def self.human_attribute_name(attr, options={})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
+
+
+  def can_review(current_user)
+    num_transactions = Transaction.where("(renter_id = ? AND host_id = ?) OR (renter_id = ? AND host_id = ?)", current_user.id,self.id, current_user.id, self.id).where(:host_accepted => true).size
+    num_reviews = self.user_reviews.where(:reviewer_id => current_user.id).size
+  
+    return (num_transactions - num_reviews) >= 1
+  end
+
 end

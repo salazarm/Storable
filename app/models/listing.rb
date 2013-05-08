@@ -25,6 +25,13 @@ class Listing < ActiveRecord::Base
     end
 
 
+    def can_review(current_user)
+      num_transactions = Transaction.where(:listing_id => self[:id], :renter_id => current_user.id, :host_accepted => true).size
+      num_reviews = self.transaction_reviews.where(:reviewer_id => current_user.id).size
+    
+      return (num_transactions - num_reviews) >= 1
+    end
+
     #This method searches through all the listings based on the filters that are passed in
     def self.search(search_params)
 
@@ -89,5 +96,6 @@ class Listing < ActiveRecord::Base
 
         return listings.compact
     end
+
 
 end

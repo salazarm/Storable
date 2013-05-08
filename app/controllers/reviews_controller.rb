@@ -19,9 +19,15 @@ class ReviewsController < ApplicationController
   # POST /listings/1/reviews.json
   def create
     if params[:type] == "UserReview"
-      @review = @current_user.user_reviews.build(params[:review])
+      user = User.find(params[:user_id])
+      if user.can_review(current_user)
+        @review = @current_user.user_reviews.build(params[:review])
+      end
     elsif params[:type] == "TransactionReview"
-      @review = @current_user.transaction_reviews.build(params[:review])
+      listing = Listing.find(params[:listing_id])
+      if listing.can_review(current_user)
+        @review = @current_user.transaction_reviews.build(params[:review])
+      end
     end
 
     if @review.save
