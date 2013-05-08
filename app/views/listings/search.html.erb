@@ -99,7 +99,7 @@ $(document).ready(function(){
         map: map,
       });
 
-      var content = g_template(JSON.parse('<%= raw listing.to_json %>'));
+      var content = g_template(JSON.parse('<%= raw listing.to_json.to_s %>'));
 
       makeInfoWindowEvent(map, infowindow, content, marker, <%= listing.id %>);
 
