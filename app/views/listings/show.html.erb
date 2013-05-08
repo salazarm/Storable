@@ -126,7 +126,7 @@
 			  		<div class="panel-header-light">
 			  			<div id="pricing" class="book_it_section">
 			  				<p style="margin: 7px 0px; padding:0;">Monthly Price</p>
-			  				<h2 id="price_amount" style="margin: 0; padding: 0">$<%= @listing.price/100.0 %><h2>
+			  				<h2 id="price_amount" style="margin: 0; padding: 0">$<%= sprintf('%.2f',@listing.price/100.0) %><h2>
 			  			</div>
 			  			<div class="row-fluid">
 			  				<div class="date_section">
