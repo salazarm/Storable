@@ -11,10 +11,10 @@
 			<span id="display_address"><%= @listing.location.full_street_address %></span>
 		</h4>
 	</div>
-	<div id="left-column">
+	<div id="left_column">
 		<div id="main_content" class="space2">
 			<div class="middle panel-border clearfix">
-						<div class="nav nav-tabs panel-background-gray panel-photos">Photos</div>
+				<div class="nav nav-tabs panel-background-gray panel-photos">Photos</div>
 				<div class="tab-content panel-padding clearfix">
 					<div id="photos" class="main_content tab-pane active">
 						<div class="image-placeholder">
@@ -29,8 +29,61 @@
 				</div>
 			</div>
 		</div>
+		<div id="details" class="space2">
+			<div class="middle panel-border clearfix">
+			<div class="nav nav-tabs panel-background-gray panel-photos">Description</div>
+				<div class="tab-content panel-padding clearfix">
+					<div id="description-panel" class="tab-pane active detais_content">
+						<div id="description_text">
+							<div id="description_text_wrapper" class="trans">
+								<%= @listing.description %>
+							</div>
+						</div>
+						<table class="table table-bordered table-striped" id="description_details">
+							<tbody>
+								<tr>
+									<td>Area</td>
+									<td class="value"><%= @listing.size %> ft&sup3;</td>
+								</tr>
+								<tr>
+									<td>Price</td>
+									<td class="value">$<%= @listing.price/100 %> / month</td>
+								</tr>
+								<tr>
+									<td>Country</td>
+									<td class="value"> United States</td>
+								</tr>
+								<tr>
+									<td>State</td>
+									<td class="value"><%= @listing.location.state %></td>
+								</tr>
+								<tr>
+									<td>City</td>
+									<td class="value"><%= @listing.location.city %></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+			  </div>
+
+		  </div>
+	  </div>
+	  <div id="reputation"></div>
 	</div>
-</div>
+	  <div id="right_column">
+		  <div id="book_it_form" class="info">
+		  	<div id="book_it" class="panel-border space2">
+		  		<div class="panel-header-light">
+		  			<div id="pricing" class="book_it_section">
+		  				<p>From</p>
+		  				<h2 id="price_amount">$<%= @listing.price %><h2>
+		  					<span id="per_month">Per Month</span>
+		  			</div>
+		  		</div>
+		  	</div>
+		  </div>
+	  </div>
+  </div>
 <script>
 	$(document).ready( function(){
 		 Galleria.loadTheme('/galleria/themes/miniml/galleria.miniml.min.js');
