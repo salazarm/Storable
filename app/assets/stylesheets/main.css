@@ -282,13 +282,14 @@ input, select, textarea, #message-text {
     bottom: 40%;
     width: 980px;
     height: 175px;
-    left: 250px;
+    left: 50%;
+    margin-left: -635px;
 }
 
 #home-banner-wrapper {
-    position: absolute;
-    bottom:30%;
-    left: 165px;
+    position: relative;
+    top: 50px;
+    left: 180px;
     font-size: 50px;
     color: #fff;
 }
@@ -298,9 +299,9 @@ input, select, textarea, #message-text {
 }
 
 #search-bar-wrapper {
-    position: absolute;
-    top: 80%;
-    left: 145px;
+    position: relative;
+    top: 70px;
+    left: 150px;
     width: 100%;
     height: 1px;
     overflow: visible;
@@ -310,7 +311,7 @@ input, select, textarea, #message-text {
     width: 950px;
     height: 50px;
     margin-left: -475px;  /***  width / 2   ***/
-    position: absolute;
+    position: relative;
     top: -20px;          /***  height / 2   ***/
     left: 50%;
     border: 1px solid black;
