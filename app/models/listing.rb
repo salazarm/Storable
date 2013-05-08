@@ -23,14 +23,14 @@ class Listing < ActiveRecord::Base
     end
 
 
-    #tThis method searches through all the listings based on the filters that are passed in
+    #This method searches through all the listings based on the filters that are passed in
     def self.search(search_params)
 
         #get the address and radius --> THESE ARE REQUIRED
         address = search_params[:address]
         radius = search_params[:radius]
 
-        #first filter by locations within radius miles of the given address
+        #first filter by locations witgitghin radius miles of the given address
         locations = Location.near(address, radius)
 
         #if start date is passed in as a paramter then filter by that as well
@@ -44,7 +44,7 @@ class Listing < ActiveRecord::Base
 
            #find all listings that have reservations which conflict with the start date given
            #these constitute one of the exclusion sets
-           exclusions_start = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date).group('listings.id')
+           exclusions_start = Listing.joins(:reserved_dates).group('listings.id').having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date)
         end
 
         #if end date is passed in as a paramter then filter by that as well
@@ -58,7 +58,7 @@ class Listing < ActiveRecord::Base
 
            #find all listings that have reservations which conflict with the end date given
            #these constitute the second of the exclusion sets
-           exclusions_end = Listing.joins(:reserved_dates).having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date).group('listings.id')
+           exclusions_end = Listing.joins(:reserved_dates).group('listings.id').having('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date)
         end
 
         #if space is passed in as a parameter, then further filter the locations 
