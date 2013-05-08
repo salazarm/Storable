@@ -82,10 +82,12 @@ class TransactionsController < ApplicationController
 
       #### STRIPE PAYMENT HANDLING ####
 
+      Stripe.api_key = "sk_test_y5dqWUhct4bMB66OxMiqNY3G"
+
       # Create the charge on Stripe's servers - this will charge the user's card
       begin
         charge = Stripe::Charge.create(
-          :amount => listing.price, # amount in cents
+          :amount => @transaction.price, # amount in cents
           :currency => "usd",
           :card => @transaction.stripeToken,
           :description => transaction_listing.title
