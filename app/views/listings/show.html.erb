@@ -89,7 +89,7 @@
 			<div class="middle panel-border clearfix">
 				<div class="nav nav-tabs panel-background-gray panel-photos">Reviews</div>
 					<div class="tab-content panel-padding clearfix">
-				  	<% @listing.transaction_reviews.each do |review| %>
+				  	<% @listing.transaction_reviews.reverse.each do |review| %>
 							<li class="reviews-list-item space1 clearfix" style="list-style: none;">
                   <div class="overflow">
                     <div class="left">

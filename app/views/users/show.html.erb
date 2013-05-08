@@ -43,7 +43,7 @@
               <% if @user.transaction_reviews.count == 0 %>
                 This user has not been reviewed as a space host :(
               <% end %>
-              <% @user.transaction_reviews.each do |review| %>
+              <% @user.transaction_reviews.reverse.each do |review| %>
                 <li class="reviews-list-item space1 clearfix" style="list-style: none;">
                   <div class="overflow">
                     <div class="left">
@@ -79,7 +79,7 @@
               <% if @user.transaction_reviews.count == 0 %>
                 This user has not been reviewed as a space guest :(
               <% end %>
-              <% @user.user_reviews.each do |review| %>
+              <% @user.user_reviews.reverse.each do |review| %>
               <div>
                 <li class="reviews-list-item space1 clearfix">
                   <div>
