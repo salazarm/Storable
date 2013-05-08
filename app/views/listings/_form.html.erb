@@ -8,7 +8,7 @@
 			<label class="textfield-label">Title:</label> <%= text_field_tag :title, listing.title, :placeholder => "Candy Land", :class=> "edit-input edit-textfield"  %>
 		</div> 
 		<div class="control-group">
-			<label class="textfield-label">Description:</label> <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!", :class=> "edit-input edit-textarea", :style=>"margin-left: 5px;" %>
+			<label class="textfield-label">Description:</label> <%= text_area_tag :description, listing.description, :placeholder => "An awesome condo for your boxes!", :class=> "edit-input edit-textarea", :style=>"margin-left: 5px; width: 535px;" %>
 		</div> 
 		<div class="control-group">
 			<label class="textfield-label">Price:</label> <%= number_field_tag :price, listing.price , :placeholder => "1.00", :class=> "edit-input", :style=>"margin-left: 5px;"  %>
@@ -33,7 +33,7 @@
 		<div class="control-group">
 			<div id="listing-image-uploads">
 				<a id="upload" class="abutton" style="margin-top:10px;">Upload an Image</a>
-				<span class="click-to-remove ">Click on an image to remove it</span>
+				<span class="click-to-remove ">Click on an image to remove it (Cannot be undone)</span>
 				<div id="images" style="margin: 20px 0 0 0">
 				</div>
 				<div id="submit_listing" class="abutton" style="display: inline;">
@@ -66,13 +66,13 @@
 					},
 
 					success: function(data, status, jqXHR){
-						console.log(data);
 						makeLocation(data.id);
 						makeImages(data.id);
 					},
 
 					error : function(jqXHR, status, error){
 						alert(error);
+						location.reload();
 					}
 			});
 			
@@ -90,7 +90,8 @@
 					},
 
 					error : function(jqXHR, status, error){
-						alert(error)
+						alert(error);
+						location.reload();
 					}
 				})
 			};
