@@ -42,7 +42,7 @@ class Conversation < ActiveRecord::Base
     update_attribute(:is_read, true)
   end
 
-  def request_submit
-    update_attribute(:request_submitted, true)
-  end
+  # def request_submit
+  #   update_attribute(:request_submitted, true)
+  # end
 end
