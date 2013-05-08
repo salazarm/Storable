@@ -105,11 +105,7 @@
                         <p class="message">
                           <%= review.content %>
                         </p>
-                          <div class="listing-name">
-                            <span class="icon icon-home"></span>
-                            <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
-                          </div>
-                          <p class="date"><% review.created_at %></p>
+                          <p class="date"><%= review.created_at %></p>
                       </div>
                     </div>
                   </div>
