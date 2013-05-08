@@ -1,5 +1,5 @@
 class Transaction < ActiveRecord::Base
-  attr_accessible :host_id, :renter_id, :stripeToken, :host_seen, :price, :host_accepted, :start_date, :end_date
+  attr_accessible :host_id, :renter_id, :stripeToken, :listing_id, :host_seen, :price, :host_accepted, :start_date, :end_date
 
   has_one :transaction_listing
 

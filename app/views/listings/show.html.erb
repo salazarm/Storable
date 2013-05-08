@@ -69,13 +69,16 @@
 		  </div>
 	  </div>
 	  <div id="details" class="space2">
-			<div class="middle panel-border clearfix">
-				<div class="nav nav-tabs panel-background-gray panel-photos">Write a Review</div>
-					<div class="tab-content panel-padding clearfix">
-						<textarea id="feedback-text-area" class="edit-input edit-textarea"></textarea>
+		  	<% if @can_review %>
+				<div class="middle panel-border clearfix">
+					<div class="nav nav-tabs panel-background-gray panel-photos">Write a Review</div>
+						<div class="tab-content panel-padding clearfix">
+							<textarea id="feedback-text-area" class="edit-input edit-textarea"></textarea>
+						</div>
 					</div>
 				</div>
-			</div>
+			<% end %>
+
 			<div class="middle panel-border clearfix">
 				<div class="nav nav-tabs panel-background-gray panel-photos">Reviews</div>
 					<div class="tab-content panel-padding clearfix">

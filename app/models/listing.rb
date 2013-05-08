@@ -11,7 +11,7 @@ class Listing < ActiveRecord::Base
     has_many :transaction_reviews, :foreign_key => :listing_id
 
     def as_json(options={})
-      super(:include =>[:images, :location, :reserved_dates])
+      super(:include =>[:images, :location, :reserved_dates, :transaction_reviews])
     end
 
     def create_reserved_date(transaction, listing)

@@ -10,7 +10,14 @@ class ListingsController < ApplicationController
   #show details for a particular listing
   def show
     @listing = Listing.find(params[:id])
-    respond_with(@listing, :status => :ok)
+
+    num_transactions = Transaction.where(:listing_id => params[:id], :renter_id => current_user.id, :host_accepted => true).size
+    num_reviews = @listing.transaction_reviews.where(:reviewer_id => current_user.id).size
+    
+    @can_review = (num_transactions - num_reviews) >= 1
+
+    
+    respond_with(@listing, @can_review, :status => :ok)
   end
 
   #create a listing for this user

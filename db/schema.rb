@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508061259) do
+ActiveRecord::Schema.define(:version => 20130508072243) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "renter_id"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20130508061259) do
     t.boolean  "host_seen",     :default => false
     t.boolean  "host_accepted", :default => false
     t.integer  "price"
+    t.integer  "listing_id"
   end
 
   create_table "users", :force => true do |t|
