@@ -27,45 +27,81 @@
       <div class="shelf space2">
         <ul>
           <li class="badge reviews">
-            <div class="content"><%= @user.transaction_reviews.count+@user.user_reviews.count %></div>
+            <div class="content"><%= @user.transaction_reviews.count + @user.user_reviews.count %></div>
             <h6>REVIEWS</h6>
           </li>
         </ul>
       </div>
       <div class="panel reviews space2">
       	<h2 class="header-underline">
-      		Reviews <span class="light">(<%=@user.transaction_reviews.count%>)</span>
+      		Reviews <span class="light">(<%=@user.transaction_reviews.count + @user.user_reviews.count%>)</span>
       	</h2>
       	<div>
-      		<div class="reviews_section as_host">
-      			<h4 class="space1"><span class="icon icon-plane"></span>Reviews From Guests</h4>
-      			<ul class="reviews-list unstyle">
-      				<% @user.transaction_reviews.each do |review| %>
-      					<li class="reviews-list-item space1 clearfix">
-      						<div class="overflow">
-      							<div class="left">
-      								<div class="profile-pic">
-      									<div class="matte-media-box">
-      										<a href="<%= user_path(review.reviewer) %>" rel="nofollow">
-      											<img width="68px" height="68px" src="<%= review.reviewer.profile_photo %>">
-      										</a>
-      									</div>
-      									<span class="name"><a href="<%= user_path(review.reviewer) %>"><%= review.reviewer.first_name %></a></span>
-      								</div>
-      							</div>
-      							<div class="right">
-      								<div class="speech-bubble">
-      									<p class="message">
-      										<%= review.content %>
-      									</p>
-      								</div>
-      							</div>
-      						</div>
-      					</li>
-      				<% end %>
-      			</ul>
-      		</div>
-      	</div>
+          <div class="reviews_section as_host">
+            <h4 class="space1"><span class="icon icon-plane"></span>Reviews From Guests</h4>
+            <ul class="reviews-list unstyle">
+              <% if @user.transaction_reviews.count == 0 %>
+                This user has not been reviewed as a space host :(
+              <% end %>
+              <% @user.transaction_reviews.each do |review| %>
+                <li class="reviews-list-item space1 clearfix">
+                  <div class="overflow">
+                    <div class="left">
+                      <div class="profile-pic">
+                        <div class="matte-media-box">
+                          <a href="<%= user_path(review.reviewer) %>" rel="nofollow">
+                            <img width="68px" height="68px" src="<%= review.reviewer.profile_photo %>">
+                          </a>
+                        </div>
+                        <span class="name"><a href="<%= user_path(review.reviewer) %>"><%= review.reviewer.first_name %></a></span>
+                      </div>
+                    </div>
+                    <div class="right">
+                      <div class="speech-bubble">
+                        <p class="message">
+                          <%= review.content %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="reviews_section as_host">
+            <h4 class="space1"><span class="icon icon-plane"></span>Reviews From Hosts</h4>
+            <ul class="reviews-list unstyle">
+              <% if @user.transaction_reviews.count == 0 %>
+                This user has not been reviewed as a space guest :(
+              <% end %>
+              <% @user.user_reviews.each do |review| %>
+                <li class="reviews-list-item space1 clearfix">
+                  <div class="overflow">
+                    <div class="left">
+                      <div class="profile-pic">
+                        <div class="matte-media-box">
+                          <a href="<%= user_path(review.reviewer) %>" rel="nofollow">
+                            <img width="68px" height="68px" src="<%= review.reviewer.profile_photo %>">
+                          </a>
+                        </div>
+                        <span class="name"><a href="<%= user_path(review.reviewer) %>"><%= review.reviewer.first_name %></a></span>
+                      </div>
+                    </div>
+                    <div class="right">
+                      <div class="speech-bubble">
+                        <p class="message">
+                          <%= review.content %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 </div>
