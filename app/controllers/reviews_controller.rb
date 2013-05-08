@@ -31,36 +31,36 @@ class ReviewsController < ApplicationController
     end
   end
 
-  # PUT /users/1/reviews/1.json
-  # PUT /transactions/1/reviews/1.json
-  def update
-    if params[:type] == "UserReview"
-      @review = @current_user.user_reviews.find(params[:id])
-    elsif params[:type] == "TransactionReview"
-      @review = @current_user.transaction_reviews.find(params[:id])
-    end
+  # # PUT /users/1/reviews/1.json
+  # # PUT /transactions/1/reviews/1.json
+  # def update
+  #   if params[:type] == "UserReview"
+  #     @review = @current_user.user_reviews.find(params[:id])
+  #   elsif params[:type] == "TransactionReview"
+  #     @review = @current_user.transaction_reviews.find(params[:id])
+  #   end
 
-    if @review.update_attributes(params[:review])
-      render :json => @listing
-    else
-      respond_with(@review.errors, :status => :unprocessable_entity)
-    end
-  end
+  #   if @review.update_attributes(params[:review])
+  #     render :json => @listing
+  #   else
+  #     respond_with(@review.errors, :status => :unprocessable_entity)
+  #   end
+  # end
 
-  # DELETE /users/1/reviews/1.json
-  # DELETE /transactions/1/reviews/1.json
-  def destroy
-    if params[:type] == "UserReview"
-      @review = @current_user.user_reviews.find(params[:id])
-    elsif params[:type] == "TransactionReview"
-      @review = @current_user.transaction_reviews.find(params[:id])
-    end
+  # # DELETE /users/1/reviews/1.json
+  # # DELETE /transactions/1/reviews/1.json
+  # def destroy
+  #   if params[:type] == "UserReview"
+  #     @review = @current_user.user_reviews.find(params[:id])
+  #   elsif params[:type] == "TransactionReview"
+  #     @review = @current_user.transaction_reviews.find(params[:id])
+  #   end
 
-    if @review.destroy
-        respond_with :status => :ok
-    else
-        respond_with(@review.errors, :status => :unprocessable_entity)
-    end
-  end
+  #   if @review.destroy
+  #       respond_with :status => :ok
+  #   else
+  #       respond_with(@review.errors, :status => :unprocessable_entity)
+  #   end
+  # end
 
 end
