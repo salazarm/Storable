@@ -148,7 +148,7 @@
       params+="&radius="+miles;
       if (checkIn)  params+="&start_date="+new Date(checkIn).toDateString();
       if (checkOut) params+="&end_date="+ new Date(checkOut).toDateString();
-      if(space) params+="&space"=space;
+      if(space) params+="&space="+space;
       window.location = "/listings/search"+params;
     });
   </script>
