@@ -1,0 +1,132 @@
+
+
+<div style="margin: 30px auto; width: 800px">
+  <div class="middle panel-border" style=" width: 800px;">
+    <div class="nav nav-tabs panel-background-gray panel-photos"><h3>Pending Host Transactions</h3></div>
+    <% @transactions[:pending_host_transactions].each do |transaction| %>
+        <div class="transaction-box clearfix" style="margin: 10px">
+      <div class="left">
+        <a class="search-listing-image-wrapper" href="<%= listing_path(transaction.transaction_listing.listing) %>"><img width="116px" height="76px" src='<%= transaction.transaction_listing.listing.images.last.location %>'></img>
+        </a>
+      </div>
+      <div class="left">
+        <div class="top">
+          <a href="<%= user_path(transaction.host) %>" style=' background-image: url(<%= transaction.host.profile_photo %>); margin-top: 5px' class="user-icon left">
+          </a>
+          <div class="top-info left" style="margin: 5px">
+            <a href="<%= listing_path(transaction.transaction_listing.listing) %>" class="title"><%= transaction.transaction_listing.listing.title %>
+            </a>
+            <div><span class="address" style="text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;color: #848484;text-align: -webkit-match-parent;line-height: 18px;font-size: 13px; max-width: 368px;"><%= transaction.transaction_listing.listing.location.full_street_address %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin: 10px auto; text-align: center;">
+      <button id="approve-<%= transaction.id %>" class="btn btn-large green transaction-approve" style="display: inline;">Approve</button>
+     <button id="decline-<%= transaction.id %>" class="btn btn-large red transaction-approve" style="display: inline;">Decline</button>
+   </div>
+    <% end %>
+  </div>
+
+
+
+  <div class="middle panel-border" style="width: 800px;">
+    <div class="nav nav-tabs panel-background-gray panel-photos"><h3>Pending Renter Transactions</h3></div>
+    <% @transactions[:pending_renter_transactions].each do |transaction| %>
+        <div class="transaction-box clearfix" style="margin: 10px">
+      <div class="left">
+        <a class="search-listing-image-wrapper" href="<%= listing_path(transaction.transaction_listing.listing) %>"><img width="116px" height="76px" src='<%= transaction.transaction_listing.listing.images.last.location %>'></img>
+        </a>
+      </div>
+      <div class="left">
+        <div class="top">
+          <a href="<%= user_path(transaction.host) %>" style=' background-image: url(<%= transaction.host.profile_photo %>); margin-top: 5px' class="user-icon left">
+          </a>
+          <div class="top-info left" style="margin: 5px">
+            <a href="<%= listing_path(transaction.transaction_listing.listing) %>" class="title"><%= transaction.transaction_listing.listing.title %>
+            </a>
+            <div><span class="address" style="text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;color: #848484;text-align: -webkit-match-parent;line-height: 18px;font-size: 13px; max-width: 368px;"><%= transaction.transaction_listing.listing.location.full_street_address %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+
+<div class="middle panel-border" style="width: 800px;">
+    <div class="nav nav-tabs panel-background-gray panel-photos"><h3>Past Host Transactions</h3></div>
+
+  <% @transactions[:past_host_transactions].each do |transaction| %>
+      <div class="transaction-box clearfix" style="margin: 10px">
+      <div class="left">
+        <a class="search-listing-image-wrapper" href="<%= listing_path(transaction.transaction_listing.listing) %>"><img width="116px" height="76px" src='<%= transaction.transaction_listing.listing.images.last.location %>'></img>
+        </a>
+      </div>
+      <div class="left">
+        <div class="top">
+          <a href="<%= user_path(transaction.renter) %>" style=' background-image: url(<%= transaction.renter.profile_photo %>); margin-top: 5px' class="user-icon left">
+          </a>
+          <div class="top-info left" style="margin: 5px">
+            <a href="<%= listing_path(transaction.transaction_listing.listing) %>" class="title"><%= transaction.transaction_listing.listing.title %>
+            </a>
+            <div><span class="address" style="text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;color: #848484;text-align: -webkit-match-parent;line-height: 18px;font-size: 13px; max-width: 368px;"><%= transaction.transaction_listing.listing.location.full_street_address %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+
+<div class="middle panel-border" style="width: 800px;">
+    <div class="nav nav-tabs panel-background-gray panel-photos" style="padding: 10px"><h3>Past Renter Transactions</h3></div>
+  <% @transactions[:past_renter_transactions].each do |transaction| %>
+    <div class="transaction-box clearfix" style="margin: 10px">
+      <div class="left">
+        <a class="search-listing-image-wrapper" href="<%= listing_path(transaction.transaction_listing.listing) %>"><img width="116px" height="76px" src='<%= transaction.transaction_listing.listing.images.last.location %>'></img>
+        </a>
+      </div>
+      <div class="left">
+        <div class="top">
+          <a href="<%= user_path(transaction.host) %>" style=' background-image: url(<%= transaction.host.profile_photo %>); margin-top: 5px' class="user-icon left">
+          </a>
+          <div class="top-info left" style="margin: 5px">
+            <a href="<%= listing_path(transaction.transaction_listing.listing) %>" class="title"><%= transaction.transaction_listing.listing.title %>
+            </a>
+            <div><span class="address" style="text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;color: #848484;text-align: -webkit-match-parent;line-height: 18px;font-size: 13px; max-width: 368px;"><%= transaction.transaction_listing.listing.location.full_street_address %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+ </div>
+</div>
+<script>
+  $(document).ready(function(){
+      $('.transaction-approve').click(function(){
+        console.log("derp");
+          var accepted = false
+          if ($(this).attr('id').indexOf('approve') != -1){
+              accepted = true
+          }
+          $.ajax({
+              url: "/users/" + "<%= @current_user.id %>" + "/transactions/" + $(this).attr('id').replace("approve-","").replace("decline-",""),
+              type: "PUT",
+              dataType: 'json',
+              data: {
+                  host_accepted: accepted
+              },
+              success: function(data){
+                  window.location = window.location.host+window.location.pathname;
+              }
+          });
+      });
+
+  });
+</script>

@@ -1,0 +1,166 @@
+<div id="profile_container" class="container clearfix">
+	<div class="row">	
+		<div class="span3">
+			<div id="user">
+				<div class="profile_pic simple-slideshow">
+          <div class="matte-media-box">
+              <img  height="225" src="<%= @user.profile_photo%>" width="225">
+              <h2 class="name shift" style="margin: 5px 0 -30px 8px; padding: 0px">
+                <span class="verification_user_name"><%= @user.pretty_name %></span>
+              </h2>
+            <div class="caption" style="margin-top: 0px; height: 40px">
+                <h6 class="join_year">Member since <%=@user.created_at.to_formatted_s(:long)  %></h6>
+            </div>
+          </div>
+        </div>
+			</div>
+		</div>
+		<div class="span9">
+      <div class="panel intro panel-border space2">
+        <div class="header panel-header-dark">
+          <h3 style="margin:5px">Hey, I'm <%= @user.first_name%>!</h3>
+        </div>
+        <div class="body panel-padding">
+          <p><%= @user.about %></p>
+        </div>
+      </div>
+      <div class="shelf space2">
+        <ul>
+          <li class="badge reviews">
+            <div class="content"><%= @user.transaction_reviews.count + @user.user_reviews.count %></div>
+            <h6>REVIEWS</h6>
+          </li>
+        </ul>
+      </div>
+      <div class="panel reviews space2">
+      	<h2 class="header-underline">
+      		Reviews <span class="light">(<%=@user.transaction_reviews.count + @user.user_reviews.count%>)</span>
+      	</h2>
+      	<div>
+          <div class="reviews_section as_host">
+            <h4 class="space1"><span class="icon icon-plane"></span>Reviews From Guests</h4>
+            <ul class="reviews-list unstyle">
+              <% if @user.transaction_reviews.count == 0 %>
+                This user has not been reviewed as a space host :(
+              <% end %>
+              <% @user.transaction_reviews.each do |review| %>
+                <li class="reviews-list-item space1 clearfix" style="list-style: none;">
+                  <div class="overflow">
+                    <div class="left">
+                      <div class="profile-pic">
+                        <div class="matte-media-box">
+                          <a href="<%= user_path(review.reviewer) %>" rel="nofollow"><img class="lazy" height="68" src="<%= review.reviewer.profile_photo%>"  width="68" style="display: inline;"></a>
+                        </div>
+                          <span class="name"><a href="<%= user_path(review.reviewer)%>" rel="nofollow"><%= review.reviewer.first_name %></a></span>
+                      </div>
+                    </div>
+                    <div class="right">
+                      <div class="speech-bubble">
+                        <p class="message">
+                          <%= review.content %>
+                        </p>
+                          <div class="listing-name">
+                            <span class="icon icon-home"></span>
+                            <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
+                          </div>
+                          <p class="date"><% review.created_at %></p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="reviews_section as_host">
+            <h4 class="space1"><span class="icon icon-plane"></span>Reviews From Hosts</h4>
+            <ul class="reviews-list unstyle">
+              <% if @user.transaction_reviews.count == 0 %>
+                This user has not been reviewed as a space guest :(
+              <% end %>
+              <% @user.user_reviews.each do |review| %>
+              <div>
+                <li class="reviews-list-item space1 clearfix">
+                  <div>
+                    <div class="left">
+                      <div class="profile-pic">
+                        <div class="matte-media-box">
+                          <a href="<%= user_path(review.reviewer)%>" rel="nofollow"><img class="lazy" height="68" src="<%= review.reviewer.profile_photo%>"  width="68" style="display: inline;"></a>
+                        </div>
+                          <span class="name"><a href="<%= user_path(review.reviewer)%>" rel="nofollow"><%= review.reviewer.first_name %></a></span>
+                      </div>
+                    </div>
+                    <div class="right">
+                      <div class="speech-bubble">
+                        <p class="message"><%= review.content %></p>
+                        <div class="listing-name">
+                          <span class="icon icon-home"></span>
+                          <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
+                        </div>
+                        <p class="date"><% review.created_at %></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </li>
+              </div>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<% if @current_user && @user.id == @current_user.id %>
+	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
+	<script type="text/javascript">	
+		var photo = $(".pphoto");
+		filepicker.setKey("ANiojec3SRKijkj9dvLmGz");
+		$("#overlay-stuff").click(function(){
+			filepicker.pickAndStore({
+			    	mimetype:"image/*",
+			    	'multiple': false,
+			    	services:['COMPUTER', 'FACEBOOK', 'GMAIL'],
+			    },
+			    {
+			    	location:"S3",
+			  	}, 
+			    function(fpfiles){
+			    	_.each(fpfiles, function(file){
+			    		if (photo[0].id != "none"){
+			    			removePhoto(photo[0].id);
+			    		}   
+			    		uploadPhoto(file.url);
+			    		photo[0].src = file.url;
+			    	});
+				});
+		});
+		$(".pphoto, #overlay-stuff ").mouseenter(function(){
+			$("#overlay-stuff").show();
+		}).mouseleave(function(){
+			$("#overlay-stuff").hide();
+		});
+
+		var uploadPhoto = function(url){
+			$.ajax({
+				type: "POST",
+				url: "/users/"+<%= @current_user.id %>+"/images.json",
+				data: {
+					image : {
+						location: url,
+					},
+				},
+			});
+		};
+
+		var removePhoto = function(id){
+			$.ajax({
+				url: "/users/"+<%= @current_user.id %>+"/images/"+id,
+				type: "DELETE",
+			});
+		}
+	</script>
+<% end %>
