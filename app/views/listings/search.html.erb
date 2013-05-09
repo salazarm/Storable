@@ -139,6 +139,7 @@ $(document).ready(function(){
     $("#checkout").val($.datepicker.formatDate('mm/dd/yy', new Date('<%= @response[:params][:end_date] %>')));
     <% end %>
     $("#miles").val('<%= @response[:params][:radius] %>');
+    $("#space").val('<%= @response[:params][:space] %>');
     $("#close_search").hide();
  });
 </script>
