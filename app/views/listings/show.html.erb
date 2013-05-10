@@ -240,7 +240,12 @@
 			message_text.hide();
 			message_sent.show();
 			message_text.val('');
-			overlay.delay(1000).fadeOut(600);
+			$("#send-message").hide();
+			$("#message-close").hide();
+			overlay.delay(1000).fadeOut(600, function(){
+				$("#send-message").show();
+				$("#message-close").show();
+			});
 			$.ajax({
 				url: "<%= messages_path %>"+".json",
 				type: "POST",
@@ -277,7 +282,10 @@
 				if( !days || days <= 0 || (new Date()) > (new Date(start))){
 					if ( new Date(start) > new Date() || days <= 0){}else{ $("#checkin-order").addClass("error"); }
 					if ( new Date(end) >new Date()  || days <= 0) {}else { $("#checkout-order").addClass("error"); }
-					console.log("error");
+					else {
+						$("#checkout-order").addClass("error");
+						$("#checkin-order").addClass("error");
+					}
 				} else {
 		      var token = function(res){
 				    $.ajax({
@@ -295,7 +303,6 @@
 								}
 							},
 								success: function(data){
-								console.log(data)
 							}
 						});
 					};
@@ -321,7 +328,7 @@
 					if ( text.length > 0 ){
 						successful_submit = true;
 						$.ajax({
-							url: "/listings/" + "<%= @listing.id %>/" + "/transaction_reviews/",
+							url: <%= @listing_path(@listing) +"/transaction_reviews/",
 							type: "POST",
 							dataType: 'json',
 							data: {
