@@ -328,7 +328,7 @@
 					if ( text.length > 0 ){
 						successful_submit = true;
 						$.ajax({
-							url: <%= @listing_path(@listing) %>+"/transaction_reviews/",
+							url: '<%= @listing_path(@listing) %>'+"/transaction_reviews/",
 							type: "POST",
 							dataType: 'json',
 							data: {
