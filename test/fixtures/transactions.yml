@@ -19,7 +19,7 @@ two:
     start_date: 2013-05-26 
     end_date: 2013-05-27
     host_seen: true
-    host_accepted: false
+    host_accepted: true
     listing_id: 2
 
 three:
