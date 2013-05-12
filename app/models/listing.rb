@@ -4,16 +4,18 @@ class Listing < ActiveRecord::Base
     belongs_to :user
     has_one :location
     has_many :conversations
-	has_many :images, :as => :imageable
+	  has_many :images, :as => :imageable
 
     has_many :reserved_dates
 
     has_many :transaction_reviews, :foreign_key => :listing_id
 
+    #make sure to include referenced classes in the json representation
     def as_json(options={})
       super(:include =>[:images, :location, :reserved_dates, :transaction_reviews])
     end
 
+    
     def create_reserved_date(transaction, listing)
 	  reserved_date = listing.reserved_dates.build(
 	  	:listing_id => listing.id,
@@ -24,9 +26,13 @@ class Listing < ActiveRecord::Base
       reserved_date.save()
     end
 
-
+    #This method returns true if this current user can still review this listing. Since a user can book a listing multiple times
+    #we check if the number of transactions - number of reviews >= 1. This implies that the user can still review this place
     def can_review(current_user)
+      #get number of transactions for this user and this listing
       num_transactions = Transaction.where(:listing_id => self[:id], :renter_id => current_user.id, :host_accepted => true).size
+
+      #get number of reviews for this user and this listing
       num_reviews = self.transaction_reviews.where(:reviewer_id => current_user.id).size
     
       return (num_transactions - num_reviews) >= 1
