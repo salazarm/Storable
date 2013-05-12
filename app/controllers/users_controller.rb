@@ -1,15 +1,17 @@
 class UsersController < ApplicationController
 	respond_to :json, :html
 
+  # get ready to create a new user
   def new
     @user = User.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @user }
     end
   end
 
+  # create a new user
   def create
      user = User.new(params[:user])
      if user.save
@@ -20,16 +22,19 @@ class UsersController < ApplicationController
      end
   end
 
+  # show a user
   def show
    	@user = User.find(params[:id])
    	respond_with(@user, :status => :ok)
   end
 
+  # edit a user
   def edit
     require_login
     @user = @current_user
   end
 
+  # update a user
   def update
     require_login
     @user = @current_user
