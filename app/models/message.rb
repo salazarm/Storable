@@ -6,6 +6,7 @@ class Message < ActiveRecord::Base
 
 	after_create :touch_conversation
 
+	# update associated conversation to show conversation is unread
 	def touch_conversation
 		if user.id == conversation.renter.id
 			conversation.update_attribute(:host_read, false)
