@@ -1,0 +1,18 @@
+      <div class="transaction-box clearfix" style="margin: 10px">
+        <div class="left">
+          <a class="search-listing-image-wrapper" href="<%= listing_path(transaction.transaction_listing.listing) %>"><img width="116px" height="76px" src='<%= transaction.transaction_listing.listing.images.last.location %>'></img>
+          </a>
+        </div>
+        <div class="left">
+          <div class="top">
+            <a href="<%= user_path(other) %>" style=' background-image: url(<%= other.profile_photo %>); margin-top: 5px' class="user-icon left">
+            </a>
+            <div class="top-info left" style="margin: 5px">
+              <a href="<%= listing_path(transaction.transaction_listing.listing) %>" class="title"><%= transaction.transaction_listing.listing.title %>
+              </a>
+              <div><span class="address" style="text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;color: #848484;text-align: -webkit-match-parent;line-height: 18px;font-size: 13px; max-width: 368px;"><%= transaction.transaction_listing.listing.location.full_street_address %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
