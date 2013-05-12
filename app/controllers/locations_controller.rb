@@ -2,8 +2,7 @@ class LocationsController < ApplicationController
   before_filter :get_listing
   respond_to :json
 
-  # POST /locations
-  # POST /locations.json
+  # create location and associate with listing
   def create
     @location = @listing.build_location(params[:location])
 
@@ -15,8 +14,7 @@ class LocationsController < ApplicationController
 
   end
 
-  # PUT /locations/1
-  # PUT /locations/1.json
+  # update a location
   def update
     @location = @listing.location
 
@@ -28,8 +26,7 @@ class LocationsController < ApplicationController
 
   end
 
-  # DELETE /locations/1
-  # DELETE /locations/1.json
+  # delete a location
   def destroy
     @location = @listing.location
 
@@ -41,8 +38,8 @@ class LocationsController < ApplicationController
 
   end
 
-  #gets the listing associated with this listing_id, for this current user
   protected
+  # gets the listing associated with this listing_id, for this current user
   def get_listing
       @listing = current_user.listings.find(params[:listing_id]) if params[:listing_id]
       redirect_to root_url unless defined?(@listing)
