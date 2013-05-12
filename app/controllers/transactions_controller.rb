@@ -3,22 +3,29 @@ class TransactionsController < ApplicationController
 
   before_filter :require_login
 
-  # GET /users/1/transactions.json
+  # get all transactions associated with user
   def index
+
+    # transactions fall into 4 categories - get and return them all
 
     @pending_host_transactions = @current_user.host_transactions.where(:host_seen => false)
     @pending_renter_transactions = @current_user.renter_transactions.where(:host_seen => false)
-
     @past_host_transactions = @current_user.host_transactions.where(:host_seen => true, :host_accepted => true)
     @past_renter_transactions = @current_user.renter_transactions.where(:host_seen => true, :host_accepted => true)
 
-    @transactions = {:pending_host_transactions => @pending_host_transactions, :pending_renter_transactions => @pending_renter_transactions, :past_host_transactions => @past_host_transactions, :past_renter_transactions => @past_renter_transactions}
+    @transactions = {
+      :pending_host_transactions => @pending_host_transactions, 
+      :pending_renter_transactions => @pending_renter_transactions, 
+      :past_host_transactions => @past_host_transactions, 
+      :past_renter_transactions => @past_renter_transactions
+    }
     respond_with(@transactions, :status => :ok)
-
   end
 
-  # GET /users/1/transactions/1.json
+  # show details for a particular transactions
   def show
+
+    # determine if user is host or renter of transaction, or neither
     if @current_user.host_transactions.exists?(:id => params[:id])
       @transaction = current_user.host_transactions.find(params[:id])
     elsif @current_user.renter_transactions.exists?(:id => params[:id])
@@ -29,17 +36,19 @@ class TransactionsController < ApplicationController
     respond_with(@transaction, :status => :ok)
   end
 
-  # POST /user/1/transactions.json
+  # create a transaction - does not handle payment processing
   def create
 
     listing = Listing.find(params[:listing_id])
 
-    # Add default value of host_accepted => false to transaction
+    # Add default value of host_accepted, to be flipped when host accepts 
     params[:transaction][:host_accepted] = false
+
     params[:transaction][:listing_id] = params[:listing_id]
     start_date = params[:transaction][:start_date]
     end_date = params[:transaction][:end_date]
 
+    # Identify if proposed transaction conflicts with existing transactions dateranges
     reservations_conflicts = Listing.joins(:reserved_dates).where(:id => params[:listing_id]).where('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',start_date,start_date).where('(reserved_dates.start_date <= ? AND reserved_dates.end_date >= ?)',end_date,end_date)
   
     if reservations_conflicts.length > 0 || !(listing.start_date <= Date.parse(start_date) && listing.end_date >= Date.parse(start_date)) 
@@ -48,12 +57,8 @@ class TransactionsController < ApplicationController
 
       @transaction = Transaction.new(params[:transaction])
 
-      
+      # isolate listing so that price and other attributes cannot change
       Transaction.create_transaction_listing(listing, @transaction)
-      
-      # Update conversation so host sees renter wants to proceed
-      # conversation = Conversation.create_or_get_conversation(params, current_user)
-      # conversation.request_submit
 
       @transaction.price = @transaction.calc_price
 
@@ -66,7 +71,8 @@ class TransactionsController < ApplicationController
 
   end
 
-  # Update is only used when the host accepts a renter's request
+  # update transaction when host accepts/rejects/views transcaction
+  # NOTE: update is only used when the host accepts/rejects/views a renter's request
   def update
     if current_user.host_transactions.exists?(:id => params[:id])
       @transaction = current_user.host_transactions.find(params[:id])
@@ -82,6 +88,7 @@ class TransactionsController < ApplicationController
 
       #### STRIPE PAYMENT HANDLING ####
 
+      # DEVELOPMENT API KEY
       Stripe.api_key = "sk_test_y5dqWUhct4bMB66OxMiqNY3G"
 
       # Create the charge on Stripe's servers - this will charge the user's card
@@ -89,7 +96,7 @@ class TransactionsController < ApplicationController
         charge = Stripe::Charge.create(
           :amount => @transaction.price, # amount in cents
           :currency => "usd",
-          :card => @transaction.stripeToken,
+          :card => @transaction.stripeToken, # token can be used only once
           :description => transaction_listing.title
         )
       rescue Stripe::CardError => e

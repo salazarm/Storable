@@ -2,8 +2,7 @@ class ImagesController < ApplicationController
   before_filter :get_parent 
   respond_to :json
 
-  # POST /images
-  # POST /images.json
+  # create an image and associate it with its parent
   def create
     @image = @parent.images.build(params[:image])
 
@@ -14,17 +13,7 @@ class ImagesController < ApplicationController
     end
   end
 
-  def update
-    @image = @parent.images.find(params[:id])
-
-    if @image.update_attributes(params[:image])
-      respond_with(@parent, @image, :status => :ok)
-    else
-      respond_with(@parent, @image.errors, :status => :unprocessable_entity)
-    end
-
-  end
-
+  # delete an image
   def destroy
     @image = @parent.images.find(params[:id])
 
@@ -37,6 +26,8 @@ class ImagesController < ApplicationController
   end
 
   protected
+  # get the parent of the image
+  # NOTE: this will either be a listing or a user
   def get_parent
     case
       when params[:listing_id] 

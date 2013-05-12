@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
     :password_digest => "Password"
   }
 
+  # override method to only return email and user id
   def as_json(options={})
     super(:only => [:email, :id])
   end
@@ -44,8 +45,13 @@ class User < ActiveRecord::Base
   # for a conversation overview and we don't wish to affect other
   # areas which might. 
   def conversationsToJSON
+
     convos = Array.new
+
+    # loop through all conversations associated with user, convert to JSON
     (host_conversations+renter_conversations).sort_by(&:updated_at).reverse.each do |convo|
+
+      # handle if user is renter or host
       if id == convo.renter_id
         read = convo.renter_read
         starred = convo.renter_starred
@@ -53,6 +59,7 @@ class User < ActiveRecord::Base
         read = convo.host_read
         starred = convo.host_starred
       end
+
       convos.push({
         :id => convo.id,
         :read => read,
@@ -68,13 +75,17 @@ class User < ActiveRecord::Base
         :updated_at => convo.messages.last.created_at
       })
     end
+
     return convos
   end
 
+  # returns user-friendly name of user
   def pretty_name
     first_name.nil? ? email : first_name + " " + last_name
   end
 
+  # returns either the user's photo or the default photo (if user has no photo)
+  # NOTE: user has many images to make polymorphic association work
   def profile_photo
     return images.last ? images.last.location : DEFAULT_PHOTO
   end
@@ -84,9 +95,14 @@ class User < ActiveRecord::Base
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
 
-
+  # Returns true if this current user can still review this user. Since a user can book a 
+  #   listing multiple times we check if (number of transactions) - (number of reviews) >= 1. 
+  #   This implies that the user can still review this user.
   def can_review(current_user)
+    # get number of transactions for this user and this host
     num_transactions = Transaction.where("(renter_id = ? AND host_id = ?) OR (renter_id = ? AND host_id = ?)", current_user.id,self.id, current_user.id, self.id).where(:host_accepted => true).size
+
+    # get number of reviews for this user and this host
     num_reviews = self.user_reviews.where(:reviewer_id => current_user.id).size
   
     return (num_transactions - num_reviews) >= 1

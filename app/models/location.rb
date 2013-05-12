@@ -4,7 +4,7 @@ class Location < ActiveRecord::Base
     geocoded_by :full_street_address
     after_validation :geocode
 
-
+    # return pretty representation of location
     def full_street_address
         return [street, city, state, zip].compact.join(', ')
     end 

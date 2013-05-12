@@ -6,6 +6,8 @@ one:
   state: "MA"
   zip: 02139
   listing_id: 1
+  latitude: 42.35978069
+  longitude: -71.0936091
 
 two:
   street: "10 mass ave 2"
@@ -13,3 +15,5 @@ two:
   state: "MA 2"
   zip: 02142
   listing_id: 2
+  latitude: 42.355889
+  longitude: -71.098094
