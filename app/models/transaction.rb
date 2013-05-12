@@ -7,6 +7,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :host, :class_name => "User", :foreign_key => "host_id"
   belongs_to :listing
 
+  # create a copy of the listing associated with a transaction to isolate the listing's parameters
   def self.create_transaction_listing(listing, transaction)
   	transaction.build_transaction_listing(
       :listing_id => listing.id,
@@ -19,6 +20,7 @@ class Transaction < ActiveRecord::Base
       :end_date => listing.end_date)
   end
 
+  # determine price of transaction based on start date, end date, and listing price
   def calc_price()
     price = self.transaction_listing.price
     total_price = (((self.end_date - self.start_date).to_i)/30.0) * price
