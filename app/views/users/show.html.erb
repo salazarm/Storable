@@ -44,30 +44,7 @@
                 This user has not been reviewed as a space host :(
               <% end %>
               <% @user.transaction_reviews.reverse.each do |review| %>
-                <li class="reviews-list-item space1 clearfix" style="list-style: none;">
-                  <div class="overflow">
-                    <div class="left">
-                      <div class="profile-pic">
-                        <div class="matte-media-box">
-                          <a href="<%= user_path(review.reviewer) %>" rel="nofollow"><img class="lazy" height="68" src="<%= review.reviewer.profile_photo%>"  width="68" style="display: inline;"></a>
-                        </div>
-                          <span class="name"><a href="<%= user_path(review.reviewer)%>" rel="nofollow"><%= review.reviewer.first_name %></a></span>
-                      </div>
-                    </div>
-                    <div class="right">
-                      <div class="speech-bubble">
-                        <p class="message">
-                          <%= review.content %>
-                        </p>
-                          <div class="listing-name">
-                            <span class="icon icon-home"></span>
-                            <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
-                          </div>
-                          <p class="date"><%= review.created_at.strftime("%m/%d/%Y") %></p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
+                <% render :partial => "review" %>
               <% end %>
             </ul>
           </div>
@@ -80,31 +57,7 @@
                 This user has not been reviewed as a space guest :(
               <% end %>
               <% @user.user_reviews.reverse.each do |review| %>
-              <div>
-                <li class="reviews-list-item space1 clearfix">
-                  <div>
-                    <div class="left">
-                      <div class="profile-pic">
-                        <div class="matte-media-box">
-                          <a href="<%= user_path(review.reviewer)%>" rel="nofollow"><img class="lazy" height="68" src="<%= review.reviewer.profile_photo%>"  width="68" style="display: inline;"></a>
-                        </div>
-                          <span class="name"><a href="<%= user_path(review.reviewer)%>" rel="nofollow"><%= review.reviewer.first_name %></a></span>
-                      </div>
-                    </div>
-                    <div class="right">
-                      <div class="speech-bubble">
-                        <p class="message"><%= review.content %></p>
-                        <div class="listing-name">
-                          <span class="icon icon-home"></span>
-                          <a href="<%= listing_path(review.listing)%>"><%= review.listing.title%></a>
-                        </div>
-                        <p class="date"><%= review.created_at.strftime("%m/%d/%Y") %></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
-                </li>
-              </div>
+                <% render :partial => "review" %>
               <% end %>
             </ul>
           </div>

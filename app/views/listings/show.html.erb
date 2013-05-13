@@ -18,7 +18,6 @@
 				<div class="tab-content panel-padding clearfix">
 					<div id="photos" class="main_content tab-pane active">
 						<div class="image-placeholder">
-							<!--  some image -->
 							<div id="galleria_container" style="display: none;">
 								<% @listing.images.each do |image| %>
 									<img src="<%= image.location %>">
@@ -282,31 +281,30 @@
 				if( !days || days <= 0 || (new Date()) > (new Date(start))){
 					if ( new Date(start) > new Date() || days <= 0){}else{ $("#checkin-order").addClass("error"); }
 					if ( new Date(end) >new Date()  || days <= 0) {}else { $("#checkout-order").addClass("error"); }
-					else {
+					if(!( new Date(start) > new Date() || days <= 0) && !( new Date(end) >new Date()  || days <= 0)) {
 						$("#checkout-order").addClass("error");
 						$("#checkin-order").addClass("error");
 					}
 				} else {
-		      var token = function(res){
-				    $.ajax({
-							url: "/users/" + "<%= @current_user.id %>" + "/transactions",
-							type: "POST",
-							dataType: 'json',
-							data: {
-								listing_id: <%= @listing.id %>,
-								transaction: {
-									host_id: <%= @listing.user.id %>,
-									renter_id: <%= @current_user.id %>,
-									stripeToken : res.id,
-									start_date: new Date(start).toDateString(),
-									end_date: new Date(end).toDateString()
-								}
-							},
-								success: function(data){
-							}
-						});
-					};
-
+				      var token = function(res){
+						    $.ajax({
+									url: "/users/" + "<%= @current_user.id %>" + "/transactions",
+									type: "POST",
+									dataType: 'json',
+									data: {
+										listing_id: <%= @listing.id %>,
+										transaction: {
+											host_id: <%= @listing.user.id %>,
+											renter_id: <%= @current_user.id %>,
+											stripeToken : res.id,
+											start_date: new Date(start).toDateString(),
+											end_date: new Date(end).toDateString()
+										}
+									},
+										success: function(data){
+									}
+								});
+							};
 		      StripeCheckout.open({
 		        key:         'pk_test_jfyQ2QqVi1q5Z8IE0kfwvnpv',
 		        address:     true,
