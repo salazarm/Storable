@@ -34,7 +34,7 @@
   <div class="middle panel-border" style="width: 800px;">
     <div class="nav nav-tabs panel-background-gray panel-photos"><h3>Pending Renter Transactions</h3></div>
     <% @transactions[:pending_renter_transactions].each do |transaction| %>
-        <%= render :partial => "transaction", :locals => {:other => transaction.host } %>
+        <%= render :partial => "transaction", :locals => {:other => transaction.host, :transaction => transaction } %>
     <% end %>
   </div>
 
@@ -43,7 +43,7 @@
     <div class="nav nav-tabs panel-background-gray panel-photos"><h3>Past Host Transactions</h3></div>
 
   <% @transactions[:past_host_transactions].each do |transaction| %>
-    <%= render :partial => "transaction", :locals => {:other => transaction.renter } %>
+    <%= render :partial => "transaction", :locals => {:other => transaction.renter, :transaction => transaction } %>
   <% end %>
 </div>
 
@@ -52,7 +52,7 @@
 <div class="middle panel-border" style="width: 800px;">
     <div class="nav nav-tabs panel-background-gray panel-photos" style="padding: 10px"><h3>Past Renter Transactions</h3></div>
   <% @transactions[:past_renter_transactions].each do |transaction| %>
-    <%= render :partial => "transaction", :locals => {:other => transaction.host} %>
+    <%= render :partial => "transaction", :locals => {:other => transaction.host, :transaction => transaction} %>
   <% end %>
  </div>
 </div>
