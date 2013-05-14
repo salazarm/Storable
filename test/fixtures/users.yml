@@ -17,3 +17,19 @@ two:
   first_name: "hello2"
   last_name: "dog2"
 
+three:
+  id: 3
+  email: MyString
+  password_digest: <%= BCrypt::Engine.hash_secret("test2", salt)%>
+  about: "nm2"
+  first_name: "p"
+  last_name: "j"
+
+four:
+  id: 4
+  email: MyString
+  password_digest: <%= BCrypt::Engine.hash_secret("test2", salt)%>
+  about: "nm2"
+  first_name: "p"
+  last_name: "j"
+
