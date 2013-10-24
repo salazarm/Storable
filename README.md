@@ -22,3 +22,7 @@ in this directory.
 
 Additional deliverables, such as the problem-analysis and the design-analysis, should
 be saved as PDF files in the directory called "deliverables"
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/salazarm/storable/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
